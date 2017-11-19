@@ -15,8 +15,9 @@ class CreateImageGroupsTable extends Migration
     {
         Schema::create('image_groups', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
