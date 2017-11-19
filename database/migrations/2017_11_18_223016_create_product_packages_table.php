@@ -15,7 +15,17 @@ class CreateProductPackagesTable extends Migration
     {
         Schema::create('product_packages', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('system_id')->nullable();
+            $table->string('name')->nullable();
+            $table->text('description')->nullable();
+            $table->text('limits')->nullable();
+            $table->text('ideal_for')->nullable();
+            $table->text('benefit')->nullable();
+            $table->date('date_introduced')->nullable();
+            $table->decimal('monthly_price', 10, 2)->nullable();
+            $table->decimal('annual_price', 10, 2)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -14,8 +14,14 @@ class CreatePhoneNumbersTable extends Migration
     public function up()
     {
         Schema::create('phone_numbers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->integer('country_code')->nullable()->default(1);
+            $table->integer('area_code')->nullable();
+            $table->integer('exchange')->nullable();
+            $table->integer('number')->nullable();
+            $table->string('text_number')->nullable();
+            $table->boolean('is_toll_free')->nullable();
             $table->timestamps();
+            $table->softDeletes()->nullable();
         });
     }
 

@@ -10,7 +10,7 @@ namespace App\Model\Core\Entities;
 
 use App\Model\RootModel;
 
-class ImageGroups extends RootModel
+class Image extends RootModel
 {
     //
 }

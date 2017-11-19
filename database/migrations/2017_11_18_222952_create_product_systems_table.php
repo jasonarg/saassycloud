@@ -15,7 +15,10 @@ class CreateProductSystemsTable extends Migration
     {
         Schema::create('product_systems', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

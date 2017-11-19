@@ -15,7 +15,17 @@ class CreateProductVersionsTable extends Migration
     {
         Schema::create('product_versions', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('product_id');
+            $table->string('version_number')->nullable();
+            $table->string('version_name')->nullable();
+            $table->string('version_control_repo')->nullable();
+            $table->string('version_control_branch')->nullable();
+            $table->string('version_control_hash')->nullable();
+            $table->date('release_date')->nullable();
+            $table->text('release_notes')->nullable();
+            $table->text('superseded_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

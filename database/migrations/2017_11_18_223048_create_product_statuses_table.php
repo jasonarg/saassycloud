@@ -15,7 +15,9 @@ class CreateProductStatusesTable extends Migration
     {
         Schema::create('product_statuses', function (Blueprint $table) {
             $table->increments('id');
+            $table->enum('label', ['development', 'nightlyBuild', 'alpha', 'beta', 'rc', 'limitedRelease', 'production', 'deprecated', 'disabled'])->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
