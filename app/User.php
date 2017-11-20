@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * One to One inverse relationship to contact
+     * @return \App\Model\Core\Entities\Contact
+     */
+    public function contact(){
+        return $this->belongsTo('\APp\Model\Core\Entities\Contact');
+    }
 }
+
+

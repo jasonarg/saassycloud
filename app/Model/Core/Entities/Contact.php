@@ -21,7 +21,7 @@ class Contact extends RootModel
      *  Whitelist of create array attributes
      * @var array
      */
-    protected $fillable = ['personalEmail', 'workEmail', 'facebookProfile', 'linkedinProfile', 'twitterProfile' ];
+    protected $fillable = ['primary_website', 'personalEmail', 'workEmail', 'facebookProfile', 'linkedinProfile', 'twitterProfile' ];
 
     /**
      * One to one inverse relationship to Person
@@ -29,7 +29,25 @@ class Contact extends RootModel
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function person(){
-        return $this->belongsTo('App\Model\Core\Entities\Person');
+        return $this->belongsTo('App\Model\Core\Entities\Person', 'person_id');
+    }
+
+    /**
+     * One to one relationship to \App\User
+     *
+     * @return \App\User
+     */
+    public function user(){
+        return $this->hasOne('\App\User');
+    }
+
+    /**
+     * One to many inverse relationship to Organization
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function relatedOrganization(){
+        return $this->belongsTo('App\Model\Core\Entities\Organization', 'organization_id');
     }
 
     /**
@@ -96,4 +114,5 @@ class Contact extends RootModel
     public function profileImages(){
         return $this->morphToMany('App\Model\Core\Entities\ImageGroup', 'image_groupables');
     }
+
 }
