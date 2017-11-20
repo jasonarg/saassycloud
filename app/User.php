@@ -34,6 +34,13 @@ class User extends Authenticatable
     public function contact(){
         return $this->belongsTo('\APp\Model\Core\Entities\Contact');
     }
+
+    /**
+     * Stub to check for existence of contact and create with existing contact or to create a new one
+     */
+    public function createWithContactCheck(){
+
+    }
 }
 
 
