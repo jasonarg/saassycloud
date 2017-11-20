@@ -52,48 +52,48 @@ class Contact extends RootModel
      * @return $this
      */
     public function billingAddress(){
-        return $this->belongsTo('App\Model\Core\Address', 'billing_address_id', 'id')->withDefault();
+        return $this->belongsTo('App\Model\Core\Entities\Address', 'billing_address_id', 'id')->withDefault();
     }
 
     /**
      * @return $this
      */
     public function residenceAddress(){
-        return $this->belongsTo('App\Model\Core\Address', 'residence_address_id', 'id')->withDefault();
+        return $this->belongsTo('App\Model\Core\Entities\Address', 'residence_address_id', 'id')->withDefault();
     }
 
     /**
      * @return $this
      */
     public function workAddress(){
-        return $this->belongsTo('App\Model\Core\Address', 'work_address_id', 'id')->withDefault();
+        return $this->belongsTo('App\Model\Core\Entities\Address', 'work_address_id', 'id')->withDefault();
     }
 
     /**
      * @return $this
      */
     public function cellPhone(){
-        return $this->belongsTo('App\Model\Core\PhoneNumber', 'cell_phone_id', 'id')->withDefault();
+        return $this->belongsTo('App\Model\Core\Entities\PhoneNumber', 'cell_phone_id', 'id')->withDefault();
     }
 
     /**
      * @return $this
      */
     public function homePhone(){
-        return $this->belongsTo('App\Model\Core\PhoneNumber', 'home_phone_id', 'id')->withDefault();
+        return $this->belongsTo('App\Model\Core\Entities\PhoneNumber', 'home_phone_id', 'id')->withDefault();
     }
 
     /**
      * @return $this
      */
     public function workPhone(){
-        return $this->belongsTo('App\Model\Core\PhoneNumber', 'work_phone_id', 'id')->withDefault();
+        return $this->belongsTo('App\Model\Core\Entities\PhoneNumber', 'work_phone_id', 'id')->withDefault();
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
     public function profileImages(){
-        return $this->morphToMany('App\Model\Core\ImageGroup', 'image_groupables');
+        return $this->morphToMany('App\Model\Core\Entities\ImageGroup', 'image_groupables');
     }
 }

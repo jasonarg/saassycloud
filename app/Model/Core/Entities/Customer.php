@@ -35,7 +35,7 @@ class Customer extends RootModel
      */
 
     public function affiliatedOrganization(){
-        return $this->belongsTo('App\Model\Core\Organization', 'affiliated_organization_id');
+        return $this->belongsTo('App\Model\Core\Entities\Organization', 'affiliated_organization_id');
 
     }
 
@@ -47,7 +47,7 @@ class Customer extends RootModel
      */
 
     public function relatedOrganization(){
-        return $this->belongsTo('App\Model\Core\Organization', 'related_organization_id');
+        return $this->belongsTo('App\Model\Core\Entities\Organization', 'related_organization_id');
 
     }
 }

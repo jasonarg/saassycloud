@@ -13,4 +13,17 @@ use App\Model\RootModel;
 class Product extends RootModel
 {
     //
+    protected $table = 'products';
+
+    protected $fillable = ['name', 'description'];
+
+    /**
+     * Many to many relationship to ProductPackage
+     *
+     * @return Collection|\App\Model\Product\Entities\ProductPackage
+     */
+    public function assignedProductsPackages(){
+        return $this->belongsToMany('\App\Model\Product\Entities\ProductPackage', 'product_package_product');
+    }
+
 }
