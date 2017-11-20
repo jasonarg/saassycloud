@@ -13,4 +13,5 @@ use App\Model\RootModel;
 class Organization extends RootModel
 {
     //
+    protected $table = 'organization';
 }
