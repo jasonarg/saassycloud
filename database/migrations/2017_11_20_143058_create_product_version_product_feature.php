@@ -21,10 +21,6 @@ class CreateProductVersionProductFeature extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-
-        Schema::table('product_feature', function ($table){
-            $table->string('group')->nullable();
-        });
     }
 
     /**
