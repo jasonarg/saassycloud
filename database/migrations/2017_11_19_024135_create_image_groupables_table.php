@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateImageGroupableTable extends Migration
+class CreateImageGroupablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,6 +15,9 @@ class CreateImageGroupableTable extends Migration
     {
         Schema::create('image_groupables', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('image_group_id');
+            $table->unsignedInteger('image_groupables_id');
+            $table->string('image_groupables_type');
             $table->timestamps();
         });
     }

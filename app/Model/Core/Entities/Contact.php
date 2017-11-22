@@ -112,7 +112,7 @@ class Contact extends RootModel
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
     public function profileImages(){
-        return $this->morphToMany('App\Model\Core\Entities\ImageGroup', 'image_groupables');
+        return $this->morphToMany('App\Model\Core\Entities\ImageGroup', 'image_groupable');
     }
 
 }

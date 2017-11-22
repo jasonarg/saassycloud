@@ -26,4 +26,13 @@ class Product extends RootModel
         return $this->belongsToMany('\App\Model\Product\Entities\ProductPackage', 'product_package_product');
     }
 
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function images(){
+        return $this->morphToMany('App\Model\Core\Entities\ImageGroup', 'image_groupable');
+    }
+
 }

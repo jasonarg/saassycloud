@@ -26,12 +26,21 @@ class ImageGroup extends RootModel
     }
 
     /**
-     * PM Many to Many Relationship
+     * PM Many to Many Relationship to contact
      *
      * @return Collection| \App\Model\Core\Entities\Contact
      */
     public function contactProfileImages()
     {
         return $this->morphedByMany('App\Model\Core\Entities\Contact', 'image_groupable');
+    }
+
+    /**
+     * PM Many to many relationship to Product
+     *
+     * @return Collection| \App\Model\Product\Entities\Product
+     */
+    public function productImages(){
+        return $this->morphedByMany('\App\Model\Product|Entities\Product', 'image_groupable');
     }
 }

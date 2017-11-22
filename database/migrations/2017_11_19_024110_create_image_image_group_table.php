@@ -15,7 +15,13 @@ class CreateImageImageGroupTable extends Migration
     {
         Schema::create('image_image_group', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('image_id');
+            $table->unsignedInteger('image_group_id');
+            $table->boolean('active')->nullable();
+            $table->tinyInteger('cardinality')->nullable();
+            $table->boolean('default')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
