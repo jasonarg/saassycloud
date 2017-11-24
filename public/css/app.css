@@ -12772,3 +12772,262 @@ a.text-dark:hover {
   visibility: hidden !important;
 }
 
+body {
+  background: #333;
+  color: #fff;
+}
+
+/* Structural Elements */
+
+.jumbotron {
+  position: relative;
+  padding: 0 0 20% 0;
+}
+
+.jumbotron .subHeading {
+  font-size: 1.6rem;
+}
+
+.raiseUp {
+  z-index: 1000;
+}
+
+.jumbotron .container-fluid {
+  z-index: 200;
+  padding: 10% 0 20% 0;
+}
+
+.jumbotron-billboard .img {
+  margin-bottom: 0px;
+  opacity: 0.7;
+  color: #fff;
+  background: #000 url("/i/mario-luigi-figures.jpg") top left;
+  /*center center;*/
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  overflow: hidden;
+  padding: 30% 0 0% -10%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.world-billboard {
+  min-height: 600px;
+}
+
+#world-1-1-billboard .img {
+  background: #000 url("/i/world1-1.jpg") bottom center;
+}
+
+#world-1-2-billboard .img {
+  background: #000 url("/i/world1-2.jpg") bottom right;
+}
+
+#world-1-3-billboard .img {
+  background: #5b94ff url("/i/world1-3.jpg") no-repeat bottom left;
+}
+
+.world-billboard .img {
+  margin-bottom: 0px;
+  opacity: 0.8;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  background-size: scroll;
+  overflow: hidden;
+  padding: 30% 0 0% -10%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+#oneUp {
+  margin-top: -56px;
+  width: 60px;
+}
+
+#bowser {
+  position: absolute;
+  top: -325px;
+  left: -80px;
+  width: 300px;
+}
+
+#flagPole {
+  opacity: .8;
+  position: absolute;
+  top: -478px;
+  right: 10px;
+}
+
+@media only screen and (max-width: 800px) {
+  /* Styles */
+
+  #marioJump {
+    left: 10px !important;
+  }
+}
+
+#marioJump {
+  opacity: .8;
+  position: absolute;
+  left: 55%;
+  bottom: 142px;
+  width: 150px;
+}
+
+.fluidSectionHeader {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.fluidSectionSubHeader {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.barIcon {
+  width: 75px;
+  opacity: .8;
+}
+
+.productTitle {
+  font-size: 2rem;
+}
+
+.endHome {
+  background-color: #5F96F9;
+}
+
+.productTable {
+  font-family: 'Raleway', sans-serif;
+}
+
+.productTable td,
+.productTable th {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+.productTable th {
+  text-align: left;
+  font-weight: normal;
+}
+
+.productTable td {
+  text-align: center;
+}
+
+.productTable thead th {
+  text-align: center;
+}
+
+.productTable tbody {
+  font-family: 'Raleway', sans-serif;
+}
+
+.productTable tbody td,
+.productTable tbody th {
+  font-size: 1.1rem;
+}
+
+.productTable tbody th a {
+  opacity: .8;
+}
+
+.productTable tbody th {
+  padding-left: 1.5rem;
+}
+
+.productTable tbody th.tableDivider {
+  padding-left: 1rem;
+}
+
+.pushBottom {
+  position: absolute;
+  bottom: 15px;
+}
+
+/* Common Elements */
+
+.invalid-feedback {
+  display: absolute;
+}
+
+.bg-mb {
+  background-color: #5b94ff;
+}
+
+.blockFont {
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.roboFont {
+  font-family: 'VT323', sans-serif;
+}
+
+.relAnchor {
+  position: relative;
+}
+
+.fsize1 {
+  font-size: 3rem;
+}
+
+.fsize2 {
+  font-size: 3.4rem;
+}
+
+.fsize3 {
+  font-size: 3.8rem;
+}
+
+.fsize4 {
+  font-size: 4.2rem;
+}
+
+.fsize5 {
+  font-size: 4.6rem;
+}
+
+.fsize6 {
+  font-size: 5rem;
+}
+
+.fsize7 {
+  font-size: 5.4rem;
+}
+
+.fsize8 {
+  font-size: 5.8rem;
+}
+
+.negativeTopMargin {
+  margin-top: -1.6rem;
+}
+
+.smallPrint {
+  font-size: .8rem;
+}
+
+.finePrint {
+  font-size: .8rem;
+}
+
+.textGroup {
+  line-height: 1.3;
+}
+
+.text-pink {
+  color: #e83e8c;
+}
+
+.text-brown {
+  color: #e1ddbc;
+}
+

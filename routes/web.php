@@ -12,7 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+Route::get('/signup.html', function () {
+    return view('sales.signup');
 });
 
 Auth::routes();
