@@ -14,10 +14,25 @@
 Route::get('/', function () {
     return view('home');
 });
+/**
+ * Temp view routes to be replaced by controller(s)
+ */
 Route::get('/signup.html', function () {
-    return view('sales.signup');
+    return view('sales.packageCompare');
+});
+Route::get('/start.html', function () {
+    return view('sales.startSignup');
+});
+Route::get('/setup.html', function () {
+    return view('sales.setupAccount');
+});
+Route::get('/warp.html', function () {
+    return view('sales.finishSignup');
 });
 
+/**
+ * Default laravel routes, to be replaced
+ */
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

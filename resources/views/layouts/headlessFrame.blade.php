@@ -5,8 +5,9 @@
     @include('includes.head')
 </head>
 <body>
-@include('includes.header')
 @yield('content')
+<footer>
+    <div class="container-fluid" style="min-height: 250px;">
 @include('includes.footer')
 </body>
 </html>

@@ -1,9 +1,4 @@
-<footer>
-    <div class="container-fluid" style="min-height: 250px;">
-        <div class="position-relative">
-            <img src="/i/mario-jump.png" alt="" id="marioJump" class="">
-            <img src="/i/flag-pole.png" alt="" id="flagPole" class="">
-        </div>
+
         <div class="row pt-5 pl-3">
             <div class="col-md-4">
                 <h2 class=""><strong class="font-weight-bold">SaaS</strong>sy Cloud <small class="text-muted font-weight-light">Warp ahead<super class="">&reg;</super></small></h2>
