@@ -36,6 +36,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Many to many relationship with Customer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function customers(){
+        return $this->belongsToMany('\App\Model\Core\Entities\Customer', 'customer_user');
+    }
+
+
+    /**
      * Stub to check for existence of contact and create with existing contact or to create a new one
      */
     public function createWithContactCheck(){

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNoteables extends Migration
+class CreateProductPackageProductTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateNoteables extends Migration
      */
     public function up()
     {
-        Schema::create('noteables', function (Blueprint $table) {
+        Schema::create('product_package_product', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('note_id');
-            $table->unsignedInteger('noteables_id');
-            $table->string('notables_type');
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('product_package_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +29,6 @@ class CreateNoteables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('noteables');
+        //
     }
 }

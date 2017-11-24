@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductVersionProductFeature extends Migration
+class CreateCustomerUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateProductVersionProductFeature extends Migration
      */
     public function up()
     {
-        Schema::create('product_version_product_feature', function (Blueprint $table) {
+        Schema::create('customer_user', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('product_version_id');
-            $table->unsignedInteger('product_feature_id');
-            $table->enum('change_type', ['new', 'improved', 'removed', 'unchanged']);
+            $table->unsignedInteger('customer_id');
+            $table->unsignedInteger('user_id');
+            $table->tinyInteger('status');
+            $table->tinyInteger('relationship_type');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +31,6 @@ class CreateProductVersionProductFeature extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('customer_user');
     }
 }

@@ -16,14 +16,29 @@ class Customer extends RootModel
     protected $table = 'customers';
 
     /**
-     * One to One Inverse relationship to App\User
+     * Many to many relationship to App\User
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 
     public function user(){
-        return $this->belongsTo('App\User');
+        return $this->hasMany('App\User');
 
+    }
+
+    /**
+     * Many to many relationship to App\User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+
+    public function users(){
+        return $this->belongsToMany('App\User', 'customer_user');
+
+    }
+
+    public function sites(){
+        return $this->belongsToMany('\App\Model\Core\Entities\Site', 'customer_site');
     }
 
 }
