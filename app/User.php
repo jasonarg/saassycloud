@@ -15,7 +15,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
     ];
 
     /**
@@ -26,6 +25,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * One to one inverse relationship to email
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    protected function email(){
+        return $this->belongsTo('\App\Model\COre\Entities\Email');
+    }
+
 
     /**
      * One to One inverse relationship to contact
