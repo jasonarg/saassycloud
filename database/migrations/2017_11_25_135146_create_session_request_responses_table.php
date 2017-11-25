@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSitesTable extends Migration
+class CreateSessionRequestResponsesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateSitesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sites', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('label')->nullable();
-            $table->text('description')->nullable();
-            $table->integer('licensed_user_count')->default(1);
+        Schema::create('session_request_responses', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('session_requests_id');
+            $table->string('result');
+            $table->string('return_data');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +30,6 @@ class CreateSitesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sites');
+        Schema::dropIfExists('session_request_responses');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSitesTable extends Migration
+class CreateAbViewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateSitesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sites', function (Blueprint $table) {
+        Schema::create('ab_views', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('ab_view_group_id');
             $table->string('name');
-            $table->string('label')->nullable();
             $table->text('description')->nullable();
-            $table->integer('licensed_user_count')->default(1);
+            $table->text('assigned_route');
+            $table->boolean('active')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +32,6 @@ class CreateSitesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sites');
+        Schema::dropIfExists('ab_views');
     }
 }
