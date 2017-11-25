@@ -8,21 +8,18 @@
  */
 
 namespace App\Model\Core\Repositories;
+
 use App\Model\Core\Entities\Address;
+use App\Model\RootRepo;
 
 
-class AddressRepo implements AddressRepoInterface
+class AddressRepo extends RootRepo implements AddressRepoInterface
 {
-    public function findAll(){
 
-    }
+    protected $model;
 
-    public function findById(integer $id){
-
-    }
-
-    public function findByAttr(string $attr, $value){
-
+    public function __construct(Address $model){
+        $this->model = $model;
     }
 
     public function save(Address $entity){
@@ -33,7 +30,4 @@ class AddressRepo implements AddressRepoInterface
 
     }
 
-    public function create(array $attributeValuePairs){
-
-    }
 }

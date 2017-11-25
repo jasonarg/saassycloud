@@ -30,6 +30,9 @@ Route::get('/warp.html', function () {
     return view('sales.finishSignup');
 });
 
+Route::get('/address', 'Core\AddressController@index');
+
+
 /**
  * Default laravel routes, to be replaced
  */

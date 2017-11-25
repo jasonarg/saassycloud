@@ -15,7 +15,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-
         Relation::morphMap([
             'contact' => 'App\Model\Core\Entities\Contact',
             'product' => 'App\Model\Product\Entities\Product',
@@ -32,5 +31,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        $this->app->bind('App\Model\Core\Repositories\AddressRepoInterface', 'App\Model\Core\Repositories\AddressRepo');
+
     }
 }
