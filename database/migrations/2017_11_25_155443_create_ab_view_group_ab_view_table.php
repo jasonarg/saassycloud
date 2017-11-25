@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSessionRequestsTable extends Migration
+class CreateAbViewGroupAbViewTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateSessionRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('session_requests', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('session_id');
-            $table->dateTime('request_time');
-            $table->string('verb');
-            $table->string('resource');
-            $table->text('params');
+        Schema::create('ab_view_group_ab_view', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('ab_view_group_id');
+            $table->unsignedInteger('ab_view_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +29,6 @@ class CreateSessionRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('session_requests');
+        Schema::dropIfExists('ab_view_group_ab_view');
     }
 }

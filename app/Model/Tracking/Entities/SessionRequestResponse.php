@@ -9,4 +9,11 @@ class SessionRequestResponse extends RootModel
     protected $table = 'session_request_response';
 
     protected $fillable = [];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sessionRequest(){
+        return $this->belongsTo('\App\Model\Tracking\Entities\SessionRequest', 'session_request_id', 'id');
+    }
 }

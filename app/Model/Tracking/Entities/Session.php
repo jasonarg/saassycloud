@@ -10,4 +10,12 @@ class Session extends RootModel
 
     protected $fillable = [];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function requests(){
+        return $this->hasMany('\App\Model\Tracking\Entities\SessionRequest');
+    }
+
+
 }

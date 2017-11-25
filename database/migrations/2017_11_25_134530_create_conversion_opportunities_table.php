@@ -17,6 +17,7 @@ class CreateConversionOpportunitiesTable extends Migration
             $table->increments('id');
             $table->unsignedBigInteger('session_id');
             $table->unsignedInteger('assigned_ab_view_group_id');
+            $table->string('landing_page');
             $table->boolean('converted')->default(false);
             $table->string('conversion_type');
             $table->string('last_step_completed');
