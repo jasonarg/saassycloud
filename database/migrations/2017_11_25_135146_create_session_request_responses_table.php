@@ -15,9 +15,9 @@ class CreateSessionRequestResponsesTable extends Migration
     {
         Schema::create('session_request_responses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('session_requests_id');
+            $table->unsignedBigInteger('session_request_id');
             $table->string('result');
-            $table->string('return_data');
+            $table->string('return_data')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

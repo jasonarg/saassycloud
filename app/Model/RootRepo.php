@@ -19,13 +19,21 @@ abstract class RootRepo implements RootRepoInterface
     }
 
     public function findById(integer $id){
-
+        return $this->model->findById();
     }
 
     public function findByAttr(string $attr, $value){
-
     }
 
     public function create(array $attributeValuePairs){
+        $newObjName =  \get_class($this->model);
+        $newObj = new $newObjName;
+        foreach($attributeValuePairs as $key => $value){
+            $newObj->$key = $value;
+        }
+        $newObj->save();
+
+        return $newObj;
+
     }
 }

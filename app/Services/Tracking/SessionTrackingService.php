@@ -9,8 +9,12 @@
 
 namespace App\Services\Tracking;
 
+use App\Model\Tracking\Entities\Session;
+use App\Model\Tracking\Entities\SessionRequest;
+use App\Model\Tracking\Entities\SessionRequestResponse;
 use App\Model\Tracking\Repositories\SessionRepoInterface;
 use App\Model\Tracking\Repositories\SessionRequestRepoInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class SessionTrackingService{
@@ -25,24 +29,29 @@ class SessionTrackingService{
         $this->sessionRequestRepo = $sessionRequestRepo;
     }
 
-/**
-* Take request,
-* look for session,
-* if not there, create a new one
-* add a sessionrequest entry
-* store the sessionrequest id as a var in this singleton
-* all this can be done in a SessionTracking Service
-*
-*/
+
     public function logSessionRequest(){
-        dump($this->request);
-        $sessions = $this->sessionRepo->findAll();
-        //dd($sessions);
+        $session = $this->sessionRepo->getOrCreate($this->request->session()->getId());
+        $now = Carbon::now()->toDateTimeString();
+        $sr = new SessionRequest([ "request_time" => $now,
+            "verb" => request()->server("REQUEST_METHOD"),
+            "resource" => request()->server("REQUEST_URI"),
+            "params" => request()->server("QUERY_STRING")
+        ]);
+        $session->requests()->save($sr);
+        $session->lastActionTime =$now;
 
+        $session->save();
 
+        return $sr;
     }
 
-    public function logSessionResponse(){
+    public function logSessionResponse(SessionRequest $sr){
+        $sr->response()->save(new SessionRequestResponse([
+            "result" => "success"
+            ])
+        );
+
 
     }
 

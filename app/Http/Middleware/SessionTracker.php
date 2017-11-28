@@ -8,7 +8,7 @@ use Closure;
 class SessionTracker
 {
 
-    protected $storedRequestId;
+    protected $sessionRequest;
     protected $appContainer;
 
     /**
@@ -20,10 +20,9 @@ class SessionTracker
      */
     public function handle($request, Closure $next)
     {
+        $sessionTracker = app()->make(SessionTrackingService::class);
+        $this->sessionRequest = $sessionTracker->logSessionRequest();
 
-        $this->appContainer = app();
-        $sessionTracker = $this->appContainer->make(SessionTrackingService::class);
-        $sessionTracker->logSessionRequest();
         return $next($request);
     }
 
@@ -35,6 +34,9 @@ class SessionTracker
          * take the sessionresponse and do it
          *  pass to session service
          */
+
+        $sessionTracker = app()->make(SessionTrackingService::class);
+        $srr = $sessionTracker->logSessionResponse($this->sessionRequest);
     }
 
 }

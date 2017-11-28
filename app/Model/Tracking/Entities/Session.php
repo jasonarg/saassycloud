@@ -14,7 +14,7 @@ class Session extends RootModel
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function requests(){
-        return $this->hasMany('\App\Model\Tracking\Entities\SessionRequest');
+        return $this->hasMany('\App\Model\Tracking\Entities\SessionRequest', 'session_id', 'id');
     }
 
 

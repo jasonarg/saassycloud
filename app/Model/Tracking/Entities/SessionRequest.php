@@ -7,14 +7,13 @@ use App\Model\RootModel;
 class SessionRequest extends RootModel
 {
     protected $table = 'session_requests';
-
-    protected $fillable = [];
+    protected $fillable = ["request_time", "verb", "resource", "params"];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function session(){
-        return $this->belongsTo('\App\Model\Tracking\Entities\Session');
+        return $this->belongsTo('\App\Model\Tracking\Entities\Session', "session_id");
     }
 
     /**
@@ -28,6 +27,6 @@ class SessionRequest extends RootModel
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function response(){
-        return $this->hasOne('\App\Model\Tracking\Entities\SessionRequestResponse');
+        return $this->hasOne('\App\Model\Tracking\Entities\SessionRequestResponse', 'session_request_id', 'id');
     }
 }

@@ -8,7 +8,7 @@ class SessionRequestResponse extends RootModel
 {
     protected $table = 'session_request_responses';
 
-    protected $fillable = [];
+    protected $fillable = ['result', 'return_data'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

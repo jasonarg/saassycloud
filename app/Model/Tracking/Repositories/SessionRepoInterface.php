@@ -17,4 +17,6 @@ interface SessionRepoInterface extends RootRepoInterface
     public function save(Session $entity);
 
     public function delete(Session $entity);
+
+    public function getOrCreate(string $value);
 }
