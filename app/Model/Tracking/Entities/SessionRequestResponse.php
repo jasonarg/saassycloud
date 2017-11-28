@@ -6,7 +6,7 @@ use App\Model\RootModel;
 
 class SessionRequestResponse extends RootModel
 {
-    protected $table = 'session_request_response';
+    protected $table = 'session_request_responses';
 
     protected $fillable = [];
 

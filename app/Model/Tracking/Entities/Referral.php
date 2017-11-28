@@ -6,7 +6,7 @@ use App\Model\RootModel;
 
 class Referral extends RootModel
 {
-    protected $table = 'referral';
+    protected $table = 'referrals';
 
     protected $fillable = [];
 

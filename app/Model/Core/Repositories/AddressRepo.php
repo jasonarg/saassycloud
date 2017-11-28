@@ -16,8 +16,6 @@ use App\Model\RootRepo;
 class AddressRepo extends RootRepo implements AddressRepoInterface
 {
 
-    protected $model;
-
     public function __construct(Address $model){
         $this->model = $model;
     }

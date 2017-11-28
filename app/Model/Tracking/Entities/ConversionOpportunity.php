@@ -6,7 +6,7 @@ use App\Model\RootModel;
 
 class ConversionOpportunity extends RootModel
 {
-    protected $table = 'conversion_opportunity';
+    protected $table = 'conversion_opportunities';
 
     protected $fillable = [];
 

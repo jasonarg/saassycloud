@@ -6,7 +6,7 @@ use App\Model\RootModel;
 
 class AbView extends RootModel
 {
-    protected $table = 'ab_view';
+    protected $table = 'ab_views';
 
     protected $fillable = [];
 

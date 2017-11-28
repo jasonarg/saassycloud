@@ -12,6 +12,7 @@ namespace App\Model;
 
 abstract class RootRepo implements RootRepoInterface
 {
+    protected $model;
 
     public function findAll(){
         return $this->model->all();

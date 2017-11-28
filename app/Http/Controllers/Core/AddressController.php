@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Core;
 
 use App\Http\Controllers\Controller;
 use App\Model\Core\Repositories\AddressRepoInterface;
+use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
@@ -23,8 +24,8 @@ class AddressController extends Controller
         $this->address = $address;
     }
 
-    public function index(){
-        dd($this->address->findAll());
+    public function index(Request $request){
+        //dd($request);
     }
 
 }

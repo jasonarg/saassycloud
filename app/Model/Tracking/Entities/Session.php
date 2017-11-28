@@ -6,7 +6,7 @@ use App\Model\RootModel;
 
 class Session extends RootModel
 {
-    protected $table = 'session';
+    protected $table = 'sessions';
 
     protected $fillable = [];
 
