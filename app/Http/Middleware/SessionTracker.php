@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Model\Tracking\Services\SessionTrackingService;
+use App\Services\Tracking\SessionTrackingService;
 use Closure;
 
 class SessionTracker

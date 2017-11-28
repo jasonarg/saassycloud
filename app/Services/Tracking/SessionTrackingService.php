@@ -7,7 +7,7 @@
  * License: Public Domain
  */
 
-namespace App\Model\Tracking\Services;
+namespace App\Services\Tracking;
 
 use App\Model\Tracking\Repositories\SessionRepoInterface;
 use App\Model\Tracking\Repositories\SessionRequestRepoInterface;
