@@ -36,8 +36,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Model\Tracking\Repositories\SessionRepoInterface', 'App\Model\Tracking\Repositories\SessionRepo');
         $this->app->bind('App\Model\Tracking\Repositories\SessionRequestRepoInterface', 'App\Model\Tracking\Repositories\SessionRequestRepo');
-        $this->app->bind('App\Model\Tracking\Repositories\SessionRequestResponseRepoInterface', 'App\Model\Tracking\Repositories\SessionRequestResponseRepo');
-        $this->app->bind('App\Model\Tracking\Repositories\ReferralRepoInterface', 'App\Model\Tracking\Repositories\ReferralRepoInterface');
+        $this->app->bind('App\Model\Tracking\Repositories\AbViewRepoInterface', 'App\Model\Tracking\Repositories\AbViewrepo');
+        $this->app->bind('App\Model\Tracking\Repositories\AbViewGroupRepoInterface', 'App\Model\Tracking\Repositories\AbViewGroupRepo');
+
+
 
         $this->app->singleton('App\Http\Middleware\SessionTracker', function () {
             return new SessionTracker();

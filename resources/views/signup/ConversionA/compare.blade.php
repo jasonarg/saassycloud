@@ -6,7 +6,7 @@
         <div class="row bg-white" style="">
             <div class="col text-center">
                 <h2 class="fluidSectionHeader text-dark my-5">Try our products for free</h2>
-                <h4 class="fluidSectionSubHeader text-secondary mb-5">Have a <img id="oneUp" src="i/1up.png"> on us!</h4>
+                <h4 class="fluidSectionSubHeader text-secondary mb-5">Have a <img id="oneUp" src="/i/1up.png"> on us!</h4>
                 <h6 class="text-secondary">Choose from our most popular packages below or <a href="" class="text-info">create your own!</a></h6>
             </div>
         </div>
@@ -17,7 +17,7 @@
                     <tr class="text-center">
                         <th scope="col" style="width: 20%;">
                             <div class="relAnchor">
-                                <img src="i/bowser.png" id="bowser" alt=""></div>
+                                <img src="/i/bowser.png" id="bowser" alt=""></div>
                         </th>
                         <th scope="col" class="px-5">
                             <h5 class="productTitle text-dark mt-5"><strong class="font-weight-bold">SaaS</strong>sy</h5>
@@ -314,13 +314,13 @@
                     <tr>
                         <th></th>
                         <td class="py-5">
-                            <a href="start.html" class="btn btn-lg btn-info px-5" role="button">Get SaaSsy</a>
+                            <a href="/signup/start" class="btn btn-lg btn-info px-5" role="button">Get SaaSsy</a>
                         </td>
                         <td class="bg-light py-5">
-                            <a href="start.html" class="btn btn-lg btn-info px-5" role="button">Get SaaSsier</a>
+                            <a href="/signup/start" class="btn btn-lg btn-info px-5" role="button">Get SaaSsier</a>
                         </td>
                         <td class="py-5">
-                            <a href="start.html" class="btn btn-lg btn-info px-5" role="button">Be the SaaSsiest</a>
+                            <a href="signup/start" class="btn btn-lg btn-info px-5" role="button">Be the SaaSsiest</a>
                         </td>
                     </tr>
                     </tbody>

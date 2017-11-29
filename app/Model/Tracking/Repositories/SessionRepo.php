@@ -21,14 +21,6 @@ class SessionRepo extends RootRepo implements SessionRepoInterface{
         $this->model = $model;
     }
 
-    public function save(Session $entity){
-
-    }
-
-    public function delete(Session $entity){
-
-    }
-
     /**
      * @param string $value sessiontoken
      *

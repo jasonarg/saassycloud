@@ -22,10 +22,24 @@ abstract class RootRepo implements RootRepoInterface
         return $this->model->findById();
     }
 
-    public function findByAttr(string $attr, $value){
+    public function findByAttr(string $attr, $value, $unique = false){
+        if($unique){
+            return $this->model->where($attr, $value)->first();
+        }
+        return $this->model->where($attr, $value)->get();
     }
 
-    public function create(array $attributeValuePairs){
+    public function findByConditions(array $conditions){
+        return $this->model->where($conditions)->get();
+    }
+
+    /**
+     * Creates a new instance of $model and returns it
+     * @param array $attributeValuePairs = []
+     *
+     * @return mixed
+     */
+    public function create(array $attributeValuePairs = []){
         $newObjName =  \get_class($this->model);
         $newObj = new $newObjName;
         foreach($attributeValuePairs as $key => $value){

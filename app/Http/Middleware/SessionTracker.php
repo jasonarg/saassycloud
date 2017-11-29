@@ -36,7 +36,7 @@ class SessionTracker
          */
 
         $sessionTracker = app()->make(SessionTrackingService::class);
-        $srr = $sessionTracker->logSessionResponse($this->sessionRequest);
+        $sessionTracker->logSessionResponse($this->sessionRequest);
     }
 
 }

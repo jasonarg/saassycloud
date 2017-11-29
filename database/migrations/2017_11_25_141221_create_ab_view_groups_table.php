@@ -16,7 +16,8 @@ class CreateAbViewGroupsTable extends Migration
         Schema::create('ab_view_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
+            $table->string('for')->nullable();
             $table->boolean('active')->default(false);
             $table->timestamps();
             $table->softDeletes();

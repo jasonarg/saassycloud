@@ -19,11 +19,4 @@ class SessionRequestResponseRepo extends RootRepo implements SessionRequestRespo
         $this->model = $model;
     }
 
-    public function save(SessionRequestResponse $model){
-
-    }
-
-    public function delete(SessionRequestResponse $model){
-
-    }
 }

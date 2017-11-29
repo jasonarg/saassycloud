@@ -11,25 +11,38 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+
+
 /**
  * Temp view routes to be replaced by controller(s)
  */
-Route::get('/signup.html', function () {
-    return view('sales.packageCompare');
-});
-Route::get('/start.html', function () {
-    return view('sales.startSignup');
-});
-Route::get('/setup.html', function () {
-    return view('sales.setupAccount');
-});
-Route::get('/warp.html', function () {
-    return view('sales.finishSignup');
+
+
+Route::get('/', function () {
+    return view('home');
 });
 
+
+Route::middleware(['web'])->group(function () {
+
+
+    Route::get('/signup/compare','SignupController@compare');
+    Route::get('/signup/start','SignupController@start');
+    Route::get('/signup/setup','SignupController@setup');
+    Route::get('/signup/warp','SignupController@warp');
+
+
+});
+
+
+
+
+
+
+
+
+
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/address', 'Core\AddressController@index');
 
 
@@ -37,6 +50,4 @@ Route::get('/address', 'Core\AddressController@index');
  * Default laravel routes, to be replaced
  */
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 

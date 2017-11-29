@@ -8,7 +8,7 @@ class Referral extends RootModel
 {
     protected $table = 'referrals';
 
-    protected $fillable = [];
+    protected $fillable = ["referral_uri"];
 
 
     /**

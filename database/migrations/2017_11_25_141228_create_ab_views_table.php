@@ -15,7 +15,6 @@ class CreateAbViewsTable extends Migration
     {
         Schema::create('ab_views', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('ab_view_group_id');
             $table->string('name');
             $table->text('description')->nullable();
             $table->text('assigned_route');

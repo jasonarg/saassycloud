@@ -19,12 +19,4 @@ class ReferralRepo extends RootRepo implements ReferralRepoInterface{
         $this->model = $model;
     }
 
-    public function save(Referral $model){
-
-    }
-
-    public function delete(Referral $model){
-
-    }
-
 }

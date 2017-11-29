@@ -15,10 +15,10 @@
             </ul>
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/signup.html"><button class="btn btn-white">Buy Now</button></a>
+                    <a class="nav-link" href="/signup/compare"><button class="btn btn-white">Buy Now</button></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/signup.html"><button class="btn btn-info">Start for Free</button></a>
+                    <a class="nav-link" href="/signup/compare"><button class="btn btn-info">Start for Free</button></a>
                 </li>
             </ul>
         </div>

@@ -7,7 +7,7 @@
                 <div class="col-md-5 bg-white py-3">
                     <a class="navbar-brand  text-dark p-3" href="/"><strong class="font-weight-bold">SaaS</strong>sy Cloud</a>
                     <h2 class="text-dark roboFont font-weight-bold text-center px-5 pt-5">World 1-2</h2>
-                    <form action="warp.html" method="get" id="contactInfo" class="text-dark p-5 m-5" novalidate>
+                    <form action="/signup/warp" method="get" id="contactInfo" class="text-dark p-5 m-5" novalidate>
                         <fieldset class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" placeholder="mario@example.com">

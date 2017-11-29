@@ -8,7 +8,7 @@ class ConversionOpportunity extends RootModel
 {
     protected $table = 'conversion_opportunities';
 
-    protected $fillable = [];
+    protected $fillable = ["landing_page"];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -16,8 +16,4 @@ use App\Model\Tracking\Entities\Referral;
 interface ReferralRepoInterface extends RootRepoInterface{
 
 
-    public function save(Referral $entity);
-
-    public function delete(Referral $entity);
-
 }

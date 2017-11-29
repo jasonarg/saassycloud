@@ -15,9 +15,4 @@ use App\Model\Tracking\Entities\SessionRequestResponse;
 
 interface SessionRequestResponseRepoInterface extends RootRepoInterface{
 
-
-    public function save(SessionRequestResponse $entity);
-
-    public function delete(SessionRequestResponse $entity);
-
 }

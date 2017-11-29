@@ -17,5 +17,9 @@ class Session extends RootModel
         return $this->hasMany('\App\Model\Tracking\Entities\SessionRequest', 'session_id', 'id');
     }
 
+    public function conversionOpportunity(){
+        return $this->hasOne('\App\Model\Tracking\Entities\ConversionOpportunity', 'session_id');
+    }
+
 
 }
