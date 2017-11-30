@@ -25,6 +25,7 @@ class ConversionTrackingService{
     protected $trackedFields = ["input_site_name" => "worldName",
         "input_email" => "signupEmail",
         "input_password_hash" => "signupPassword",
+        "input_organization_name" => "organizationName",
         "input_given_name" => "firstName",
         "input_last_name" => "lastName",
         "input_address" => "address1",

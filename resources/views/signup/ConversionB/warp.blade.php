@@ -9,6 +9,14 @@
                     <h2 class="text-dark roboFont font-weight-bold text-center px-5 pt-5">World 1-3</h2>
                     <form action="/signup/create" method="post" id="contactInfo" class="text-dark px-5 m-5" novalidate>
                         {{  csrf_field ()}}
+
+                        <fieldset class="form-group">
+                            <label for="organizationName">Organization Name</label>
+                            <input type="text" class="form-control" id="organizationName" name="organizationName" placeholder="National Plumbers Union" required>
+                            <div class="invalid-feedback">
+                                Please provide your organization name
+                            </div>
+                        </fieldset>
                         <div class="form-row p-0 m-0">
                             <fieldset class="form-group col-md-6 pl-0">
                                 <label for="firstName">First Name</label>

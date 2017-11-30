@@ -26,6 +26,7 @@ class CreateConversionOpportunitiesTable extends Migration
             $table->string('input_site_name')->nullable();
             $table->string('input_email')->nullable();
             $table->string('input_password_hash')->nullable();
+            $table->string('input_organization_name')->nullable();
             $table->string('input_given_name')->nullable();
             $table->string('input_last_name')->nullable();
             $table->string('input_address')->nullable();
