@@ -29,7 +29,7 @@ class Person extends RootModel
      *
      * @var array
      */
-    protected $fillable = ['firstName', 'middleName', 'lastName', 'prefix', 'suffix', 'salutation'];
+    protected $fillable = ['first_name', 'middle_name', 'last_name', 'prefix', 'suffix', 'salutation'];
 
     /**
      * One to one relationship to Contact.
