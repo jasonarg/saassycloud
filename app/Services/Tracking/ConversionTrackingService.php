@@ -15,48 +15,58 @@ use App\Model\Tracking\Entities\ConversionOpportunity;
 use App\Model\Tracking\Repositories\AbViewGroupRepo;
 use App\Model\Tracking\Repositories\SessionRepoInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ConversionTrackingService{
 
     protected $request;
     protected $sessionRepo;
     protected $sessionTracker;
+    protected $trackedFields = ["input_site_name" => "worldName",
+        "input_email" => "signupEmail",
+        "input_password_hash" => "signupPassword",
+        "input_given_name" => "firstName",
+        "input_last_name" => "lastName",
+        "input_address" => "address1",
+        "input_zip" => "zip"
+    ];
 
     public function __construct(Request $request, SessionRepoInterface $sessionRepo){
         $this->request = $request;
         $this->sessionRepo = $sessionRepo;
-        $this->sessionTracker = $this->sessionRepo->findByAttr("session_token",
-            $this->request->session()->getId(), true);
-    }
-
-    public function trackConversionOpportunity(){
-        /**
-         * get session, session must be made, based on middleware ordering
-         *
-         * update entity with new request data
-         *
-         *            $table->unsignedBigInteger('session_id');
-        $table->unsignedInteger('assigned_ab_view_group_id');
-        $table->string('landing_page');
-        $table->boolean('converted')->default(false);
-        $table->string('conversion_type');
-        $table->string('last_step_completed');
-        $table->unsignedInteger('package_chosen_id')->nullable();
-        $table->integer('site_name_lookup_attempts');
-        $table->string('input_site_name');
-        $table->string('input_email');
-        $table->string('input_password_hash');
-        $table->string('input_given_name');
-        $table->string('input_last_name');
-        $table->string('input_address');
-        $table->string('input_zip');
-         */
+        $this->sessionTracker = $this->sessionRepo->findByAttr("session_token", $this->request->session()->getId(), true);
         $this->sessionTracker->loadMissing('conversionOpportunity');
         if(is_null($this->sessionTracker->conversionOpportunity)){
             $this->createConversionOpportunity();
         }
-         $this->request->server("REQUEST_URI");
+    }
 
+    public function trackConversionOpportunity(){
+        dump($this->request);
+        if($this->request->method() == "POST"){
+            $this->logInput();
+        }
+    }
+
+    protected function logInput(){
+        #TODO needs validation
+        foreach($this->request->all() as $param => $value){
+            if(in_array($param, $this->trackedFields)){
+                if($param == "signupPassword"){
+                    $iValue = Hash::make($value, ["rounds" => 12]);
+                }
+                else{
+                    $iValue = $value;
+                }
+                $this->sessionTracker->conversionOpportunity()->update([
+                    array_search($param, $this->trackedFields) => $iValue
+                ]);
+            }
+        }
+        $this->sessionTracker->conversionOpportunity()->update([
+            "last_step_completed" => $this->getLastStepCompleted()
+        ]);
+        $this->sessionTracker->save();
     }
 
     protected function createConversionOpportunity(){
@@ -82,6 +92,24 @@ class ConversionTrackingService{
         $this->request->session()->put('tracking.conversion', []);
         $this->request->session()->put('tracking.conversion.assignedAbViewGroupName', $assignedAbGroup->name);
     }
+
+    protected function getLastStepCompleted(){
+
+        $lastStepCompleted = "";
+        if(array_key_exists("worldName", $this->request->all())){
+            $lastStepCompleted = "start";
+        }
+        if(array_key_exists("signupPassword", $this->request->all())){
+            $lastStepCompleted = "setup";
+        }
+        if(array_key_exists("signupZip", $this->request->all())){
+            $lastStepCompleted = "warp";
+        }
+
+        return $lastStepCompleted;
+    }
+
+
 
 
 

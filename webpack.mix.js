@@ -16,4 +16,4 @@ mix.js('resources/assets/js/app.js', 'public/js').version()
 
 mix.copyDirectory('resources/assets/i', 'public/i');
 
-mix.browserSync('sassycumulus.dev');
+mix.browserSync('saassycloud.dev');

@@ -23,23 +23,16 @@ Route::get('/', function () {
 });
 
 
-Route::middleware(['web'])->group(function () {
-
-
+Route::middleware(['conversionTracking'])->group(function () {
     Route::get('/signup/compare','SignupController@compare');
     Route::get('/signup/start','SignupController@start');
-    Route::get('/signup/setup','SignupController@setup');
-    Route::get('/signup/warp','SignupController@warp');
-
-
+    Route::post('/signup/setup','SignupController@setup');
+    Route::post('/signup/warp','SignupController@warp');
 });
 
 
-
-
-
-
-
+Route::post('/signup/create','SignupController@create');
+Route::get('/members/onboarding','MembersController@onboarding');
 
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -26,6 +26,7 @@ class SignupController extends Controller{
     }
 
     public function start(Request $request){
+
         return view('signup.'.$request->session()->get('tracking.conversion.assignedAbViewGroupName').'.start');
 
     }
@@ -37,6 +38,16 @@ class SignupController extends Controller{
 
     public function warp(Request $request){
         return view('signup.'.$request->session()->get('tracking.conversion.assignedAbViewGroupName').'.warp');
+
+    }
+
+    public function create(Request $request){
+        /* read from conversionOpportunity from session
+            register user
+            create new site
+            redirect to members onboarding
+        */
+
 
     }
 

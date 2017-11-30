@@ -7,11 +7,12 @@
                 <div class="col-md-5 bg-white p-3">
                     <a class="navbar-brand  text-dark p-3" href="/"><strong class="font-weight-bold">SaaS</strong>sy Cloud</a>
                     <h2 class="text-dark roboFont font-weight-bold text-center px-5 pt-5">World 1-1</h2>
-                    <form action="/signup/setup" method="get" class="text-dark m-5 p-5">
+                    <form action="/signup/setup" method="POST" class="text-dark m-5 p-5">
+                        {{ csrf_field() }}
                         <fieldset class="form-group">
                             <label for="worldName">Build Your World</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="worldName" placeholder="worldname">
+                                <input type="text" class="form-control" id="worldName" name="worldName" placeholder="worldname">
                                 <div class="input-group-addon bg-mb text-white">.saassycloud.com</div>
                             </div>
                             <small id="passwordHelpBlock" class="form-text text-muted">
