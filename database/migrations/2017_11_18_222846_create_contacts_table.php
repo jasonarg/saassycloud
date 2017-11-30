@@ -25,9 +25,9 @@ class CreateContactsTable extends Migration
             $table->unsignedInteger('cell_phone_id')->nullable();
             $table->unsignedInteger('work_phone_id')->nullable();
             $table->unsignedInteger('home_phone_id')->nullable();
-            $table->enum('preferred_phone', ['cell', 'work', 'home'])->default('cell')->nullable();
-            $table->string('personal_email')->nullable();
-            $table->string('work_email')->nullable();
+            $table->unsignedInteger('personal_email_id')->nullable();
+            $table->unsignedInteger('work_email_id')->nullable();
+            $table->string('preferred_phone')->default('cell')->nullable();
             $table->string('primary_website')->nullable();
             $table->string('facebook_profile_link')->nullable();
             $table->string('twitter_profile_link')->nullable();

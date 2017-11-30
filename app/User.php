@@ -26,15 +26,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * One to one inverse relationship to email
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    protected function email(){
-        return $this->belongsTo('\App\Model\COre\Entities\Email');
-    }
-
 
     /**
      * One to One inverse relationship to contact
@@ -53,13 +44,6 @@ class User extends Authenticatable
         return $this->belongsToMany('\App\Model\Core\Entities\Customer', 'customer_user');
     }
 
-
-    /**
-     * Stub to check for existence of contact and create with existing contact or to create a new one
-     */
-    public function createWithContactCheck(){
-
-    }
 }
 
 

@@ -21,18 +21,7 @@ class Customer extends RootModel
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 
-    public function user(){
-        return $this->hasMany('App\User');
-
-    }
-
-    /**
-     * Many to many relationship to App\User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-
-    public function users(){
+    public function adminUsers(){
         return $this->belongsToMany('App\User', 'customer_user');
 
     }

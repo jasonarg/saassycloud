@@ -115,4 +115,5 @@ class Contact extends RootModel
         return $this->morphToMany('App\Model\Core\Entities\ImageGroup', 'image_groupable');
     }
 
+
 }
