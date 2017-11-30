@@ -12,8 +12,10 @@ use App\Model\RootModel;
 
 class Organization extends RootModel
 {
-    //
+
     protected $table = 'organizations';
+
+    protected $fillable = ["name"];
 
     /**
      * One to many relationship to contact

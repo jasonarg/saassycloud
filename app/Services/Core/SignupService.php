@@ -10,7 +10,10 @@
 namespace App\Services\Core;
 
 
+use App\Model\Core\Entities\Address;
+use App\Model\Core\Entities\Contact;
 use App\Model\Core\Entities\Email;
+use App\Model\Core\Entities\Organization;
 use App\Model\Core\Entities\Person;
 use App\Model\Tracking\Repositories\SessionRepoInterface;
 use Illuminate\Http\Request;
@@ -29,22 +32,33 @@ class SignupService{
         $sessionTracker = $this->sessionRepo->findByAttr("session_token", $this->request->session()->getId(), true);
         $sessionTracker->loadMissing('conversionOpportunity');
 
-        dump($sessionTracker);
         $person = new Person(["first_name" => $sessionTracker->conversionOpportunity->inputGivenName,
             "last_name" => $sessionTracker->conversionOpportunity->inputGivenName]);
         $person->save();
-        $email = new Email([
-
+        $workEmail = new Email([
+            "address" => $sessionTracker->conversionOpportunity->inputEmail
         ]);
-        $email = "";
-        $address = "";
-        $contact="";
-        $organization = "";
-        $contact = "";
+        $workEmail->save();
+        $address = new Address([
+            "line1" => $sessionTracker->conversionOpportunity->inputAddress,
+            "postalCode" => $sessionTracker->conversionOpportunity->inputZip
+        ]);
+        $address->save();
+        $organization = new Organization([
+            "name" => $sessionTracker->conversionOpportunity->inputOrganizationName
+        ]);
+        $organization->save();
+
+        $contact= new Contact();
+        $contact->save();
+        $contact->workAddress()->associate($address);
+        $contact->workEmail()->associate($workEmail);
+        $contact->relatedOrganization()->associate($organization);
+        $contact->save();
 
     }
 
-    protected function registerCustomer(){
+    protected function registerCustomer($firstName, $lastName, $emailAddress, $address, $postalCode, $orgName){
 
     }
 
