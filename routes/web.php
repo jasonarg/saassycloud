@@ -28,10 +28,10 @@ Route::middleware(['conversionTracking'])->group(function () {
     Route::get('/signup/start','SignupController@start');
     Route::post('/signup/setup','SignupController@setup');
     Route::post('/signup/warp','SignupController@warp');
+    Route::post('/signup/create','SignupController@create');
 });
 
 
-Route::post('/signup/create','SignupController@create');
 Route::get('/members/onboarding','MembersController@onboarding');
 
 

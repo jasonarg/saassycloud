@@ -10,6 +10,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Services\Core\SignupService;
 use \Illuminate\Http\Request;
 
 class SignupController extends Controller{
@@ -41,12 +42,16 @@ class SignupController extends Controller{
 
     }
 
-    public function create(Request $request){
+    public function create(){
         /* read from conversionOpportunity from session
             register user
             create new site
             redirect to members onboarding
         */
+        $signupService = app()->make(SignupService::class);
+        $signupService->registerSessionCustomer();
+        //Authenticate new customer
+        //redirect to onboarding
 
 
     }

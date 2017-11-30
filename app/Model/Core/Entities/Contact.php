@@ -38,7 +38,7 @@ class Contact extends RootModel
      * @return \App\User
      */
     public function user(){
-        return $this->hasOne('\App\User');
+        return $this->hasOne('\App\User', 'contact_id', 'id');
     }
 
     /**
