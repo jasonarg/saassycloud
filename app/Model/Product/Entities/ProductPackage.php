@@ -31,11 +31,12 @@ class ProductPackage extends RootModel
     }
 
     /**
-     * Many to many relationship to Product
+     * Many to Many Relationship between ProductPackage to Product Feature
      *
-     * @return Collection|\App\Model\Product\Entities\Product
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function products(){
-        return $this->belongsToMany('\App\Model\Product\Entitites\Product', 'product_package_product');
-    }
+   public function productFeatures(){
+        return $this->belongsToMany('\App\Model\Product\Entities\ProductFeature', 'product_package_product_feature')
+            ->withPivot('limit_quantity', 'limit_dimension_value', 'limit_dimension_type')->withTimestamps();
+   }
 }

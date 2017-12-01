@@ -32,8 +32,9 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
 
-        $this->app->bind('App\Model\Core\Repositories\AddressRepoInterface', 'App\Model\Core\Repositories\AddressRepo');
-
+        $this->app->bind('App\Model\Product\Repositories\FeatureGroupRepoInterface', 'App\Model\Product\Repositories\FeatureGroupRepo');
+        $this->app->bind('App\Model\Product\Repositories\PackageRepoInterface', 'App\Model\Product\Repositories\PackageRepo');
+        $this->app->bind('App\Model\Product\Repositories\ProductSystemRepoInterface', 'App\Model\Product\Repositories\ProductSystemRepo');
         $this->app->bind('App\Model\Tracking\Repositories\SessionRepoInterface', 'App\Model\Tracking\Repositories\SessionRepo');
         $this->app->bind('App\Model\Tracking\Repositories\SessionRequestRepoInterface', 'App\Model\Tracking\Repositories\SessionRequestRepo');
         $this->app->bind('App\Model\Tracking\Repositories\AbViewRepoInterface', 'App\Model\Tracking\Repositories\AbViewrepo');

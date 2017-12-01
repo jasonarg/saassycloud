@@ -12801,6 +12801,10 @@ a.text-dark:hover {
   visibility: hidden !important;
 }
 
+footer {
+  background-color: #343a40;
+}
+
 /* Structural Elements */
 
 .jumbotron {

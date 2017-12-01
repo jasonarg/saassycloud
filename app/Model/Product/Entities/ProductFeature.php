@@ -21,17 +21,17 @@ class ProductFeature extends RootModel
      * One to one inverse relationship to product
      * @return \App\Model\Product\Entities\Product
      */
-    public function product(){
-        return $this->belongsTo('\App\Model\Product\Entities\Product');
+    public function featureGroups(){
+        return $this->belongsTo('\App\Model\Product\Entities\ProductFeatureGroup', 'product_feature_group_id', 'id');
     }
 
     /**
-     * Many to Many relationship to ProductVersion
-     * Pivot fields: change_type|new, improved, removed, unchanged
+     * Many to Many Relationship between ProductPackage to Product Feature
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function productVersions(){
-        return $this->belongsToMany('\App\Model\Product\Entities\ProductVersion', 'product_version_product_feature');
-    }
+   public function packages(){
+        return $this->belongsToMany('\App\Model\Product\Entities\ProductPackages', 'product_package_product_feature', 'product_feature_id')
+            ->withPivot('limit_quantity', 'limit_dimension_value', 'limit_dimension_type')->withTimestamps();
+   }
 }

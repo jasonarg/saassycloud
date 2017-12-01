@@ -8,7 +8,7 @@
 @include('includes.header')
 @yield('content')
 <footer>
-    <div class="container-fluid" style="min-height: 250px;">
+    <div class="container-fluid bg-dark text-white" style="min-height: 250px;">
 @include('includes.footerPole')
 @include('includes.footer')
 </body>
