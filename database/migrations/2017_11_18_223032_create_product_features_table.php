@@ -15,11 +15,9 @@ class CreateProductFeaturesTable extends Migration
     {
         Schema::create('product_features', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('product_id');
             $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->text('benefit')->nullable();
-            $table->string('group')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
