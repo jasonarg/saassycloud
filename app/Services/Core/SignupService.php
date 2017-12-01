@@ -36,7 +36,7 @@ class SignupService{
             $sessionTracker = $this->sessionRepo->findByAttr("session_token", $this->request->session()->getId(), true);
             $sessionTracker->loadMissing('conversionOpportunity');
 
-            $firstName = $sessionTracker->conversionOpportunity->inputGivenName,
+            $firstName = $sessionTracker->conversionOpportunity->inputGivenName;
             $lastName = $sessionTracker->conversionOpportunity->inputGivenName;
             $emailAddress = $sessionTracker->conversionOpportunity->inputEmail;
             $address = $sessionTracker->conversionOpportunity->inputAddress;

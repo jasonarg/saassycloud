@@ -8,15 +8,11 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-$bgColor: #333;
-$fontColor: #fff;
+
 $primaryColor: #00e8d6;
 $marioBlue: #5b94ff;
 
-body{
-  background:$bgColor;
-  color:$fontColor;
-}
+
 /* Structural Elements */
 .jumbotron {
   position:relative;

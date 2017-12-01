@@ -12801,11 +12801,6 @@ a.text-dark:hover {
   visibility: hidden !important;
 }
 
-body {
-  background: #333;
-  color: #fff;
-}
-
 /* Structural Elements */
 
 .jumbotron {
