@@ -15,6 +15,7 @@ use App\Model\Product\Entities\ProductFeatureGroup;
 use App\Model\Product\Entities\ProductPackage;
 use App\Model\Product\Entities\ProductSystem;
 use App\Model\Product\Repositories\ProductSystemRepoInterface;
+use Carbon\Carbon;
 
 class ProductDefinitionService{
 
@@ -49,11 +50,14 @@ class ProductDefinitionService{
      * @return ProductPackage
      */
     public function createPackage(string $name,  float $monthlyPrice, float $annualPrice, string $description = '',
-          string $idealFor = '', string $benefit = '', string $dateIntroduced = ''){
+          string $idealFor = '', string $benefit = '', Carbon $dateIntroduced = null){
 
+        if(is_null($dateIntroduced)){
+            $dateIntroduced = Carbon::now();
+        }
         $productPackage = new ProductPackage([
             'name' => $name, 'monthly_price' => $monthlyPrice, 'annual_price' => $annualPrice, 'description' => $description,
-            'idealFor' => $idealFor, 'benefit' => $benefit, 'date_introduced' => $dateIntroduced
+            'idealFor' => $idealFor = '', 'benefit' => $benefit, 'date_introduced' => $dateIntroduced
         ]);
         $productPackage->save();
 

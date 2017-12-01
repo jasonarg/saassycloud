@@ -36,7 +36,9 @@ Route::get('/members/onboarding','MembersController@onboarding');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/address', 'Core\AddressController@index');
+
+
+Route::get('/admin/pd', 'Admin\SaassyCloudAdminController@buildRecords');
 
 
 /**
