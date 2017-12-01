@@ -10,7 +10,7 @@ class Site extends RootModel
 
     protected $table = 'sites';
 
-    protected $fillable = [];
+    protected $fillable = ["name", "label", "description"];
 
     /**
      * Many to many relationship with Customer

@@ -43,4 +43,8 @@ class Organization extends RootModel
     {
         return $this->hasMany('\App\Model\Core\Entities\Organization', 'parent_id');
     }
+
+    public function customer(){
+        return $this->hasOne('\App\Model\Core\Entities\Customer', 'organization_id', 'id');
+    }
 }

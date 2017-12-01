@@ -14,13 +14,9 @@ use App\Services\Core\SignupService;
 use \Illuminate\Http\Request;
 
 class SignupController extends Controller{
-
-
     public function __construct(){
 
     }
-
-
 
     public function compare(Request $request){
         return view('signup.'.$request->session()->get('tracking.conversion.assignedAbViewGroupName').'.compare');

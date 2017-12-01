@@ -13,6 +13,8 @@
                     <a class="nav-link" href="/support">Support</a>
                 </li>
             </ul>
+
+            @if (Auth::guest())
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
                     <a class="nav-link" href="/signup/compare"><button class="btn btn-white">Buy Now</button></a>
@@ -21,6 +23,26 @@
                     <a class="nav-link" href="/signup/compare"><button class="btn btn-info">Start for Free</button></a>
                 </li>
             </ul>
+            @else
+
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        {{ Auth::user()->email }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a href="{{ route('logout') }}" class="dropdown-item"
+                           onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                              style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </div>
+                </li>
+            @endif
         </div>
     </nav>
 </header>

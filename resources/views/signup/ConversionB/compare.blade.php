@@ -25,7 +25,7 @@
                             <p class="text-muted font-weight-normal">Per user, per month, billed annually.
                                 <br>$7 billed monthly
                             </p>
-                            <button class="btn btn-lg btn-info px-5">Start with SaaSsy</button>
+                            <a href="/signup/start/SaaSsy" class="btn btn-lg btn-info px-5">Start with SaaSsy</a>
                             <hr class="text-muted m-5">
                             <p class="text-muted font-weight-normal">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus quaerat, soluta eius, harum.</p>
                             <a href="" class="text-info"><small><u>Learn more</u></small></a>
@@ -36,7 +36,7 @@
                             <p class="text-muted font-weight-normal">Per user, per month, billed annually.
                                 <br>$11 billed monthly
                             </p>
-                            <button class="btn btn-lg btn-info px-5">Getting SaaSsier</button>
+                            <a href="/signup/start/SaaSsier" class="btn btn-lg btn-info px-5">Getting SaaSsier</a>
                             <hr class="text-muted m-5">
                             <p class="text-muted font-weight-normal">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus quaerat, soluta eius, harum.</p>
                             <a href="" class="text-info"><small><u>Learn more</u></small></a>
@@ -47,7 +47,7 @@
                             <p class="text-muted font-weight-normal">Per user, per month, billed annually.
                                 <br>$45 billed monthly
                             </p>
-                            <button class="btn btn-lg btn-info px-5">Be the SaaSsiest</button>
+                            <a href="/signup/start/SaaSsiest" class="btn btn-lg btn-info px-5">Be the SaaSsiest</a>
                             <hr class="text-muted m-5">
                             <p class="text-muted font-weight-normal">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus quaerat, soluta eius, harum.</p>
                             <a href="" class="text-info font-weight-normal"><small><u>Learn more</u></small></a>
@@ -314,13 +314,13 @@
                     <tr>
                         <th></th>
                         <td class="py-5">
-                            <a href="/signup/start" class="btn btn-lg btn-warning px-5" role="button">Get SaaSsy</a>
+                            <a href="/signup/start/SaaSsy" class="btn btn-lg btn-warning px-5" role="button">Get SaaSsy</a>
                         </td>
                         <td class="bg-light py-5">
-                            <a href="/signup/start" class="btn btn-lg btn-warning px-5" role="button">Get SaaSsier</a>
+                            <a href="/signup/start/SaaSssier" class="btn btn-lg btn-warning px-5" role="button">Get SaaSsier</a>
                         </td>
                         <td class="py-5">
-                            <a href="signup/start" class="btn btn-lg btn-warning px-5" role="button">Be the SaaSsiest</a>
+                            <a href="signup/start/SaaSsiest" class="btn btn-lg btn-warning px-5" role="button">Be the SaaSsiest</a>
                         </td>
                     </tr>
                     </tbody>

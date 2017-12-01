@@ -22,7 +22,8 @@ class ConversionTrackingService{
     protected $request;
     protected $sessionRepo;
     protected $sessionTracker;
-    protected $trackedFields = ["input_site_name" => "worldName",
+    protected $trackedFields = [
+        "input_site_name" => "worldName",
         "input_email" => "signupEmail",
         "input_password_hash" => "signupPassword",
         "input_organization_name" => "organizationName",
@@ -43,7 +44,6 @@ class ConversionTrackingService{
     }
 
     public function trackConversionOpportunity(){
-        dump($this->request);
         if($this->request->method() == "POST"){
             $this->logInput();
         }
@@ -72,6 +72,7 @@ class ConversionTrackingService{
 
     protected function createConversionOpportunity(){
         /*
+         * put in packagename
          * Get all active AbViewGroups, randomly assign one.
          * Log the landing page
          * Store assigned AbViewGroup in session for faster lookups in controllers

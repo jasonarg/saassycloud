@@ -20,14 +20,16 @@ class Customer extends RootModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-
     public function adminUsers(){
         return $this->belongsToMany('App\User', 'customer_user');
-
     }
 
     public function sites(){
         return $this->belongsToMany('\App\Model\Core\Entities\Site', 'customer_site');
+    }
+
+    public function organization(){
+        return $this->belongsTo('\App\Model\Core\Entities\Organization', 'organization_id', 'id');
     }
 
 }
