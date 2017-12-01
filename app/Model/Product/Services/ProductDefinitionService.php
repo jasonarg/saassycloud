@@ -50,11 +50,14 @@ class ProductDefinitionService{
      */
     public function createPackage(string $name,  float $monthlyPrice, float $annualPrice, string $description = '',
           string $idealFor = '', string $benefit = '', string $dateIntroduced = ''){
+
         $productPackage = new ProductPackage([
             'name' => $name, 'monthly_price' => $monthlyPrice, 'annual_price' => $annualPrice, 'description' => $description,
             'idealFor' => $idealFor, 'benefit' => $benefit, 'date_introduced' => $dateIntroduced
         ]);
         $productPackage->save();
+
+        return $productPackage;
     }
 
     /**
@@ -64,7 +67,13 @@ class ProductDefinitionService{
      * @return ProductFeatureGroup
      */
     public function createFeatureGroup(string $name, string $description = ''){
+        $productFeatureGroup = new ProductFeatureGroup([
+            'name' => $name,
+            'description' => $description
+        ]);
+        $productFeatureGroup->save();
 
+        return $productFeatureGroup;
     }
 
     /**
@@ -75,7 +84,15 @@ class ProductDefinitionService{
      * @return ProductFeature
      */
     public function createFeature(string $name, string $description = '', string $benefit = ''){
+        $productFeature = new ProductFeature([
+            'name' => $name,
+            'description' => $description,
+            'benefit' => $benefit
+        ]);
 
+        $productFeature->save();
+
+        return $productFeature;
     }
 
     /**
@@ -85,7 +102,16 @@ class ProductDefinitionService{
      * @return boolean
      */
     public function addFeatureToFeatureGroup(ProductFeatureGroup $group, ProductFeature $feature){
+        try{
+            $feature->attach($group);
+        }
+        catch(\Exception $e){
+            report($e);
 
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -98,16 +124,34 @@ class ProductDefinitionService{
      * @return boolean
      */
     public function addFeatureToPackage(ProductPackage $package, ProductFeature $feature, float $limitQuantity, string $limitDimensionType, string $limitDimensionValue){
+        try{
 
+        }
+        catch(\Exception $e){
+            report($e);
+
+            return false;
+        }
+
+        return true;
     }
 
     /**
      * @param \App\Model\Product\Entities\ProductSystem $system
      * @param \App\Model\Product\Entities\ProductPackage $package
      *
-     * return boolean
+     * @return boolean
      */
     public function addPackagesToSystem(ProductSystem $system, ProductPackage $package){
+        try{
+            $package->attach($system);
+        }
+        catch(\Exception $e){
+            report($e);
 
+            return false;
+        }
+
+        return true;
     }
 }
