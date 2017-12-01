@@ -25,8 +25,16 @@ class ProductDefinitionService{
         $this->productSystemRepo = $productSystemRepo;
     }
 
-    public function createSystem(string $name, string $description = ""){
-        $this->productSystem = $this->productSystemRepo->create(["name" => $name, "description" => $description]);
+    /**
+     * @param string $name
+     * @param string $description
+     *
+     * @return ProductSystem
+     */
+    public function createSystem(string $name, string $description = ''){
+        $this->productSystem = $this->productSystemRepo->create(['name' => $name, 'description' => $description]);
+
+        return $this->productSystem;
     }
 
     /**
@@ -42,7 +50,11 @@ class ProductDefinitionService{
      */
     public function createPackage(string $name,  float $monthlyPrice, float $annualPrice, string $description = '',
           string $idealFor = '', string $benefit = '', string $dateIntroduced = ''){
-
+        $productPackage = new ProductPackage([
+            'name' => $name, 'monthly_price' => $monthlyPrice, 'annual_price' => $annualPrice, 'description' => $description,
+            'idealFor' => $idealFor, 'benefit' => $benefit, 'date_introduced' => $dateIntroduced
+        ]);
+        $productPackage->save();
     }
 
     /**
@@ -51,7 +63,7 @@ class ProductDefinitionService{
      *
      * @return ProductFeatureGroup
      */
-    public function createFeatureGroup(string $name, string $description = ""){
+    public function createFeatureGroup(string $name, string $description = ''){
 
     }
 
@@ -62,7 +74,7 @@ class ProductDefinitionService{
      *
      * @return ProductFeature
      */
-    public function createFeature(string $name, string $description = "", string $benefit = ""){
+    public function createFeature(string $name, string $description = '', string $benefit = ''){
 
     }
 

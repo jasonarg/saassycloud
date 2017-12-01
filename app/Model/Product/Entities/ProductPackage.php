@@ -19,15 +19,15 @@ class ProductPackage extends RootModel
      *  Whitelist of create array attributes
      * @var array
      */
-    protected $fillable = ['name', 'description', 'limits', 'ideal_for', 'benefit', 'date_introduced', 'monthly_price', 'annual_price'];
+    protected $fillable = ['name', 'description', 'ideal_for', 'benefit', 'date_introduced', 'monthly_price', 'annual_price'];
 
     /**
-     * Many to Many relationship to ProductSystem
+     * One to Many inverse relationship to ProductSystem
      *
      * @return Collection|\App\Model\Product\Entities\ProductSystem
      */
-    public function productSystems(){
-        return $this->belongsToMany('\App\Model\Product\Entities\ProductSystem', 'product_system_product_package');
+    public function productSystem(){
+        return $this->belongsTo('\App\Model\Product\Entities\ProductSystem', 'product_system_id');
     }
 
     /**

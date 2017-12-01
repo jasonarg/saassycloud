@@ -18,10 +18,10 @@ class ProductSystem extends RootModel
     protected $fillable = ['name', 'description'];
 
     /**
-     * Many to Many relationship for ProductPackage
+     * One to Many relationship for ProductPackage
      * @return Collection|\App\Model\Product\Entities\ProductPackage
      */
     public function availableProductPackages(){
-        return $this->belongsToMany('\App\Model\Product\Entities\ProductPackage', 'product_system_product_package');
+        return $this->hasMany('\App\Model\Product\Entities\ProductPackage', 'product_package_id');
     }
 }
