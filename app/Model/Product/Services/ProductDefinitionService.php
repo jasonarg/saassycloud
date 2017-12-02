@@ -107,10 +107,12 @@ class ProductDefinitionService{
      */
     public function addFeatureToFeatureGroup(ProductFeatureGroup $group, ProductFeature $feature){
         try{
-            $feature->attach($group);
+            $feature->featureGroup()->associate($group);
+            $feature->save();
         }
         catch(\Exception $e){
             report($e);
+            dump($e);
 
             return false;
         }
@@ -127,9 +129,10 @@ class ProductDefinitionService{
      *
      * @return boolean
      */
-    public function addFeatureToPackage(ProductPackage $package, ProductFeature $feature, float $limitQuantity, string $limitDimensionType, string $limitDimensionValue){
+    public function addFeatureToPackage(ProductPackage $package, ProductFeature $feature, float $limitQuantity = null, string $limitDimensionType = null, string $limitDimensionValue = null){
         try{
-
+            $package->productFeatures()->attach($feature->id, ['limit_quantity' => $limitQuantity, 'limit_dimension_type' => $limitDimensionType, 'limit_dimension_value' => $limitDimensionValue]);
+            $package->save();
         }
         catch(\Exception $e){
             report($e);
@@ -146,12 +149,14 @@ class ProductDefinitionService{
      *
      * @return boolean
      */
-    public function addPackagesToSystem(ProductSystem $system, ProductPackage $package){
+    public function addPackageToSystem(ProductSystem $system, ProductPackage $package){
         try{
-            $package->attach($system);
+            $package->productSystem()->associate($system);
+            $package->save();
         }
         catch(\Exception $e){
             report($e);
+            dump($e);
 
             return false;
         }

@@ -39,4 +39,34 @@ class ProductPackage extends RootModel
         return $this->belongsToMany('\App\Model\Product\Entities\ProductFeature', 'product_package_product_feature')
             ->withPivot('limit_quantity', 'limit_dimension_value', 'limit_dimension_type')->withTimestamps();
    }
+
+   public function __toArray(){
+       $rtnArray = ["packageName" => $this->name,
+           "description" => $this->description,
+           "idealFor" => $this->idealFor,
+           "benefit" => $this->benefit,
+           "dateIntroduced" => $this->dateIntroduced,
+           "monthlyPrice" => $this->monthlyPrice,
+           "annualPrice" => $this->annualPrice,
+           "featureGroups" => []
+       ];
+       $features = $this->productFeatures()->orderBy('product_feature_group_id', 'asc')->orderBy('name', 'asc')->get();
+       $currentGroupId = -1;
+       foreach($features as $feature){
+           if($feature->product_feature_group_id != $currentGroupId){
+               $currentGroupId = $feature->product_feature_group_id;
+               $currentGroupName = $feature->featureGroup()->first()->name;
+               $rtnArray["featureGroups"][$currentGroupName] = [];
+           }
+            $tempArray = [
+                "featureName" => $feature->name,
+                "limitQuantity" => $feature->pivot->limit_quantity,
+                "limitDimensionType" => $feature->pivot->limit_dimension_type,
+                "limitDimensionValue" => $feature->pivot->limit_dimension_value
+            ];
+            $rtnArray["featureGroups"][$currentGroupName] = $tempArray;
+       }
+
+       return $rtnArray;
+   }
 }

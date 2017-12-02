@@ -21,6 +21,7 @@ class CreateProductPackageProductFeature extends Migration
             $table->string('limit_dimension_value')->nullable();
             $table->string('limit_dimension_type')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

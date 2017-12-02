@@ -10,6 +10,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Model\Product\Entities\ProductSystem;
+use App\Model\Product\Repositories\ProductSystemRepoInterface;
 use App\Services\Core\SignupService;
 use \Illuminate\Http\Request;
 
@@ -18,7 +20,10 @@ class SignupController extends Controller{
 
     }
 
-    public function compare(Request $request){
+    public function compare(Request $request, ProductSystemRepoInterface $productSystemRepo){
+
+        $system = $productSystemRepo->findByAttr("name", "SaaSsy Cloud", true);
+        dump($system->toArray());
         return view('signup.'.$request->session()->get('tracking.conversion.assignedAbViewGroupName').'.compare');
     }
 

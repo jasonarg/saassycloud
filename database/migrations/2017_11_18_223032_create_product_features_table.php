@@ -18,6 +18,7 @@ class CreateProductFeaturesTable extends Migration
             $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->text('benefit')->nullable();
+            $table->unsignedInteger('product_feature_group_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -22,6 +22,18 @@ class ProductSystem extends RootModel
      * @return Collection|\App\Model\Product\Entities\ProductPackage
      */
     public function availableProductPackages(){
-        return $this->hasMany('\App\Model\Product\Entities\ProductPackage', 'product_package_id');
+        return $this->hasMany('\App\Model\Product\Entities\ProductPackage', 'product_system_id');
+    }
+
+    public function toArray(){
+        $array = [
+            "systemName" => $this->name,
+            "packages" => []];
+        $packages = $this->availableProductPackages()->orderBy('annual_price', 'asc')->get();
+        foreach($packages as $package){
+            $array["packages"][] = $package->__toArray();
+        }
+
+        return $array;
     }
 }

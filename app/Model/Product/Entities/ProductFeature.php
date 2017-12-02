@@ -21,7 +21,7 @@ class ProductFeature extends RootModel
      * One to one inverse relationship to product
      * @return \App\Model\Product\Entities\Product
      */
-    public function featureGroups(){
+    public function featureGroup(){
         return $this->belongsTo('\App\Model\Product\Entities\ProductFeatureGroup', 'product_feature_group_id', 'id');
     }
 
