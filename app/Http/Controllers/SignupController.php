@@ -24,7 +24,7 @@ class SignupController extends Controller{
 
         $system = $productSystemRepo->findByAttr("name", "SaaSsy Cloud", true);
         dump($system->toArray());
-        return view('signup.'.$request->session()->get('tracking.conversion.assignedAbViewGroupName').'.compare');
+        return view('signup.'.$request->session()->get('tracking.conversion.assignedAbViewGroupName').'.compare', $system->toArray());
     }
 
     public function start(Request $request){

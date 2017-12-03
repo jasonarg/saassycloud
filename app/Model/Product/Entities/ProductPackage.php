@@ -59,12 +59,11 @@ class ProductPackage extends RootModel
                $rtnArray["featureGroups"][$currentGroupName] = [];
            }
             $tempArray = [
-                "featureName" => $feature->name,
                 "limitQuantity" => $feature->pivot->limit_quantity,
                 "limitDimensionType" => $feature->pivot->limit_dimension_type,
                 "limitDimensionValue" => $feature->pivot->limit_dimension_value
             ];
-            $rtnArray["featureGroups"][$currentGroupName] = $tempArray;
+            $rtnArray["featureGroups"][$currentGroupName][$feature->name] = $tempArray;
        }
 
        return $rtnArray;

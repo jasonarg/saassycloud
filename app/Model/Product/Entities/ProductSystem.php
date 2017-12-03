@@ -33,6 +33,16 @@ class ProductSystem extends RootModel
         foreach($packages as $package){
             $array["packages"][] = $package->__toArray();
         }
+        $featureGroups = [];
+        foreach($array["packages"] as $package){
+            foreach($package["featureGroups"] as $featureGroupName => $features){
+                $featureGroups[$featureGroupName] = [];
+                foreach($features as $featureName => $feature){
+                    $featureGroups[$featureGroupName][$featureName] = 1;
+                }
+            }
+        }
+        $array["combinedFeatureGroups"] = $featureGroups;
 
         return $array;
     }
