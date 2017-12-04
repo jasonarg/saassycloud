@@ -5,14 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto mt-2 mt-lg-0" id="navbarToggler">
-                <li class="nav-item mx-md-5">
-                    <a class="nav-link" href="/products">Products</a>
-                </li>
-                <li class="nav-item mx-md-5">
-                    <a class="nav-link" href="/support">Support</a>
-                </li>
-            </ul>
+
 
             @if (Auth::guest())
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
@@ -24,6 +17,8 @@
                 </li>
             </ul>
             @else
+
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
@@ -41,6 +36,7 @@
                         </form>
                     </div>
                 </li>
+                </ul>
             @endif
         </div>
     </nav>
