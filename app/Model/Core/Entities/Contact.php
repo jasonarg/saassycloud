@@ -33,12 +33,12 @@ class Contact extends RootModel
     }
 
     /**
-     * One to one relationship to \App\User
+     * One to one relationship to \App\Model\Core\Entities\User
      *
-     * @return \App\User
+     * @return \App\Model\Core\Entities\User
      */
     public function user(){
-        return $this->hasOne('\App\User', 'contact_id', 'id');
+        return $this->hasOne('\App\Model\Core\Entities\User', 'contact_id', 'id');
     }
 
     /**

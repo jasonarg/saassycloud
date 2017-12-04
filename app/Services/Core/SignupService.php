@@ -18,7 +18,7 @@ use App\Model\Core\Entities\Organization;
 use App\Model\Core\Entities\Person;
 use App\Model\Core\Entities\Site;
 use App\Model\Tracking\Repositories\SessionRepoInterface;
-use App\User;
+use App\Model\Core\Entities\User;
 use Illuminate\Http\Request;
 
 class SignupService{

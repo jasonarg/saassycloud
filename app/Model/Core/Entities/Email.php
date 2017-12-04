@@ -18,7 +18,7 @@ class Email extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
   /*  public function user(){
-        return $this->hasOne('\App\User');
+        return $this->hasOne('\App\Model\Core\Entities\User');
     }*/
 
     /**

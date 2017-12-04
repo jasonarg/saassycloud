@@ -16,12 +16,12 @@ class Customer extends RootModel
     protected $table = 'customers';
 
     /**
-     * Many to many relationship to App\User
+     * Many to many relationship to App\Model\Core\Entities\User
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function adminUsers(){
-        return $this->belongsToMany('App\User', 'customer_user');
+        return $this->belongsToMany('App\Model\Core\Entities\User', 'customer_user');
     }
 
     public function sites(){
