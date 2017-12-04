@@ -125,7 +125,7 @@
                         <span class="fsize1">P</span><span class="fsize2">O</span><span class="fsize3">W</span><span class="fsize4">E</span><span class="fsize5">R</span>
                         <span class="fsize6">U</span><span class="fsize7">P</span><span class="fsize8">!</span>
                     </h1>
-                    <h2 class="text-dark pt-0 negativeTopMargin" style="font-size: 3rem;"><small class="text-muted">with</small> <strong class="font-weight-bold">SaaS</strong>sy Cloud</a></h2>
+                    <h2 class="text-dark pt-0 negativeTopMargin" style="font-size: 2.6rem;"><small class="text-muted">with</small> <strong class="font-weight-bold">SaaS</strong>sy Cloud</a></h2>
                 </div>
                 <div class="col-md-7">
 
