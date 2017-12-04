@@ -18,9 +18,6 @@
  */
 
 
-Route::get('/', function () {
-    return view('home');
-});
 
 
 Route::middleware(['conversionTracking'])->group(function () {
@@ -35,7 +32,7 @@ Route::middleware(['conversionTracking'])->group(function () {
 Route::get('/members/onboarding','MembersController@onboarding');
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'IndexController@index');
 
 
 Route::get('/admin/pd', 'Admin\SaassyCloudAdminController@buildRecords');
@@ -46,3 +43,9 @@ Route::get('/admin/pd', 'Admin\SaassyCloudAdminController@buildRecords');
  */
 Auth::routes();
 
+// Route::get('/home', 'HomeController@index')->name('home');
+
+/*
+Route::get('/', function () {
+    return view('home');
+});*/

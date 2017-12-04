@@ -27,7 +27,7 @@
                     <img src="i/flower.png" class="barIcon" alt="">
                     <h2 class="font-weight-bold">Spit Hot Fire!</h2>
                     <p class="lead">Bowser and the koopas will feel the heat.</p>
-                    <a href="" class="text-info">SaaSsy Cloud customers outperform all other magic plumbers in every world</a>
+                    <a href="" class="text-info">SaaSsy Cloud customers outperform other magic plumbers in every world</a>
                 </div>
                 <div class="col-md-3 p-5 mx-3">
                     <img src="i/star.png" class="barIcon" alt="">
@@ -49,67 +49,29 @@
             </div>
             <div class="row pb-5 text-secondary justify-content-center">
                 <div class="col-md-4 px-2">
-                    <h5 class="text-dark text-center">Run, Jump and Fly</h5>
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h4 class="card-title text-dark ">Product A</h4>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="text-info">Check it Out >></a>
+                    <h5 class="text-dark text-center">Allies</h5>
+                    @foreach( $allies as $ally)
+                        <div class="card my-3">
+                            <div class="card-body">
+                                <h4 class="card-title text-dark ">{{ $ally->name }}</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, ut!</p>
+
+                            </div>
                         </div>
-                    </div>
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h4 class="card-title text-dark ">Product A</h4>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="text-info">Check it Out >></a>
-                        </div>
-                    </div>
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h4 class="card-title text-dark ">Product A</h4>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="text-info">Check it Out >></a>
-                        </div>
-                    </div>
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h4 class="card-title text-dark ">Product A</h4>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="text-info">Check it Out >></a>
-                        </div>
-                    </div>
+                    @endforeach
 
                 </div>
                 <div class="col-md-4 px-2">
-                    <h5 class="text-dark text-center">Koopa Crushers</h5>
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h4 class="card-title text-dark ">Product A</h4>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="text-info">Check it Out >></a>
+                    <h5 class="text-dark text-center">Outfits</h5>
+                    @foreach( $outfits as $outfit)
+                        <div class="card my-3">
+                            <div class="card-body">
+                                <h4 class="card-title text-dark ">{{ $outfit->name }}</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, ut!</p>
+
+                            </div>
                         </div>
-                    </div>
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h4 class="card-title text-dark ">Product A</h4>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="text-info">Check it Out >></a>
-                        </div>
-                    </div>
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h4 class="card-title text-dark ">Product A</h4>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="text-info">Check it Out >></a>
-                        </div>
-                    </div>
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h4 class="card-title text-dark ">Product A</h4>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="text-info">Check it Out >></a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

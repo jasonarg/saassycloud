@@ -29,6 +29,13 @@ abstract class RootRepo implements RootRepoInterface
         return $this->model->where($attr, $value)->get();
     }
 
+    public function findByAttrWith(string $attr, $value, string $with, $unique = false){
+        if($unique){
+            return $this->model->where($attr, $value)->with($with)->first();
+        }
+        return $this->model->where($attr, $value)->with($with)->get();
+    }
+
     public function findByConditions(array $conditions){
         return $this->model->where($conditions)->get();
     }
