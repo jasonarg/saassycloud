@@ -1,7 +1,7 @@
 
         <div class="row pt-5 pl-3">
             <div class="col-md-4">
-                <h2 class=""><strong class="font-weight-bold">SaaS</strong>sy Cloud <small class="text-muted font-weight-light">Warp ahead<super class="">&reg;</super></small></h2>
+                <h2 class="text-white"><strong class="font-weight-bold">SaaS</strong>sy Cloud <small class="text-muted font-weight-light">Warp ahead<super class="">&reg;</super></small></h2>
                 <h6 class="text-white font-weight-light">Magic software
                     <span class="text-muted font-weight-light">for magic plumbers</h6>
                 <div class="pushBottom smallPrint">
@@ -13,7 +13,7 @@
             <div class="col-md-4">
             </div>
             <div class="col-md-4 mt-5 pt-5">
-                <h6 class="text-right">Made with Lots of <i class="fa fa-heart text-pink"></i> &amp; <i class="fa fa-coffee text-brown"></i>
+                <h6 class="text-white text-right">Made with Lots of <i class="fa fa-heart text-pink"></i> &amp; <i class="fa fa-coffee text-brown"></i>
                     <br>in Charm City</h6>
                 <p class="text-right font-weight-light pt-3 pb-0 mb-0 text-white finePrint">
                     Helping save princesses since 1985

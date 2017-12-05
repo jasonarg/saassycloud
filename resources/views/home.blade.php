@@ -59,7 +59,6 @@
                             </div>
                         </div>
                     @endforeach
-
                 </div>
                 <div class="col-md-4 px-2">
                     <h5 class="text-dark text-center">Outfits</h5>

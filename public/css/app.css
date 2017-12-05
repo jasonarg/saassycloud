@@ -12805,6 +12805,10 @@ footer {
   background-color: #343a40;
 }
 
+.input-group.is-invalid ~ {
+  display: block;
+}
+
 /* Structural Elements */
 
 .jumbotron {

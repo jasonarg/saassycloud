@@ -15,6 +15,9 @@ $marioBlue: #5b94ff;
 footer{
   background-color: #343a40;
 }
+.input-group.is-invalid~ {
+    display: block;
+}
 /* Structural Elements */
 .jumbotron {
   position:relative;

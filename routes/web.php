@@ -23,9 +23,9 @@
 Route::middleware(['conversionTracking'])->group(function () {
     Route::get('/signup/compare','SignupController@compare');
     Route::get('/signup/start/{package}','SignupController@start');
-    Route::post('/signup/setup','SignupController@setup');
-    Route::post('/signup/warp','SignupController@warp');
-    Route::post('/signup/create','SignupController@create');
+    Route::match(['get', 'post'], '/signup/setup','SignupController@setup');
+    Route::match(['get', 'post'],'/signup/warp','SignupController@warp');
+    Route::match(['get', 'post'],'/signup/create','SignupController@create');
 });
 
 

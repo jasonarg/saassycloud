@@ -35,6 +35,10 @@ class ConversionTrackingService{
 
     public function __construct(Request $request, SessionRepoInterface $sessionRepo){
         $this->request = $request;
+        $inputToValidate = $this->validateInputRules();
+        if(count($inputToValidate > 0)){
+            $this->request->validate($inputToValidate);
+        }
         $this->sessionRepo = $sessionRepo;
         $this->sessionTracker = $this->sessionRepo->findByAttr("session_token", $this->request->session()->getId(), true);
         $this->sessionTracker->loadMissing('conversionOpportunity');
@@ -49,11 +53,30 @@ class ConversionTrackingService{
         }
     }
 
+    protected function validateInputRules(){
+        $rtnArray = [];
+        if(array_key_exists("worldName", $this->request->all())){
+            $rtnArray["worldName"] = "bail|required|unique:conversion_opportunities,input_site_name|max:255'";
+        }
+        if(array_key_exists("signupPassword", $this->request->all())){
+            $rtnArray["signupEmail"] = "required|unique:conversion_opportunities,input_email|max:255";
+            $rtnArray["signupPassword"] = "bail|required|min:12|max:255";
+        }
+        if(array_key_exists("zip", $this->request->all())){
+            $rtnArray["organizationName"] = "bail|required|max:255";
+            $rtnArray["firstName"] = "bail|required|max:255";
+            $rtnArray["lastName"] = "bail|required|max:255";
+            $rtnArray["address1"] = "bail|required|max:255";
+            $rtnArray["zip"] = "bail|required|max:12";
+        }
+
+        return $rtnArray;
+    }
     protected function logInput(){
-        #TODO needs validation
         foreach($this->request->all() as $param => $value){
             if(in_array($param, $this->trackedFields)){
                 if($param == "signupPassword"){
+                    $this->request->session()->put("signupPs", $value);
                     $iValue = Hash::make($value, ["rounds" => 12]);
                 }
                 else{
@@ -104,7 +127,7 @@ class ConversionTrackingService{
         if(array_key_exists("signupPassword", $this->request->all())){
             $lastStepCompleted = "setup";
         }
-        if(array_key_exists("signupZip", $this->request->all())){
+        if(array_key_exists("zip", $this->request->all())){
             $lastStepCompleted = "warp";
         }
 

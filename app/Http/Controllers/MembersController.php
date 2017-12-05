@@ -21,6 +21,7 @@ class MembersController extends Controller{
     }
 
     public function onboarding(){
+        return view('members.onboarding');
 
     }
 }

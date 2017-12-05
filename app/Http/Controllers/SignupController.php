@@ -11,10 +11,15 @@ namespace App\Http\Controllers;
 
 
 use App\Model\Product\Repositories\ProductSystemRepoInterface;
+use App\Model\Tracking\Repositories\SessionRepoInterface;
 use App\Services\Core\SignupService;
 use \Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class SignupController extends Controller{
+
     public function __construct(){
 
     }
@@ -41,16 +46,24 @@ class SignupController extends Controller{
 
     }
 
-    public function create(){
-        /* read from conversionOpportunity from session
-            register user
-            create new site
-            redirect to members onboarding
-        */
+    public function create(Request $request, SessionRepoInterface $sessionRepo){
         $signupService = app()->make(SignupService::class);
-        $signupService->registerSessionCustomer();
-        //Authenticate new customer
-        //redirect to onboarding
+        if($signupService->registerSessionCustomer()){
+
+            $sessionTracker = $sessionRepo->findByAttr("session_token", $request->session()->getId(), true);
+            $sessionTracker->loadMissing('conversionOpportunity');
+
+            $emailAddress = $sessionTracker->conversionOpportunity->inputEmail;
+            if(Auth::attempt(['email' => $emailAddress, 'password' => $request->session()->get('signupPs')])){
+                $request->session()->forget('signupPs');
+
+                return redirect('/members/onboarding');
+            }
+            else{
+                echo 'No Auth with '.$emailAddress.': '.$request->session()->get('signupPs');
+            }
+
+        }
 
 
     }

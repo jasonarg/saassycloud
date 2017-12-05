@@ -11,14 +11,24 @@
                         {{ csrf_field() }}
                         <fieldset class="form-group">
                             <label for="signupEmail">Email</label>
-                            <input type="email" class="form-control" id="signupEmail" name="signupEmail" placeholder="mario@example.com">
+                            <input type="email" class="form-control{{ $errors->has('signupEmail') ? ' is-invalid' : '' }}" id="signupEmail" name="signupEmail" placeholder="mario@example.com">
+                            @if ($errors->has('signupEmail'))
+                                <div class="invalid-feedback">
+                                    <strong>{{ $errors->first('signupEmail') }}</strong>
+                                </div>
+                            @endif
                             <small id="passwordHelpBlock" class="form-text text-muted">
                                 This will be your login to your SaaSsy Cloud instance
                             </small>
                         </fieldset>
                         <fieldset class="form-group">
                             <label for="signupPassword">Password</label>
-                            <input type="password" class="form-control" id="signupPassword" name="signupPassword">
+                            <input type="password" class="form-control{{ $errors->has('signupPassword') ? ' is-invalid' : '' }}" id="signupPassword" name="signupPassword">
+                            @if ($errors->has('signupPassword'))
+                                <div class="invalid-feedback">
+                                    <strong>{{ $errors->first('signupPassword') }}</strong>
+                                </div>
+                            @endif
                             <small id="passwordHelpBlock" class="form-text text-muted">
                                 Your password must be at least 12 characters long.
                             </small>
