@@ -24,17 +24,8 @@ class SaassyCloudAdminController extends Controller{
     }
 
     public function buildRecords(){
-        /*
-         *
-         *
-
-        truncate product_systems;
-        truncate product_packages;
-        truncate product_feature_groups;
-        truncate product_features;
-        truncate product_package_product_feature;
-        truncate product_feature_group_product_feature;
-         */
+        die();
+        return null;
         $system = $this->pds->createSystem('SaaSsy Cloud');
         $package1 = $this->pds->createPackage('SaaSsy', 7, 5);
         $package2 = $this->pds->createPackage('SaaSsier', 11, 9);

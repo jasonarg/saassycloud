@@ -11,13 +11,10 @@
 |
 */
 
-
-
-/**
- * Temp view routes to be replaced by controller(s)
- */
-
-
+Route::get('/', 'IndexController@index');
+Route::get('/about', 'SimplePageController@about');
+Route::get('/terms', 'SimplePageController@terms');
+Route::get('/privacy', 'SimplePageController@privacy');
 
 
 Route::middleware(['conversionTracking'])->group(function () {
@@ -32,20 +29,10 @@ Route::middleware(['conversionTracking'])->group(function () {
 Route::get('/members/onboarding','MembersController@onboarding');
 
 
-Route::get('/', 'IndexController@index');
-
-
-Route::get('/admin/pd', 'Admin\SaassyCloudAdminController@buildRecords');
+// Route::get('/admin/pd', 'Admin\SaassyCloudAdminController@buildRecords');
 
 
 /**
  * Default laravel routes, to be replaced
  */
 Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
-
-/*
-Route::get('/', function () {
-    return view('home');
-});*/

@@ -9,7 +9,7 @@
                     <div class="col-md-5 raiseUp px-5 py-5">
                         <h1 class="display-3" style="font-weight-bold">Conquer the Cloud Kingdom</h1>
                         <p class="mt-5">
-                            <a class="btn btn-info btn-lg" href="" role="button">Take the Challenge</a>
+                            <a class="btn btn-info btn-lg" href="/signup/compare" role="button">Take the Challenge</a>
                         </p>
                     </div>
                 </div>

@@ -7,7 +7,7 @@
                 <div class="col text-center">
                     <h2 class="fluidSectionHeader text-dark my-5">Try our products for free</h2>
                     <h4 class="fluidSectionSubHeader text-secondary mb-5">Have a <img id="oneUp" src="/i/1up.png"> on us!</h4>
-                    <h6 class="text-secondary">Choose from our most popular packages below or <a href="" class="text-info">create your own!</a></h6>
+                    <h6 class="text-secondary">No payment needed for 10 days</h6>
                 </div>
             </div>
             <div class="row">
