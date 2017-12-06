@@ -7,7 +7,7 @@
             <div class="container-fluid pushTop pt-3 pb-4">
                 <div class="row p-0">
                     <div class="col-md-5 raiseUp px-5 py-5">
-                        <h1 class="display-3" style="font-weight-bold">Conquer the Cloud Kingdom</h1>
+                        <h1 class="display-3 text-white font-weight-bold">Conquer the Cloud Kingdom</h1>
                         <p class="mt-5">
                             <a class="btn btn-info btn-lg" href="/signup/compare" role="button">Take the Challenge</a>
                         </p>

@@ -24,6 +24,7 @@ I possess extensive full stack development experience, however, as all of my wor
 There are several missing features including:
 * An actual developed onboarding page
 * The provisioning of a new subdomain for each customer signup
+* The comparison table is not responsive. It needs more love.
 
 ## Notes
 * This was the first project that I used bootstrap and laravel.  
