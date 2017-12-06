@@ -1,6 +1,6 @@
 # SaaSsy Cloud
 
-[Live Demo Site](https://www.saassycloud.com/)
+[Live Demo Site](https://saassycloud.com/)
 
 ## Summary
 An in-progress demo project written with PHP 7.1, Laravel 5.5, and Bootstrap 4 beta 2. 
