@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources\Core;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class Note extends Resource
+class UsersResource extends ResourceCollection
 {
     /**
-     * Transform the resource into an array.
+     * Transform the resource collection into an array.
      *
      * @param  \Illuminate\Http\Request
      * @return array

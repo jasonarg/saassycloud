@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources\Tracking;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class Session extends Resource
+class AbViewsResource extends ResourceCollection
 {
     /**
-     * Transform the resource into an array.
+     * Transform the resource collection into an array.
      *
      * @param  \Illuminate\Http\Request
      * @return array

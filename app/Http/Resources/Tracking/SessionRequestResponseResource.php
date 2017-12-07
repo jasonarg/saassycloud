@@ -4,7 +4,7 @@ namespace App\Http\Resources\Tracking;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class AbViewGroup extends Resource
+class SessionRequestResponseResource extends Resource
 {
     /**
      * Transform the resource into an array.

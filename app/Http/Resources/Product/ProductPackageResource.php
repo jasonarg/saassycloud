@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Tracking;
+namespace App\Http\Resources\Product;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class ConversionOpportunity extends Resource
+class ProductPackageResource extends Resource
 {
     /**
      * Transform the resource into an array.

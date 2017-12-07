@@ -14,24 +14,21 @@
                     <p>This project demonstrates the use of a robust data model, using elements of Domain Driven Design(DDD) and implemented in Laravel's Eloquent Active Record based ORM.</p>
                     <h3>Technology Demonstrations</h3>
                     <p>In addition to using all of the latest features of Bootstrap 4 beta, the project demonstrates several features of Laravel including custom middleware, dependency injection via Service Container binding of repositories using interfaces, and every type of Eloquent relationship.</p>
-                    <h3>What's Next</h3>
-                    <p>This is in progress, and an admin dashboard that visualizes the conversion data written in Vue.js will be the next major feature added, as an example implementation of a modern javascript framework.</p>
-                    <h3>Motivation</h3>
+                     <h3>Motivation</h3>
                     <p>I possess extensive full stack development experience, however, as all of my work over the past seven+ years is owned by my former employer, I felt I needed a demonstration project to be able to serve as a point of discussion for potential new employers.</p>
                     <h3>Incomplete Features</h3>
                     <p>There are several missing features including:</p>
                     <ul>
                         <li>An actual developed onboarding page</li>
                         <li>The provisioning of a new subdomain for each customer signup.</li>
-                        <li>The product compariosn table is not responsive. It needs more love.</li>
+                        <li>The product comparison table is not responsive. It needs more love.</li>
                     </ul>
-                    <h3>Notes</h3>
-                    <ul>
-                        <li>This was the first project that I used bootstrap and laravel.</li>
-                        <li>They were both very simple to pickup with my background of engineering and authoring robust front end and back end frameworks of my own.</li>
-                        <li>This will be the first project I have ever used Vue.js.</li>
-                        <li>Because I have been writing complex one page javascript applications for over a decade, using pojos and then later with jQuery, I do not expect the learning curve to be high</li>
-                    </ul>
+                    <h3>What's Next</h3>
+                    <p>This is in progress, and an admin dashboard that visualizes the conversion data written in Vue.js will be the next major feature added, as an example implementation of a modern javascript framework.</p]
+                    <h3>Dashboard</h3>
+                    <p>Using laravel 5.5's new Resource classes to wrap the domain model with a thin layer to convert entities to item and collection representations compliant with the IANA standard JSON:API.</p>
+
+                    <p>After this is complete, I will use Vue to handle the data requests and interactivity of the dashboard to render the conversion data using d3.js charts</p>
                 </div>
             </div>
         </div>

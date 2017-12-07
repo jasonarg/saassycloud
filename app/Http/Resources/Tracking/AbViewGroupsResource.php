@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Core;
+namespace App\Http\Resources\Tracking;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class Users extends ResourceCollection
+class AbViewGroupsResource extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

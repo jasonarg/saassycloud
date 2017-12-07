@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Product;
+namespace App\Http\Resources\Tracking;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class ProductPackage extends Resource
+class AbViewGroupResource extends Resource
 {
     /**
      * Transform the resource into an array.
