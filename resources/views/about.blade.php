@@ -7,7 +7,7 @@
                 <div class="col m-5">
                     <h1>About SaaSsy Cloud</h1>
                     <h3>Summary</h3>
-                    <p>An in-progress demo project written with PHP 7.1, Laravel 5.5, vue.js 2.5 and Bootstrap 4 beta 2.</p>
+                    <p>An in-progress demo project written with PHP 7.1, Laravel 5.5, Vue.js, d3.js and Bootstrap 4 beta 2.</p>
                     <h3>Theme</h3>
                     <p>The project uses a whimsical theme of a fictional SaaS company, SaaSsy Cloud, that markets extra power ups in the Super Mario Brothers World, as if it were a real place. It merely provides a comparison of product packages and a way for customers to sign up for a free trial. However, baked into the signup is a complete tracking system of all http requests with a focus on conversions. It also features automated assignment of a sticky A/B view group that demonstrate how one could use this technique to maximize visitor conversions.</p>
                     <h3>Architecture</h3>

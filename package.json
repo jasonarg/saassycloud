@@ -22,6 +22,7 @@
         "vue": "^2.1.10"
     },
     "dependencies": {
+        "d3": "^4.12.0",
         "font-awesome": "^4.7.0"
     }
 }
