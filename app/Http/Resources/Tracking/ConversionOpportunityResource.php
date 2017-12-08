@@ -20,6 +20,10 @@ class ConversionOpportunityResource extends Resource
             'attributes'    => [
                 'landingPage' => $this->landingPage,
             ],
+            'relationships' => new ConversionOpportunityRelationshipResource($this),
+            'links'         => [
+                'self' => route('conversionOpportunities.show', ['conversionOpportunity' => $this->id]),
+            ],
         ];
     }
 }

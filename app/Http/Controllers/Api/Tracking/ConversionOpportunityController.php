@@ -48,7 +48,8 @@ class ConversionOpportunityController extends Controller
      */
     public function show(ConversionOpportunity $conversionOpportunity)
     {
-        //
+        ConversionOpportunityResource::withoutWrapping();
+
         return new ConversionOpportunityResource($conversionOpportunity);
     }
 
