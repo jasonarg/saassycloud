@@ -34,7 +34,7 @@
                                 <input type="text" class="form-control{{ $errors->has('lastName') ? ' is-invalid' : '' }}" id="lastName" name="lastName" placeholder="Bros." required>
                                 @if ($errors->has('lastName'))
                                     <div class="invalid-feedback">
-                                        <strong>{{ $errors->first('zip') }}</strong>
+                                        <strong>{{ $errors->first('lastName') }}</strong>
                                     </div>
                                 @endif
                             </fieldset>
@@ -44,7 +44,7 @@
                             <input type="text" class="form-control{{ $errors->has('address1') ? ' is-invalid' : '' }}" id="address1" name="address1" placeholder="938 Cloud Kingdom Drive" required>
                             @if ($errors->has('address1'))
                                 <div class="invalid-feedback">
-                                    <strong>{{ $errors->first('zip') }}</strong>
+                                    <strong>{{ $errors->first('address1') }}</strong>
                                 </div>
                             @endif
                         </fieldset>

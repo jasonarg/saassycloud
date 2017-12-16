@@ -32,7 +32,7 @@ class User extends Authenticatable
      * @return \App\Model\Core\Entities\Contact
      */
     public function contact(){
-        return $this->belongsTo('\APp\Model\Core\Entities\Contact', 'contact_id', 'id');
+        return $this->belongsTo('\App\Model\Core\Entities\Contact', 'contact_id', 'id');
     }
 
     /**

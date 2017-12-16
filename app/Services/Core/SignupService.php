@@ -37,7 +37,7 @@ class SignupService{
             $sessionTracker->loadMissing('conversionOpportunity');
 
             $firstName = $sessionTracker->conversionOpportunity->inputGivenName;
-            $lastName = $sessionTracker->conversionOpportunity->inputGivenName;
+            $lastName = $sessionTracker->conversionOpportunity->inputLastName;
             $emailAddress = $sessionTracker->conversionOpportunity->inputEmail;
             $address = $sessionTracker->conversionOpportunity->inputAddress;
             $postalCode = $sessionTracker->conversionOpportunity->inputZip;
@@ -76,6 +76,7 @@ class SignupService{
         $contact->workAddress()->associate($address);
         $contact->workEmail()->associate($workEmail);
         $contact->relatedOrganization()->associate($organization);
+        $contact->person()->associate($person);
         $contact->save();
         // create customer, user, site
         $customer = new Customer();

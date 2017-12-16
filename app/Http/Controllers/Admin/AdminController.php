@@ -23,6 +23,11 @@ class AdminController extends Controller{
         $this->pds = new ProductDefinitionService(new ProductSystemRepo(new ProductSystem()));
     }
 
+    public function dashboard(){
+
+        return view('admin.dashboard');
+    }
+
     public function buildRecords(){
         die();
         return null;
