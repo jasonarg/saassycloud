@@ -15,7 +15,7 @@ use App\Model\Product\Entities\ProductSystem;
 use App\Model\Product\Repositories\ProductSystemRepo;
 use App\Model\Product\Services\ProductDefinitionService;
 
-class SaassyCloudAdminController extends Controller{
+class AdminController extends Controller{
 
     protected $pds;
 

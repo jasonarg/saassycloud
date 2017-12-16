@@ -31,6 +31,7 @@ Route::get('/members/onboarding','MembersController@onboarding');
 
 // Route::get('/admin/pd', 'Admin\SaassyCloudAdminController@buildRecords');
 
+Route::get('/admin/db', 'Admin\AdminController@dashboard');
 
 /**
  * Default laravel routes, to be replaced
