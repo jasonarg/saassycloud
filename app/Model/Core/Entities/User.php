@@ -44,6 +44,25 @@ class User extends Authenticatable
         return $this->belongsToMany('\App\Model\Core\Entities\Customer', 'customer_user');
     }
 
+    public function getProfilePicPath(){
+        $this->contact->load('profileImages');
+        try{
+            $profileImageGroup = $this->contact->profileImages->first();
+            if(is_null($profileImageGroup)){
+                throw new \Exception('No image group associated to user\'s contact');
+            }
+            $profileImageGroup->load('defaultImage');
+            $profileImage = $profileImageGroup->defaultImage[0];
+            $profileImagePath = storage_path().'/app/protected/user/'.$profileImageGroup->id.'/'.$profileImage->fileName.'.'.$profileImage->type;
+       }
+       catch(\Exception $e){
+           $profileImagePath = base_path().'/public/i/defaultProfile.png';
+
+       }
+          return $profileImagePath;
+
+    }
+
 }
 
 

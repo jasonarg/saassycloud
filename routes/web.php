@@ -26,13 +26,15 @@ Route::middleware(['conversionTracking'])->group(function () {
 });
 
 
-Route::get('/members/onboarding','MembersController@onboarding');
 
 
 // Route::get('/admin/pd', 'Admin\SaassyCloudAdminController@buildRecords');
+Route::middleware(['auth'])->group(function(){
+    Route::get('/members/onboarding','MembersController@onboarding');
+    Route::get('/profile/picture', 'StreamController@profilePic');
+    Route::get('/admin/dashboard', 'Admin\AdminController@dashboard');
 
-Route::get('/admin/dashboard', 'Admin\AdminController@dashboard');
-
+});
 /**
  * Default laravel routes, to be replaced
  */

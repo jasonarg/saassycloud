@@ -25,6 +25,11 @@ class ImageGroup extends RootModel
         return $this->belongsToMany('App\Model\Core\Entities\Image')->withPivot('active', 'cardinality', 'default');
     }
 
+    public function defaultImage()
+    {
+        return $this->belongsToMany('App\Model\Core\Entities\Image')->wherePivot('default', 1);
+    }
+
     /**
      * PM Many to Many Relationship to contact
      *
