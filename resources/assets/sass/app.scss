@@ -2,11 +2,14 @@
 @import "~font-awesome/scss/font-awesome.scss";
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
-// Variables
-@import "variables";
 
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
+
+// Variables
+@import "variables";
+//admin
+@import "admin.scss";
 
 
 $primaryColor: #00e8d6;

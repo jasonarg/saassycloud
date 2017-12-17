@@ -13,43 +13,73 @@
     <link href="//localhost:3000/css/app.css" rel="stylesheet"></head>
     <title>SaaSsy Cloud | Admin Dashboard</title>
 <body>
-<header class="sticky-top">
-    <img src="/profile/picture" />
-</header>
+<header>
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white">
+        <a class="navbar-brand" href="#"><strong>SaaS</strong>sy Cloud <span class="text-muted">Admin Dashboard</span></a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <img class="ml-auto rounded-circle profile-image-sm" src="/profile/picture" />
+        </div>
+    </nav>
+</header>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
-            <div id="userCard">
-                <h5>Welcome {{Auth::user()->contact->person->firstName}}</h5>
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block sidebar text-white pl-2">
+            <div class="user-card my-4 clearfix">
+                <img class="float-left rounded-circle profile-image-md mr-3 p-0" src="/profile/picture" />
+                <span class="float-left mt-3" >Welcome <br><span class="text-active"><?php  echo Auth::user()->contact->person->firstName; ?></span></h6>
             </div>
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
+            <ul class="nav">
+                <li class="nav-item">Analytics
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Conversions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sales</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sessions</a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Reports</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Analytics</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Export</a>
+                <li class="nav-item">Lists
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sites</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sessions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sites</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Views</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
-        </div>
+
+        </nav>
         <main class="col-md-10">
 
         </main>
     </div>
 </div>
+<section style="min-height: 800px;">
+
+</section>
 
 <footer>
     <div class="container-fluid bg-dark text-white" style="min-height: 250px;">
-        <div class="position-relative">
-            <img src="/i/mario-jump.png" alt="" id="marioJump" class="">
-            <img src="/i/flag-pole.png" alt="" id="flagPole" class="">
-        </div><div class="row pt-3">
+        <div class="row pt-3">
             <div class="col-md-6">
 
             </div>
