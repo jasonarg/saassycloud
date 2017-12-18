@@ -2,19 +2,34 @@ $gunMetal: #4E5D6B;
 $blueCobalt: #96A8B1;
 $heather: #CECECE;
 
+.blue{
+  color: #4c7596;
 
+}
 .user-card{
   color: $blueCobalt;
 }
 .profile-image-md{
   width: 75px;
-  border: 2px solid #eee;
+  border: 2px solid #888;
 }
 .profile-image-sm{
    width: 50px;
  }
 .text-active{
   color: #d1832e;
+}
+.overview-head-item{
+  border-right: 1px solid #ddd;
+  h4{
+    margin-top: 0;
+    padding-top: 0;
+    color: #666;
+  }
+}
+
+.overview-head-item:last-child{
+  border: 0;
 }
 
 .sidebar {
@@ -27,10 +42,11 @@ $heather: #CECECE;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
   border-right: 1px solid #eee;
-  background-color: #fdfdfd;
+  background-color: #fefefe;
 
   .nav-link{
-    color: $gunMetal;
+    color: $blueCobalt;
+
   }
   .nav-link.active{
     color: #d1832e;
@@ -43,7 +59,7 @@ $heather: #CECECE;
 
 .sidebar .nav-item {
   width: 100%;
-  color: $blueCobalt;
+  color: $gunMetal;
 }
 
 .sidebar .nav-item + .nav-item {

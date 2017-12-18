@@ -12801,13 +12801,17 @@ $input-border-color: lighten($text-color, 40%);
 $input-placeholder-color: lighten($text-color, 30%);
 */
 
+.blue {
+  color: #4c7596;
+}
+
 .user-card {
   color: #96A8B1;
 }
 
 .profile-image-md {
   width: 75px;
-  border: 2px solid #eee;
+  border: 2px solid #888;
 }
 
 .profile-image-sm {
@@ -12816,6 +12820,20 @@ $input-placeholder-color: lighten($text-color, 30%);
 
 .text-active {
   color: #d1832e;
+}
+
+.overview-head-item {
+  border-right: 1px solid #ddd;
+}
+
+.overview-head-item h4 {
+  margin-top: 0;
+  padding-top: 0;
+  color: #666;
+}
+
+.overview-head-item:last-child {
+  border: 0;
 }
 
 .sidebar {
@@ -12829,11 +12847,11 @@ $input-placeholder-color: lighten($text-color, 30%);
   overflow-y: auto;
   /* Scrollable contents if viewport is shorter than content. */
   border-right: 1px solid #eee;
-  background-color: #fdfdfd;
+  background-color: #fefefe;
 }
 
 .sidebar .nav-link {
-  color: #4E5D6B;
+  color: #96A8B1;
 }
 
 .sidebar .nav-link.active {
@@ -12846,7 +12864,7 @@ $input-placeholder-color: lighten($text-color, 30%);
 
 .sidebar .nav-item {
   width: 100%;
-  color: #96A8B1;
+  color: #4E5D6B;
 }
 
 .sidebar .nav-item + .nav-item {
