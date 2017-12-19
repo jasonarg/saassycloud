@@ -289,17 +289,11 @@
         load();
         var ctx = document.getElementById("canvas").getContext("2d");
 
-        axios.get('/signup/compare')
+        axios.get('/api/overview/2017-12-01/2017-12-18')
             .then(function (response) {
                 console.log(response);
-            }).then(function(){
-                axios.get('/')
-                    .then((response)=>{
-                        console.log(response);
-                        window.myLine = new Chart(ctx, config);
-                    })
-            })
-            .catch(function (error) {
+                window.myLine = new Chart(ctx, config);
+            }).catch(function (error) {
                 console.log(error);
             });
 
