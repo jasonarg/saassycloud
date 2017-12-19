@@ -14651,7 +14651,7 @@ window.onload = function () {
     var ctx = document.getElementById("canvas").getContext("2d");
 
     axios.get('/api/overview/2017-12-01/2017-12-18').then(function (response) {
-        groomData(response.data);
+        var groomedData = groomData(response.data);
         window.myLine = new Chart(ctx, config);
     }).catch(function (error) {
         console.log(error);
@@ -14659,8 +14659,12 @@ window.onload = function () {
 };
 
 groomData = function groomData(data) {
-    console.log(data);
-    console.log(_.camelCase('Foo Bar'));
+    var dates = _.groupBy(data.sessions, function (session) {
+        var date = new Date(session.a.at);
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    });
+
+    return dates;
 };
 
 var colorNames = Object.keys(window.chartColors);

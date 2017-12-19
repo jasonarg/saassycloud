@@ -107,7 +107,7 @@ window.onload = function() {
 
     axios.get('/api/overview/2017-12-01/2017-12-18')
         .then(function (response) {
-            groomData(response.data);
+            var groomedData = groomData(response.data);
             window.myLine = new Chart(ctx, config);
         }).catch(function (error) {
             console.log(error);
@@ -119,8 +119,12 @@ window.onload = function() {
 };
 
 groomData = function(data){
-    console.log(data);
-    console.log(_.camelCase('Foo Bar'));
+    let dates = _.groupBy(data.sessions, (session) => {
+        let date = new Date(session.a.at);
+        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    });
+
+    return dates;
 };
 
 var colorNames = Object.keys(window.chartColors);
