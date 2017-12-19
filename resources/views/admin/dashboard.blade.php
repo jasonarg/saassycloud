@@ -100,10 +100,17 @@
                     <h4 class="">$421,729</h4>
                 </div>
             </div>
-
-            <div class="row justify-content-center mb-0">
-                <div class="col-md-12 my-2 p-2">
-                    <div id="" class="chartWrapper mx-0 p-3 bg-white border" style="min-height: 400px;">
+            <div class="row justify-content-center mb-0 pb-0">
+                <div class="col-md-12 mt-2 mb-0 px-2 pb-0">
+                    <div class="m-0 px-2 py-2 bg-white border">
+                    <h6 id="mainChartTitle" class="d-inline-block text-info my-1">SaaSsy Cloud Analytics: Overview</h6>
+                        <input type="text" class="form-input float-right pl-3 mb-1" style="width: 280px; font-size: .8rem;" placeholder="November 18, 2017 - December 18, 2017"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center my-0">
+                <div class="col-md-12 mt-0 mb-2 p-2">
+                    <div id="" class="chartWrapper my-0 mx-0 p-3 bg-white border" style="min-height: 400px;">
                         <canvas id="canvas"></canvas>
                     </div>
                 </div>

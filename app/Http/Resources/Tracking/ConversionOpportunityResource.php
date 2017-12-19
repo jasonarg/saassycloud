@@ -19,11 +19,20 @@ class ConversionOpportunityResource extends Resource
             'id'            => (string) $this->id,
             'attributes'    => [
                 'landingPage' => $this->landingPage,
+                'converted' => $this->converted,
+                'conversionType' => $this->conversionType,
+                'lastStepCompleted' => $this->lastStepCompleted,
+                'packageChosen' => $this->packageChosen,
+                'inputSiteName' => $this->inputSiteName,
+                'inputZip' => $this->inputZip,
+                'createdAt' => $this->createdAt,
+                'updatedAt' => $this->updatedAt
             ],
-            'relationships' => new ConversionOpportunityRelationshipResource($this),
-            'links'         => [
-                'self' => route('conversionOpportunities.show', ['conversionOpportunity' => $this->id]),
-            ],
+            'relationships' => [
+                'session' => new SessionResource($this->session),
+                'abViewGroup' => new AbViewGroupResource(($this->assignedAbViewGroup))
+            ]
+
         ];
     }
 }

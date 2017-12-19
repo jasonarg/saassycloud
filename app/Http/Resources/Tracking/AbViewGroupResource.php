@@ -14,6 +14,17 @@ class AbViewGroupResource extends Resource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'type'          => 'abViewGroups',
+            'id'            => (string) $this->id,
+            'attributes'    => [
+                'name' => $this->name,
+                'description' => $this->description,
+                'for' => $this->for,
+                'createdAt' => $this->createdAt,
+                'updatedAt' => $this->updatedAt
+            ]
+
+        ];
     }
 }

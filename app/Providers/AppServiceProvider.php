@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\Middleware\SessionTracker;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
             'image' => 'App\Model\Core\Entities\Image',
             'address' => 'App\Model\Core\Entities\Address'
         ]);
+        Resource::withoutWrapping();
     }
 
     /**

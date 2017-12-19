@@ -1,0 +1,43 @@
+{
+    "data": {
+      "sessions": [{
+        "id": "",
+        "date": "2018-12-18",
+        "original_referral": "/someplace",
+        "requests": [{
+            "id": "",
+            "referral": "/SOMEPLACE",
+            "method": "GET",
+            "url": "/resourceUrl"
+          },{
+            "id": "",
+            "referral": "/SOMEPLACE",
+            "method": "GET",
+            "url": "/resourceUrl"
+          },{
+            "id": "",
+            "referral": "/SOMEPLACE",
+            "method": "GET",
+            "url": "/resourceUrl"
+        },{
+            "id": "",
+            "referral": "/SOMEPLACE",
+            "method": "GET",
+            "url": "/resourceUrl"
+        }]
+      }],
+      "conversions": [
+
+      ],
+      "upgrades": [
+
+      ],
+      "sales": [
+
+      ],
+      "revenue": [
+
+      ]
+
+    }
+}

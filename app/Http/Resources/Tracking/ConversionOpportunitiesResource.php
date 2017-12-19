@@ -14,6 +14,8 @@ class ConversionOpportunitiesResource extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+
+        return ConversionOpportunityResource::collection($this->collection);
+
     }
 }
