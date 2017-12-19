@@ -25,3 +25,5 @@ const app = new Vue({
     el: '#app'
 });
 */
+
+require('./scdashboard');
