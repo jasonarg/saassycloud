@@ -29,7 +29,6 @@ class ConversionOpportunityResource extends Resource
                 'updatedAt' => $this->updatedAt
             ],
             'relationships' => [
-                'session' => new SessionResource($this->session),
                 'abViewGroup' => new AbViewGroupResource(($this->assignedAbViewGroup))
             ]
 

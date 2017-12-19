@@ -4,7 +4,7 @@ namespace App\Http\Resources\Tracking;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class SessionsResource extends ResourceCollection
+class SessionOverviewsResource extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -15,7 +15,7 @@ class SessionsResource extends ResourceCollection
     public function toArray($request)
     {
 
-        return SessionResource::collection($this->collection);
+        return SessionOverviewResource::collection($this->collection);
 
     }
 }

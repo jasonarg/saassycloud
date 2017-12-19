@@ -14,6 +14,19 @@ class SessionRequestResource extends Resource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
-    }
+        return [
+            't'          => 'sessionRequests',
+            'id'            => (string) $this->id,
+            'a'    => [
+                'sid' => $this->session->id,
+                'rt' => $this->requestTime,
+                'v' => $this->verb,
+                'r' => $this->resourceName,
+                'p' => $this->params,
+            ],
+            'rel' => [
+                'srr' => new SessionRequestResponseResource($this->sessionRequestResponse)
+            ]
+
+        ];    }
 }

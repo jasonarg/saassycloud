@@ -5,7 +5,7 @@ namespace App\Http\Resources\Tracking;
 use App\Model\Tracking\Entities\ConversionOpportunity;
 use Illuminate\Http\Resources\Json\Resource;
 
-class SessionResource extends Resource
+class SessionOverviewResource extends Resource
 {
 
     /**
@@ -27,7 +27,7 @@ class SessionResource extends Resource
                 'ui' => $this->userID,
             ],
             'rel' => [
-                'r' => new SessionRequestsResource($this->requests),
+                'rc' => count($this->requests),
                 'co' => new ConversionOpportunityResource($this->conversionOpportunity)
             ]
 

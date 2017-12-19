@@ -16,7 +16,6 @@ Route::get('/about', 'SimplePageController@about');
 Route::get('/terms', 'SimplePageController@terms');
 Route::get('/privacy', 'SimplePageController@privacy');
 
-
 Route::middleware(['conversionTracking'])->group(function () {
     Route::get('/signup/compare','SignupController@compare');
     Route::get('/signup/start/{package}','SignupController@start');

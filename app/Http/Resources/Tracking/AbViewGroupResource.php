@@ -14,7 +14,7 @@ class AbViewGroupResource extends Resource
      */
     public function toArray($request)
     {
-        return [
+       /* return [
             'type'          => 'abViewGroups',
             'id'            => (string) $this->id,
             'attributes'    => [
@@ -25,6 +25,9 @@ class AbViewGroupResource extends Resource
                 'updatedAt' => $this->updatedAt
             ]
 
-        ];
+        ];*/
+       return [
+           'name' => $this->name
+       ];
     }
 }

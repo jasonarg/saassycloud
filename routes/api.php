@@ -18,3 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('conversionOpportunities', 'Api\Tracking\ConversionOpportunityController');
+
+Route::get('/overview/{from?}/{through?}', 'Api\Tracking\DashboardDataController@fromRange');
+
+//Route::get('overview/{from?}/{through?}', 'Api\Tracking\DashboardDataController@fromRange');
