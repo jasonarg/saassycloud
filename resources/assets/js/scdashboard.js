@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 
 function load() {
     console.log("load event detected!");
@@ -105,15 +107,20 @@ window.onload = function() {
 
     axios.get('/api/overview/2017-12-01/2017-12-18')
         .then(function (response) {
-            console.log(response);
+            groomData(response.data);
             window.myLine = new Chart(ctx, config);
         }).catch(function (error) {
-        console.log(error);
-    });
+            console.log(error);
+        });
 
 
 
 
+};
+
+groomData = function(data){
+    console.log(data);
+    console.log(_.camelCase('Foo Bar'));
 };
 
 var colorNames = Object.keys(window.chartColors);
