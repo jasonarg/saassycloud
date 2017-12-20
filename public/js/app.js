@@ -14605,17 +14605,17 @@ var ScChart = function () {
     }, {
         key: 'init',
         value: function init(data) {
-            var groomedData = this.groomData(data);
+            var groupedData = this.groupData(data);
             this.setLabels();
-            this.loadDataSet(groomedData);
+            this.loadDataSet(groupedData);
             this.myLine = new Chart(document.getElementById("overview").getContext("2d"), this.config);
         }
     }, {
         key: 'loadDataSet',
-        value: function loadDataSet(groomedData) {
+        value: function loadDataSet(groupedData) {
             var summaryData = [];
             for (var i = 0; i < this.config.data.labels.length; i++) {
-                summaryData[i] = this.config.data.labels[i] in groomedData ? groomedData[this.config.data.labels[i]].length : 0;
+                summaryData[i] = this.config.data.labels[i] in groupedData ? groupedData[this.config.data.labels[i]].length : 0;
             }
             var dataset = {
                 label: "Sessions",
@@ -14627,8 +14627,8 @@ var ScChart = function () {
             this.config.data.datasets.push(dataset);
         }
     }, {
-        key: 'groomData',
-        value: function groomData(data) {
+        key: 'groupData',
+        value: function groupData(data) {
             var dates = _.groupBy(data.sessions, function (session) {
                 var date = new Date(session.a.at);
                 return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
@@ -14661,7 +14661,7 @@ var ScChart = function () {
 ScChart.prototype.config = {
     type: 'line',
     data: {
-        labels: ["Jan", "Feb", "mar", "Apr", "may", "Jun"],
+        labels: [],
         datasets: []
     },
     options: {

@@ -16,17 +16,17 @@ class ScChart {
     }
 
     init(data){
-        let groomedData = this.groomData(data);
+        let groupedData = this.groupData(data);
         this.setLabels();
-        this.loadDataSet(groomedData);
+        this.loadDataSet(groupedData);
         this.myLine = new Chart(document.getElementById("overview").getContext("2d"), this.config);
 
     };
 
-    loadDataSet(groomedData){
+    loadDataSet(groupedData){
         let summaryData = [];
         for(let i = 0; i < this.config.data.labels.length; i++){
-            summaryData[i] =this.config.data.labels[i] in groomedData ? groomedData[this.config.data.labels[i]].length : 0;
+            summaryData[i] =this.config.data.labels[i] in groupedData ? groupedData[this.config.data.labels[i]].length : 0;
         }
         let dataset = {
             label: "Sessions",
@@ -38,7 +38,7 @@ class ScChart {
         this.config.data.datasets.push(dataset);
     }
 
-    groomData(data) {
+    groupData(data) {
         let dates = _.groupBy(data.sessions, (session) => {
             let date = new Date(session.a.at);
             return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
@@ -68,7 +68,7 @@ class ScChart {
 ScChart.prototype.config = {
     type: 'line',
     data: {
-        labels: ["Jan", "Feb", "mar", "Apr", "may", "Jun"],
+        labels: [],
         datasets: []
     },
     options: {
