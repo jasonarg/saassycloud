@@ -14576,42 +14576,93 @@ if (token) {
 /***/ "./resources/assets/js/scdashboard.js":
 /***/ (function(module, exports, __webpack_require__) {
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var _ = __webpack_require__("./node_modules/lodash/lodash.js");
+var d3 = __webpack_require__("./node_modules/d3/index.js");
 
 function load() {
     console.log("load event detected!");
 }
 
-var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-var config = {
+var ScChart = function () {
+    function ScChart() {
+        _classCallCheck(this, ScChart);
+    }
+
+    _createClass(ScChart, [{
+        key: 'getRangeStart',
+        value: function getRangeStart() {
+            return '2017-12-05';
+        }
+    }, {
+        key: 'getRangeEnd',
+        value: function getRangeEnd() {
+            return '2017-12-19';
+        }
+    }, {
+        key: 'init',
+        value: function init(data) {
+            var groomedData = this.groomData(data);
+            this.setLabels();
+            this.loadDataSet(groomedData);
+            this.myLine = new Chart(document.getElementById("overview").getContext("2d"), this.config);
+        }
+    }, {
+        key: 'loadDataSet',
+        value: function loadDataSet(groomedData) {
+            var summaryData = [];
+            for (var i = 0; i < this.config.data.labels.length; i++) {
+                summaryData[i] = this.config.data.labels[i] in groomedData ? groomedData[this.config.data.labels[i]].length : 0;
+            }
+            var dataset = {
+                label: "Sessions",
+                fill: true,
+                backgroundColor: window.chartColors.green,
+                borderColor: window.chartColors.green,
+                data: summaryData
+            };
+            this.config.data.datasets.push(dataset);
+        }
+    }, {
+        key: 'groomData',
+        value: function groomData(data) {
+            var dates = _.groupBy(data.sessions, function (session) {
+                var date = new Date(session.a.at);
+                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+            });
+
+            return dates;
+        }
+    }, {
+        key: 'setLabels',
+        value: function setLabels() {
+            var range = d3.timeDay.range(new Date(this.getRangeStart()), new Date(this.getRangeEnd()));
+            var labels = [];
+            for (var i = 0; i < range.length; i++) {
+                labels[i] = range[i].getFullYear() + '-' + (range[i].getMonth() + 1) + '-' + range[i].getDate();
+            }
+            this.config.data.labels = labels;
+        }
+    }, {
+        key: 'colorNames',
+        value: function colorNames() {
+            return Object.keys(window.chartColors);
+        }
+    }]);
+
+    return ScChart;
+}();
+
+;
+
+ScChart.prototype.config = {
     type: 'line',
     data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
-            label: "Sessions",
-            backgroundColor: window.chartColors.red,
-            borderColor: window.chartColors.red,
-            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],
-            fill: true
-        }, {
-            label: "Conversions",
-            fill: true,
-            backgroundColor: window.chartColors.blue,
-            borderColor: window.chartColors.blue,
-            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
-        }, {
-            label: "Upgrades",
-            fill: true,
-            backgroundColor: window.chartColors.green,
-            borderColor: window.chartColors.green,
-            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
-        }, {
-            label: "Sales",
-            fill: true,
-            backgroundColor: window.chartColors.yellow,
-            borderColor: window.chartColors.yellow,
-            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
-        }]
+        labels: ["Jan", "Feb", "mar", "Apr", "may", "Jun"],
+        datasets: []
     },
     options: {
         responsive: true,
@@ -14648,26 +14699,14 @@ var config = {
 
 window.onload = function () {
     load();
-    var ctx = document.getElementById("canvas").getContext("2d");
+    var scChart = new ScChart();
 
-    axios.get('/api/overview/2017-12-01/2017-12-18').then(function (response) {
-        var groomedData = groomData(response.data);
-        window.myLine = new Chart(ctx, config);
+    axios.get('/api/overview/' + scChart.getRangeStart() + '/' + scChart.getRangeEnd()).then(function (response) {
+        scChart.init(response.data);
     }).catch(function (error) {
         console.log(error);
     });
 };
-
-groomData = function groomData(data) {
-    var dates = _.groupBy(data.sessions, function (session) {
-        var date = new Date(session.a.at);
-        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-    });
-
-    return dates;
-};
-
-var colorNames = Object.keys(window.chartColors);
 
 /***/ }),
 

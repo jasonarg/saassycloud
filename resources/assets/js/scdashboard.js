@@ -1,78 +1,81 @@
-var _ = require('lodash');
-
+let _ = require('lodash');
+let d3 = require('d3');
 
 function load() {
     console.log("load event detected!");
 }
 
-var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-var config = {
-    type: 'line',
-    data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
+class ScChart {
+
+    getRangeStart(){
+        return '2017-12-05';
+    }
+
+    getRangeEnd(){
+        return '2017-12-19';
+    }
+
+    init(data){
+        let groomedData = this.groomData(data);
+        this.setLabels();
+        this.loadDataSet(groomedData);
+        this.myLine = new Chart(document.getElementById("overview").getContext("2d"), this.config);
+
+    };
+
+    loadDataSet(groomedData){
+        let summaryData = [];
+        for(let i = 0; i < this.config.data.labels.length; i++){
+            summaryData[i] =this.config.data.labels[i] in groomedData ? groomedData[this.config.data.labels[i]].length : 0;
+        }
+        let dataset = {
             label: "Sessions",
-            backgroundColor: window.chartColors.red,
-            borderColor: window.chartColors.red,
-            data: [
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor()
-            ],
-            fill: true,
-        }, {
-            label: "Conversions",
-            fill: true,
-            backgroundColor: window.chartColors.blue,
-            borderColor: window.chartColors.blue,
-            data: [
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor()
-            ],
-        }, {
-            label: "Upgrades",
             fill: true,
             backgroundColor: window.chartColors.green,
             borderColor: window.chartColors.green,
-            data: [
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor()
-            ],
-        }, {
-            label: "Sales",
-            fill: true,
-            backgroundColor: window.chartColors.yellow,
-            borderColor: window.chartColors.yellow,
-            data: [
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor()
-            ],
-        }]
+            data: summaryData
+        }
+        this.config.data.datasets.push(dataset);
+    }
+
+    groomData(data) {
+        let dates = _.groupBy(data.sessions, (session) => {
+            let date = new Date(session.a.at);
+            return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+        });
+
+
+
+        return dates;
+    };
+
+    setLabels(){
+        let range = d3.timeDay.range(new Date(this.getRangeStart()), new Date(this.getRangeEnd()));
+        let labels = [];
+        for(let i = 0; i < range.length; i++){
+            labels[i] = `${range[i].getFullYear()}-${range[i].getMonth() + 1}-${range[i].getDate()}`
+        }
+        this.config.data.labels = labels;
+    };
+
+    colorNames(){
+      return Object.keys(window.chartColors);
+    };
+
+
+};
+
+ScChart.prototype.config = {
+    type: 'line',
+    data: {
+        labels: ["Jan", "Feb", "mar", "Apr", "may", "Jun"],
+        datasets: []
     },
     options: {
         responsive: true,
-        title:{
-            display:true,
-            text:'SaaSsy Cloud Analytics: Overview'
+        title: {
+            display: true,
+            text: 'SaaSsy Cloud Analytics: Overview'
         },
         tooltips: {
             mode: 'index',
@@ -103,28 +106,14 @@ var config = {
 
 window.onload = function() {
     load();
-    var ctx = document.getElementById("canvas").getContext("2d");
+    let scChart = new ScChart();
 
-    axios.get('/api/overview/2017-12-01/2017-12-18')
-        .then(function (response) {
-            var groomedData = groomData(response.data);
-            window.myLine = new Chart(ctx, config);
-        }).catch(function (error) {
-            console.log(error);
-        });
-
-
-
-
-};
-
-groomData = function(data){
-    let dates = _.groupBy(data.sessions, (session) => {
-        let date = new Date(session.a.at);
-        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    axios.get(`/api/overview/${scChart.getRangeStart()}/${scChart.getRangeEnd()}`)
+    .then(function (response) {
+        scChart.init(response.data);
+    }).catch(function (error) {
+        console.log(error);
     });
 
-    return dates;
-};
 
-var colorNames = Object.keys(window.chartColors);
+};

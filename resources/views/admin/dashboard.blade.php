@@ -111,7 +111,7 @@
             <div class="row justify-content-center my-0">
                 <div class="col-md-12 mt-0 mb-2 p-2">
                     <div id="" class="chartWrapper my-0 mx-0 p-3 bg-white border" style="min-height: 400px;">
-                        <canvas id="canvas"></canvas>
+                        <canvas id="overview" class="chart"></canvas>
                     </div>
                 </div>
             </div>

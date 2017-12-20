@@ -11,7 +11,7 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js').version().extract(['lodash', 'axios', 'vue', 'chart.js']);
+mix.js('resources/assets/js/app.js', 'public/js').version().extract(['lodash', 'axios', 'vue', 'chart.js', 'd3']);
 
 mix.sass('resources/assets/sass/app.scss', 'public/css').version();
 
