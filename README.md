@@ -1,7 +1,5 @@
 # SaaSsy Cloud
 
-[Live Demo Site](https://saassycloud.com/)
-
 ## Summary
 An in-progress demo project written with PHP 7.1, Laravel 5.5, Bootstrap 4 beta 2. The front end functionality of the 
 dashboard uses several javascript frameworks and libraries including chart.js, vue.js and several well known utility libraries 
