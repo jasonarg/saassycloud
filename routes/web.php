@@ -29,6 +29,7 @@ Route::middleware(['conversionTracking'])->group(function () {
 
 // Route::get('/admin/pd', 'Admin\SaassyCloudAdminController@buildRecords');
 Route::middleware(['auth'])->group(function(){
+    Route::get('/members/home','MembersController@home');
     Route::get('/members/onboarding','MembersController@onboarding');
     Route::get('/profile/picture', 'StreamController@profilePic');
     Route::get('/admin/dashboard', 'Admin\AdminController@dashboard');

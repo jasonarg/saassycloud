@@ -20,6 +20,11 @@ class MembersController extends Controller{
 
     }
 
+    public function home(){
+
+        return view('members.home');
+    }
+
     public function onboarding(){
         return view('members.onboarding');
 
