@@ -37,16 +37,3 @@
 <script src="{{ asset('js/manifest.js') }}"></script>
 <script src="{{ asset('js/vendor.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
-<script>
-    $(function () {
-        $('[data-toggle="popover"]').popover({
-            container: 'body',
-            trigger: 'focus',
-            placement: 'right',
-            template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header bg-info text-white"></h3><div class="popover-body bg-white text-dark"></div></div>'
-        })
-    });
-</script>
-{{--<script src="js/jquery.min.js"></script>--}}
-{{--<script src="js/popper.min.js"></script>--}}
-{{--<script src="js/bootstrap.min.js"></script>--}}

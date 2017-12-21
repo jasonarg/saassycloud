@@ -39,6 +39,9 @@
                             <a class="nav-link active" href="#">Overview</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="#">Page Views</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#">Sessions</a>
                         </li>
                         <li class="nav-item">
@@ -46,9 +49,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Sales</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Upgrades</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Revenue</a>
@@ -77,8 +77,12 @@
             </ul>
 
         </nav>
-        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 py-5 my-3 bg-light">
+        <main id="dashboard" role="main" class="col-sm-9 ml-sm-auto col-md-10 py-5 my-3 bg-light" data-dashboard="overview">
             <div class="row justify-content-between">
+                <div class="col-md-2 mt-3 overview-head-item">
+                    <span class="d-block text-muted">Page Views</span>
+                    <h4 class="">48,340</h4>
+                </div>
                 <div class="col-md-2 mt-3 overview-head-item">
                     <span class="d-block text-muted">Sessions</span>
                     <h4 class="">21,729</h4>
@@ -86,10 +90,6 @@
                 <div class="col-md-2 mt-3 overview-head-item">
                     <span class="d-block text-muted">Converions</span>
                     <h4 class="">3,729</h4>
-                </div>
-                <div class="col-md-2 mt-3 overview-head-item">
-                    <span class="d-block text-muted">Upgrades</span>
-                    <h4 class="">950</h4>
                 </div>
                 <div class="col-md-2 mt-3 overview-head-item">
                     <span class="d-block text-muted">Sales</span>
@@ -110,24 +110,30 @@
             </div>
             <div class="row justify-content-center my-0">
                 <div class="col-md-12 mt-0 mb-2 p-2">
-                    <div id="" class="chartWrapper my-0 mx-0 p-3 bg-white border" style="min-height: 400px;">
-                        <canvas id="overview" class="chart"></canvas>
+                    <div id="" class="chartWrapper my-0 mx-0 p-3 bg-white border">
+                        <canvas id="overviewCombined" class="scChart" style="height:400px;width: content-box;"></canvas>
                     </div>
                 </div>
             </div>
 
             <div class="row justify-content-around mt-0 mb-0">
                 <div class="col-md-4 px-2">
-                    <div class="mx-0 px-0 bg-white border" style="height: 250px;"></div>
+                    <div class="mx-0 px-0 bg-white border" style="height: 250px;">
+                        <canvas id="overviewAbCompareTotal" class="scChart" style="height:200px;width: content-box;"></canvas>
+                    </div>
                 </div>
                 <div class="col-md-4 px-2">
-                    <div class="mx-0 px-0 bg-white border" style="height: 250px;"></div>
+                    <div class="mx-0 px-0 bg-white border" style="height: 250px;">
+                        <canvas id="overviewAbCompareReferral" class="scChart" style="height:200px;width: content-box;"></canvas>
+
+                    </div>
                 </div>
                 <div class="col-md-4 px-2">
-                    <div class="mx-0 px-0 bg-white border" style="height: 250px;"></div>
+                    <div class="mx-0 px-0 bg-white border" style="height: 250px;">
+                        <canvas id="overviewAbCompareMonthlyVsAnnual" class="scChart" style="height:200px;width: content-box;"></canvas>
+                    </div>
                 </div>
             </div>
-
             <div class="row justify-content-around mt-3">
                 <div class="col-md-4 px-2">
                     <div class="mx-0 px-0 bg-white border" style="height: 515px;"></div>
@@ -157,29 +163,6 @@
         </div>
     </div>
 </footer>
-<style>
-
-    .bar {
-        fill: steelblue;
-    }
-
-    .axis text {
-        font: 10px sans-serif;
-    }
-
-    .axis path,
-    .axis line {
-        fill: none;
-        stroke: #000;
-        shape-rendering: crispEdges;
-    }
-
-    .x.axis path {
-        display: none;
-    }
-
-</style>
-
 <script src="/js/manifest.js"></script>
 <script src="/js/vendor.js"></script>
 <script src="/js/app.js"></script>

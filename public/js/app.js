@@ -14508,6 +14508,7 @@ const app = new Vue({
 });
 */
 
+__webpack_require__("./resources/assets/js/scchart.js");
 __webpack_require__("./resources/assets/js/scdashboard.js");
 
 /***/ }),
@@ -14573,7 +14574,7 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/scdashboard.js":
+/***/ "./resources/assets/js/scchart.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -14583,41 +14584,45 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var _ = __webpack_require__("./node_modules/lodash/lodash.js");
 var d3 = __webpack_require__("./node_modules/d3/index.js");
 
-function load() {
-    console.log("load event detected!");
-}
-
 var ScChart = function () {
     function ScChart() {
         _classCallCheck(this, ScChart);
+
+        this.totals = {};
+        this.groupedData = {};
     }
 
     _createClass(ScChart, [{
-        key: 'getRangeStart',
-        value: function getRangeStart() {
-            return '2017-12-05';
-        }
-    }, {
-        key: 'getRangeEnd',
-        value: function getRangeEnd() {
-            return '2017-12-19';
-        }
-    }, {
         key: 'init',
         value: function init(data) {
-            var groupedData = this.groupData(data);
+            this.groupedData = this.groupData(data);
             this.setLabels();
-            this.loadDataSet(groupedData);
-            this.myLine = new Chart(document.getElementById("overview").getContext("2d"), this.config);
+            this.loadDataSet(this.groupedData);
+            this.myLine = new Chart(document.getElementById("overviewCombined").getContext("2d"), this.config);
         }
     }, {
         key: 'loadDataSet',
-        value: function loadDataSet(groupedData) {
+        value: function loadDataSet() {
             var summaryData = [];
             for (var i = 0; i < this.config.data.labels.length; i++) {
-                summaryData[i] = this.config.data.labels[i] in groupedData ? groupedData[this.config.data.labels[i]].length : 0;
+                summaryData[i] = this.config.data.labels[i] in this.groupedData ? this.groupedData[this.config.data.labels[i]].length : 0;
             }
             var dataset = {
+                label: "Page Views",
+                fill: true,
+                backgroundColor: window.chartColors.blue,
+                borderColor: window.chartColors.blue,
+                data: summaryData
+            };
+            this.config.data.datasets.push(dataset);
+
+            summaryData = [];
+            var dataTotals = 0;
+            for (var _i = 0; _i < this.config.data.labels.length; _i++) {
+                summaryData[_i] = this.config.data.labels[_i] in this.groupedData ? this.groupedData[this.config.data.labels[_i]].length : 0;
+                dataTotals += summaryData[_i];
+            }
+            dataset = {
                 label: "Sessions",
                 fill: true,
                 backgroundColor: window.chartColors.green,
@@ -14625,6 +14630,9 @@ var ScChart = function () {
                 data: summaryData
             };
             this.config.data.datasets.push(dataset);
+            this.totals.sessions = dataTotals;
+
+            console.log(this.totals);
         }
     }, {
         key: 'groupData',
@@ -14635,6 +14643,16 @@ var ScChart = function () {
             });
 
             return dates;
+        }
+    }, {
+        key: 'getRangeStart',
+        value: function getRangeStart() {
+            return '2017-12-05';
+        }
+    }, {
+        key: 'getRangeEnd',
+        value: function getRangeEnd() {
+            return '2017-12-19';
         }
     }, {
         key: 'setLabels',
@@ -14666,6 +14684,7 @@ ScChart.prototype.config = {
     },
     options: {
         responsive: true,
+        maintainAspectRatio: false,
         title: {
             display: true,
             text: 'SaaSsy Cloud Analytics: Overview'
@@ -14697,15 +14716,58 @@ ScChart.prototype.config = {
     }
 };
 
-window.onload = function () {
-    load();
-    var scChart = new ScChart();
+module.exports = { ScChart: ScChart };
 
-    axios.get('/api/overview/' + scChart.getRangeStart() + '/' + scChart.getRangeEnd()).then(function (response) {
-        scChart.init(response.data);
-    }).catch(function (error) {
-        console.log(error);
-    });
+/***/ }),
+
+/***/ "./resources/assets/js/scdashboard.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var _require = __webpack_require__("./resources/assets/js/scchart.js"),
+    ScChart = _require.ScChart;
+
+var ScDashboard = function () {
+    function ScDashboard(dbType) {
+        _classCallCheck(this, ScDashboard);
+
+        this.dbType = dbType;
+        this.scChart = new ScChart();
+        this.getData();
+    }
+
+    _createClass(ScDashboard, [{
+        key: 'getRangeStart',
+        value: function getRangeStart() {
+            return '2017-12-05';
+        }
+    }, {
+        key: 'getRangeEnd',
+        value: function getRangeEnd() {
+            return '2017-12-19';
+        }
+    }, {
+        key: 'getData',
+        value: function getData() {
+            var _this = this;
+
+            axios.get('/api/' + this.dbType + '/' + this.getRangeStart() + '/' + this.getRangeEnd()).then(function (response) {
+                _this.scChart.init(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }]);
+
+    return ScDashboard;
+}();
+
+window.onload = function () {
+    var dbType = document.querySelector('#dashboard').getAttribute('data-dashboard');
+    var scdb = new ScDashboard(dbType);
 };
 
 /***/ }),

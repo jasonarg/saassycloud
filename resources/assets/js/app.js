@@ -26,4 +26,5 @@ const app = new Vue({
 });
 */
 
+require('./scchart');
 require('./scdashboard');
