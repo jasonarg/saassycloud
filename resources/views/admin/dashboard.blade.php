@@ -104,7 +104,7 @@
                 <div class="col-md-12 mt-2 mb-0 px-2 pb-0">
                     <div class="m-0 px-2 py-2 bg-white border">
                     <h6 id="mainChartTitle" class="d-inline-block text-info my-1">SaaSsy Cloud Analytics: Overview</h6>
-                        <input type="text" class="form-input float-right pl-3 mb-1" style="width: 280px; font-size: .8rem;" placeholder="November 18, 2017 - December 18, 2017"/>
+                        <input id="dashboardRange" type="text" class="form-input float-right pl-3 mb-1" style="width: 280px; font-size: .8rem;" placeholder="November 18, 2017 - December 18, 2017" data-range-start="2017-11-18" data-range-end="2017-12-18"/>
                     </div>
                 </div>
             </div>
@@ -157,14 +157,113 @@
 </div>
 
 <footer>
-    <div class="container-fluid bg-dark text-white" style="position: fixed; bottom: 0px; height: 50px; z-index: 1001;">
-        <div class="row pt-3">
+    <div class="container-fluid bg-dark text-white" style="position: fixed; bottom: 0px; min-height: 250px; z-index: 1001;">
 
+
+
+        <div id="sandbox" class="row pt-3">
+            <div class="col">
+            <my-component></my-component>
+
+                <span :id="dynamicId" class="text-info" v-bind:class="{'d-none': !seen}" class="text-info">Message: @{{ a }}</span>
+                <span class="d-block text-info">Message: @{{ reversedMessage }}</span>
+
+            <input type="text" v-model="a" class="d-block">
+            <button @click="toggle">Toggle Me</button>
+
+            </div>
+            </div>
+
+
+        <div class="row" id="sb2">
+            <div class="col">
+                <my-component></my-component>
+                <div class="text-light">Hi</div>
+                <div class="" :class="classObject">@{{ classObject }}</div>
+                <div class="btn btn-primary" v-on:click="toggleActive">Toggle Active</div>
+            </div>
         </div>
+
+    </div>
     </div>
 </footer>
 <script src="/js/manifest.js"></script>
 <script src="/js/vendor.js"></script>
 <script src="/js/app.js"></script>
+<script>
+
+    // register
+    Vue.component('my-component', {
+        template: '<div>A custom component!</div>'
+    });
+
+    Vue.component('my-kid', {
+        // declare the props
+        props: ['limit'],
+        // like data, the prop can be used inside templates and
+        // is also made available in the vm as this.message
+        template: '<span>{{ limit }}</span>'
+    });
+
+    new Vue({
+        el: '#sandbox',
+        data: {
+            a: 'Type something',
+            dynamicId: 'message',
+            seen: true,
+            rawHtml: "<span style=\"color: steelblue\">" + this.a + "</span>"
+        },
+        methods: {
+            toggle: function () {
+                this.seen = this.seen === true ? false : true;
+                console.log(this.seen);
+
+            }
+        },
+        computed: {
+            reversedMessage: function () {
+                // `this` points to the vm instance
+                return this.a.split('').reverse().join('');
+            }
+        },
+        components: {
+            'sb2-component': Child
+        }
+
+    });
+
+    new Vue({
+        el: '#sb2',
+        data: {
+            isActive: true,
+            error: null
+        },
+        methods:{
+            toggleActive: function(){
+                this.isActive = this.isActive ? false : true;
+                this.error = this.error === null ? {type: 'fatal'} : null;
+            }
+        },
+        computed: {
+            classObject: function () {
+                return {
+                    active: this.isActive && !this.error,
+                    'text-white': !this.error,
+                    'text-danger': this.error && this.error.type === 'fatal'
+                }
+            }
+        },
+        components: {
+            'sb2-component': {
+                template: '<div>Sb2 for real component!</div>'
+            }
+        }
+    });
+
+    // create a root instance
+    new Vue({
+        el: '#example'
+    })
+</script>
 </body>
 </html>
