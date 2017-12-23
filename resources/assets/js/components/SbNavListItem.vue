@@ -1,6 +1,6 @@
 <template>
     <li class="nav-item">
-        <a class="nav-link active" href="#">{{ listitem.name }}</a>
+        <a class="nav-link" href="#">{{ listitem.name }}</a>
     </li>
 </template>
 
@@ -8,7 +8,8 @@
     export default {
         name: "sb-nav-list-item",
         props: {
-            listitem: Object
+            listitem: Object,
+            required: true
         }
     }
 </script>

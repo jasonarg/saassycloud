@@ -199,18 +199,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -244,7 +232,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "sb-nav-list-item",
     props: {
-        listitem: Object
+        listitem: Object,
+        required: true
     }
 });
 
@@ -4162,7 +4151,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4192,7 +4181,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15066,84 +15055,20 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("li", { staticClass: "nav-item" }, [
-    _vm._v("Analytics\n    "),
+    _vm._v(_vm._s(_vm.list.name) + "\n    "),
     _c(
       "ul",
       { staticClass: "nav flex-column" },
-      [
-        _vm._l(_vm.list.listitems, function(listitem) {
-          return _c(
-            "sb-nav-list-item",
-            _vm._b({ key: listitem.id }, "sb-nav-list-item", listitem, false)
-          )
-        }),
-        _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._m(1),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _vm._m(3),
-        _vm._v(" "),
-        _vm._m(4)
-      ],
-      2
+      _vm._l(_vm.list.listitems, function(listitem) {
+        return _c("sb-nav-list-item", {
+          key: listitem.id,
+          attrs: { listitem: listitem }
+        })
+      })
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-        _vm._v("Page Views")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-        _vm._v("Sessions")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-        _vm._v("Conversions")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-        _vm._v("Sales")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-        _vm._v("Revenue")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -15225,7 +15150,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("li", { staticClass: "nav-item" }, [
-    _c("a", { staticClass: "nav-link active", attrs: { href: "#" } }, [
+    _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
       _vm._v(_vm._s(_vm.listitem.name))
     ])
   ])
@@ -16638,7 +16563,20 @@ var ScDashboard = function () {
                             }]
                         }, {
                             id: 1,
-                            name: 'lists'
+                            name: 'lists',
+                            listitems: [{
+                                id: 0,
+                                name: 'sessions'
+                            }, {
+                                id: 1,
+                                name: 'conversions'
+                            }, {
+                                id: 2,
+                                name: 'users'
+                            }, {
+                                id: 3,
+                                name: 'sites'
+                            }]
                         }],
                         charts: []
                     };

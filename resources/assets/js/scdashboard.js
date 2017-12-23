@@ -52,7 +52,25 @@ class ScDashboard{
                       },
                       {
                           id: 1,
-                          name: 'lists'
+                          name: 'lists',
+                          listitems: [
+                              {
+                                  id: 0,
+                                  name: 'sessions'
+                              },
+                              {
+                                  id: 1,
+                                  name: 'conversions'
+                              },
+                              {
+                                  id: 2,
+                                  name: 'users'
+                              },
+                              {
+                                  id: 3,
+                                  name: 'sites'
+                              },
+                          ]
                       }
                     ],
                   charts: []

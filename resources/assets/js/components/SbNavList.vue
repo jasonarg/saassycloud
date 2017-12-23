@@ -1,22 +1,10 @@
 <template>
-    <li class="nav-item">Analytics
+    <li class="nav-item">{{ list.name }}
         <ul class="nav flex-column">
-            <sb-nav-list-item v-for="listitem in list.listitems"  :key="listitem.id"  v-bind="listitem"></sb-nav-list-item>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Page Views</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Sessions</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Conversions</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Sales</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Revenue</a>
-            </li>
+            <sb-nav-list-item v-for="listitem in list.listitems"
+                              :key="listitem.id"
+                              :listitem="listitem"
+            />
         </ul>
     </li>
 </template>
