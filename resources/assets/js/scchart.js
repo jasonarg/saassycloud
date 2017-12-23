@@ -47,7 +47,7 @@ class ScChart {
         this.config.data.datasets.push(dataset);
         this.totals.sessions = dataTotals;
 
-        console.log(this.totals);
+        //console.log(this.totals);
     }
 
     groupData(data) {

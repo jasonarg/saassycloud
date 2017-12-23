@@ -16467,7 +16467,7 @@ var ScChart = function () {
             this.config.data.datasets.push(dataset);
             this.totals.sessions = dataTotals;
 
-            console.log(this.totals);
+            //console.log(this.totals);
         }
     }, {
         key: 'groupData',
@@ -16566,18 +16566,81 @@ var _require = __webpack_require__("./resources/assets/js/scchart.js"),
     ScChart = _require.ScChart;
 
 var ScDashboard = function () {
-    function ScDashboard(dbType, rangeStart, rangeEnd) {
+    function ScDashboard() {
         _classCallCheck(this, ScDashboard);
 
-        this.dbType = dbType;
-        this.rangeStart = rangeStart;
-        this.rangeEnd = rangeEnd;
+        this.setDashboardDefinitions();
+        this.loadVue();
+
+        this.dbType = document.querySelector('#dashboard').getAttribute('data-dashboard');
+        this.dbRangeElement = document.querySelector('#dashboardRange');
+        this.rangeStart = this.dbRangeElement.getAttribute('data-range-start');
+        this.rangeEnd = this.dbRangeElement.getAttribute('data-range-end');
+
         this.scChart = new ScChart();
 
         this.getData();
     }
 
     _createClass(ScDashboard, [{
+        key: 'loadVue',
+        value: function loadVue() {
+            Vue.component('dashboard', __webpack_require__("./resources/assets/js/components/Dashboard.vue"));
+
+            Vue.component('sidebar-nav', __webpack_require__("./resources/assets/js/components/SidebarNav.vue"));
+            Vue.component('sb-nav-list', __webpack_require__("./resources/assets/js/components/SbNavList.vue"));
+            Vue.component('sb-nav-list-item', __webpack_require__("./resources/assets/js/components/SbNavListItem.vue"));
+
+            Vue.component('main-pane', __webpack_require__("./resources/assets/js/components/MainPane.vue"));
+            Vue.component('db-range-totals-bar', __webpack_require__("./resources/assets/js/components/DbRangeTotalsBar.vue"));
+            Vue.component('db-range-total-item', __webpack_require__("./resources/assets/js/components/DbRangeTotalItem.vue"));
+
+            this.app = new Vue({
+                el: '#vue-main',
+                data: this.definition
+
+            });
+
+            console.log(this.app.views);
+        }
+    }, {
+        key: 'setDashboardDefinitions',
+        value: function setDashboardDefinitions() {
+            var definition = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+            if (!definition) {
+                this.definition = {
+                    views: [{
+                        name: 'analytics',
+                        children: [{
+                            name: 'overview'
+                        }, {
+                            name: 'page-views'
+                        }, {
+                            name: 'sessions'
+                        }, {
+                            name: 'conversions'
+                        }, {
+                            name: 'sales'
+                        }, {
+                            name: 'revenue'
+                        }]
+                    }, {
+                        name: 'lists',
+                        children: [{
+                            name: 'sessions'
+                        }, {
+                            name: 'users'
+                        }, {
+                            name: 'views'
+                        }]
+                    }]
+                };
+            } else {
+                this.definition = definition;
+            }
+        }
+    }, {
         key: 'getData',
         value: function getData() {
             var _this = this;
@@ -16585,7 +16648,7 @@ var ScDashboard = function () {
             axios.get('/api/' + this.dbType + '/' + this.rangeStart + '/' + this.rangeEnd).then(function (response) {
                 _this.scChart.init(response.data);
             }).catch(function (error) {
-                console.log(error);
+                //console.log(error);
             });
         }
     }]);
@@ -16594,23 +16657,7 @@ var ScDashboard = function () {
 }();
 
 window.onload = function () {
-    Vue.component('dashboard', __webpack_require__("./resources/assets/js/components/Dashboard.vue"));
-    Vue.component('sidebar-nav', __webpack_require__("./resources/assets/js/components/SidebarNav.vue"));
-    Vue.component('sb-nav-list', __webpack_require__("./resources/assets/js/components/SbNavList.vue"));
-    Vue.component('sb-nav-list-item', __webpack_require__("./resources/assets/js/components/SbNavListItem.vue"));
-    Vue.component('main-pane', __webpack_require__("./resources/assets/js/components/MainPane.vue"));
-    Vue.component('db-range-totals-bar', __webpack_require__("./resources/assets/js/components/DbRangeTotalsBar.vue"));
-    Vue.component('db-range-total-item', __webpack_require__("./resources/assets/js/components/DbRangeTotalItem.vue"));
-
-    var app = new Vue({
-        el: '#vue-main'
-    });
-    var dbType = document.querySelector('#dashboard').getAttribute('data-dashboard');
-    var dbRangeElement = document.querySelector('#dashboardRange');
-    var rangeStart = dbRangeElement.getAttribute('data-range-start');
-    var rangeEnd = dbRangeElement.getAttribute('data-range-end');
-
-    var scDb = new ScDashboard(dbType, rangeStart, rangeEnd);
+    var scDb = new ScDashboard();
 };
 
 /***/ }),
