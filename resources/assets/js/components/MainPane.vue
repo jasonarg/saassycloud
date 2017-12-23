@@ -1,27 +1,6 @@
 <template>
     <div id="dashboard" class="col-sm-9 ml-sm-auto col-md-10 py-5 my-3 bg-light" data-dashboard="overview">
-        <div class="row justify-content-between">
-            <div class="col-md-2 mt-3 overview-head-item">
-                <span class="d-block text-muted">Page Views</span>
-                <h4 class="">48,340</h4>
-            </div>
-            <div class="col-md-2 mt-3 overview-head-item">
-                <span class="d-block text-muted">Sessions</span>
-                <h4 class="">21,729</h4>
-            </div>
-            <div class="col-md-2 mt-3 overview-head-item">
-                <span class="d-block text-muted">Converions</span>
-                <h4 class="">3,729</h4>
-            </div>
-            <div class="col-md-2 mt-3 overview-head-item">
-                <span class="d-block text-muted">Sales</span>
-                <h4 class="">1,729</h4>
-            </div>
-            <div class="col-md-2 mt-3 overview-head-item">
-                <span class="d-block text-muted">Revenue</span>
-                <h4 class="">$421,729</h4>
-            </div>
-        </div>
+        <db-range-totals-bar></db-range-totals-bar>
         <div class="row justify-content-center mb-0 pb-0">
             <div class="col-md-12 mt-2 mb-0 px-2 pb-0">
                 <div class="m-0 px-2 py-2 bg-white border">

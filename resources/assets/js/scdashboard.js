@@ -28,6 +28,8 @@ window.onload = function() {
     Vue.component('sb-nav-list', require('./components/SbNavList.vue'));
     Vue.component('sb-nav-list-item', require('./components/SbNavListItem.vue'));
     Vue.component('main-pane', require('./components/MainPane.vue'));
+    Vue.component('db-range-totals-bar', require('./components/DbRangeTotalsBar.vue'));
+    Vue.component('db-range-total-item', require('./components/DbRangeTotalItem.vue'));
 
     const app = new Vue({
         el: '#vue-main'
