@@ -5,28 +5,7 @@
             <h6 class="float-left mt-3 text-dark" >Welcome <br><span class="text-info">Jason</span></h6>
         </div>
         <ul class="nav">
-            <li class="nav-item">Analytics
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Overview</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Page Views</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sessions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Conversions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sales</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Revenue</a>
-                    </li>
-                </ul>
-            </li>
+            <sb-nav-list></sb-nav-list>
             <li class="nav-item">Lists
                 <ul class="nav flex-column">
                     <li class="nav-item">

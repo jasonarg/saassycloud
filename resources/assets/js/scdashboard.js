@@ -25,6 +25,8 @@ class ScDashboard{
 window.onload = function() {
     Vue.component('dashboard', require('./components/Dashboard.vue'));
     Vue.component('sidebar-nav', require('./components/SidebarNav.vue'));
+    Vue.component('sb-nav-list', require('./components/SbNavList.vue'));
+    Vue.component('sb-nav-list-item', require('./components/SbNavListItem.vue'));
     Vue.component('main-pane', require('./components/MainPane.vue'));
 
     const app = new Vue({
