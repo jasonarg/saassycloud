@@ -1,12 +1,15 @@
 <template>
     <li class="nav-item">
-        <a class="nav-link active" href="#">Overview</a>
+        <a class="nav-link active" href="#">{{ listitem.name }}</a>
     </li>
 </template>
 
 <script>
     export default {
-        name: "sb-nav-list-item"
+        name: "sb-nav-list-item",
+        props: {
+            listitem: Object
+        }
     }
 </script>
 

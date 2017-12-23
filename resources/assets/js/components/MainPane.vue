@@ -56,8 +56,13 @@
 </template>
 
 <script>
+    import DbRangeTotalsBar from './DbRangeTotalsBar.vue';
+
     export default {
-        name: "main-pane"
+        name: "main-pane",
+        components:{
+            'db-range-totals-bar': DbRangeTotalsBar
+        }
     }
 </script>
 

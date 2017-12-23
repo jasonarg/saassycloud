@@ -1,9 +1,11 @@
 let {ScChart} = require('./scchart.js');
 
+import Dashboard from './components/Dashboard.vue';
+
 class ScDashboard{
 
     constructor(){
-        this.setDashboardDefinitions();
+        //this.setDashboardDefinitions();
         this.loadVue();
 
         this.dbType = document.querySelector('#dashboard').getAttribute('data-dashboard');
@@ -17,72 +19,102 @@ class ScDashboard{
     }
 
     loadVue(){
-        Vue.component('dashboard', require('./components/Dashboard.vue'));
-
-        Vue.component('sidebar-nav', require('./components/SidebarNav.vue'));
-        Vue.component('sb-nav-list', require('./components/SbNavList.vue'));
-        Vue.component('sb-nav-list-item', require('./components/SbNavListItem.vue'));
-
-        Vue.component('main-pane', require('./components/MainPane.vue'));
-        Vue.component('db-range-totals-bar', require('./components/DbRangeTotalsBar.vue'));
-        Vue.component('db-range-total-item', require('./components/DbRangeTotalItem.vue'));
-
         this.app = new Vue({
             el: '#vue-main',
-            data: this.definition,
+            data(){
+              return {
+                  lists: [
+                      {
+                          id: 0,
+                          name: 'analytics',
+                          listitems: [
+                              {
+                                  id: 0,
+                                  name: 'overview'
+                              },
+                              {
+                                  id: 1,
+                                  name: 'pageviews'
+                              },
+                              {
+                                  id: 2,
+                                  name: 'sessions'
+                              },
+                              {
+                                  id: 3,
+                                  name: 'conversions'
+                              },
+                              {
+                                  id: 4,
+                                  name: 'sales'
+                              },
+                          ]
+                      },
+                      {
+                          id: 1,
+                          name: 'lists'
+                      }
+                    ],
+                  charts: []
+              };
+            },
+            components: {
+                'dashboard': Dashboard
+            }
 
         });
-
-        console.log(this.app.views);
     }
 
     setDashboardDefinitions(definition = null){
         if(!definition) {
-            this.definition = {
-                views: [
-                    {
-                        name: 'analytics',
-                        children: [
-                            {
-                                name: 'overview'
-                            },
-                            {
-                                name: 'page-views'
-                            },
-                            {
-                                name: 'sessions'
-                            },
-                            {
-                                name: 'conversions'
-                            },
-                            {
-                                name: 'sales'
-                            },
-                            {
-                                name: 'revenue'
-                            },
-                        ]
-                    },
-                    {
-                        name: 'lists',
-                        children: [
-                            {
-                                name: 'sessions'
-                            },
-                            {
-                                name: 'users'
-                            },
-                            {
-                                name: 'views'
-                            }
-                        ]
-                    }
-                ]
-            };
+            this.definition =  {
+                    data: [
+                        {
+                            name: 'analytics',
+                            children: [
+                                {
+                                    name: 'overview'
+                                },
+                                {
+                                    name: 'page-views'
+                                },
+                                {
+                                    name: 'sessions'
+                                },
+                                {
+                                    name: 'conversions'
+                                },
+                                {
+                                    name: 'sales'
+                                },
+                                {
+                                    name: 'revenue'
+                                },
+                            ]
+
+                        },
+                        {
+                            name: 'lists',
+                            children: [
+                                {
+                                    name: 'sessions'
+                                },
+                                {
+                                    name: 'users'
+                                },
+                                {
+                                    name: 'views'
+                                }
+                            ]
+                        }
+                    ]
+                };
         }
         else{
             this.definition = definition;
         }
+
+        return this.definition;
 
     }
 

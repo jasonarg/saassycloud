@@ -21,8 +21,13 @@
 </template>
 
 <script>
+    import DbRangeTotalItem from './DbRangeTotalItem.vue';
+
     export default {
-        name: "db-range-totalsbar"
+        name: "db-range-totalsbar",
+        components: {
+            'db-range-total-item': DbRangeTotalItem
+        }
     }
 </script>
 

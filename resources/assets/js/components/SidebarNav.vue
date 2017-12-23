@@ -5,33 +5,35 @@
             <h6 class="float-left mt-3 text-dark" >Welcome <br><span class="text-info">Jason</span></h6>
         </div>
         <ul class="nav">
-            <sb-nav-list></sb-nav-list>
-            <li class="nav-item">Lists
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sites</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sessions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sites</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Views</a>
-                    </li>
-                </ul>
-            </li>
+            <sb-nav-list
+                    v-for="list in lists"
+                    :key="list.id"
+                    :list="list"
+            />
+
         </ul>
     </nav>
 </template>
 
 <script>
+    import SbNavList from './SbNavList.vue'
     export default {
-        name: "sidebar-nav"
+        name: "sidebar-nav",
+        props: {
+            lists: {
+                type: Array
+            }
+        },
+        data() {
+            return {
+            };
+        },
+        components: {
+            'sb-nav-list': SbNavList
+        },
+        mounted() {
+            console.log(this);
+        }
     }
 </script>
 

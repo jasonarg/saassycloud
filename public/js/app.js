@@ -5,6 +5,12 @@ webpackJsonp([1],{
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SidebarNav_vue__ = __webpack_require__("./resources/assets/js/components/SidebarNav.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SidebarNav_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__SidebarNav_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MainPane_vue__ = __webpack_require__("./resources/assets/js/components/MainPane.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MainPane_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__MainPane_vue__);
+//
+//
 //
 //
 //
@@ -13,10 +19,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Dashboard Mounted.');
-    }
+    props: {
+        lists: {
+            type: Array,
+            required: true
+        },
+        charts: {
+            type: Array
+        }
+    },
+    data: function data() {
+        return {};
+    },
+
+    components: {
+        'sidebar-nav': __WEBPACK_IMPORTED_MODULE_0__SidebarNav_vue___default.a,
+        'main-pane': __WEBPACK_IMPORTED_MODULE_1__MainPane_vue___default.a
+    },
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -45,6 +69,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalItem_vue__ = __webpack_require__("./resources/assets/js/components/DbRangeTotalItem.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalItem_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DbRangeTotalItem_vue__);
 //
 //
 //
@@ -68,8 +94,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "db-range-totalsbar"
+    name: "db-range-totalsbar",
+    components: {
+        'db-range-total-item': __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalItem_vue___default.a
+    }
 });
 
 /***/ }),
@@ -79,6 +110,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue__ = __webpack_require__("./resources/assets/js/components/DbRangeTotalsBar.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue__);
 //
 //
 //
@@ -137,8 +170,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "main-pane"
+    name: "main-pane",
+    components: {
+        'db-range-totals-bar': __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue___default.a
+    }
 });
 
 /***/ }),
@@ -148,6 +186,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SbNavListItem_vue__ = __webpack_require__("./resources/assets/js/components/SbNavListItem.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SbNavListItem_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__SbNavListItem_vue__);
 //
 //
 //
@@ -172,8 +212,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "sb-nav-list"
+    name: "sb-nav-list",
+    props: {
+        list: {
+            type: Object
+        }
+    },
+    components: {
+        'sb-nav-list-item': __WEBPACK_IMPORTED_MODULE_0__SbNavListItem_vue___default.a
+    }
 });
 
 /***/ }),
@@ -191,7 +242,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "sb-nav-list-item"
+    name: "sb-nav-list-item",
+    props: {
+        listitem: Object
+    }
 });
 
 /***/ }),
@@ -201,20 +255,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SbNavList_vue__ = __webpack_require__("./resources/assets/js/components/SbNavList.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SbNavList_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__SbNavList_vue__);
 //
 //
 //
@@ -233,8 +275,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "sidebar-nav"
+    name: "sidebar-nav",
+    props: {
+        lists: {
+            type: Array
+        }
+    },
+    data: function data() {
+        return {};
+    },
+
+    components: {
+        'sb-nav-list': __WEBPACK_IMPORTED_MODULE_0__SbNavList_vue___default.a
+    },
+    mounted: function mounted() {
+        console.log(this);
+    }
 });
 
 /***/ }),
@@ -4104,7 +4162,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4134,7 +4192,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4149,7 +4207,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4164,7 +4222,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4179,7 +4237,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15013,7 +15071,12 @@ var render = function() {
       "ul",
       { staticClass: "nav flex-column" },
       [
-        _c("sb-nav-list-item"),
+        _vm._l(_vm.list.listitems, function(listitem) {
+          return _c(
+            "sb-nav-list-item",
+            _vm._b({ key: listitem.id }, "sb-nav-list-item", listitem, false)
+          )
+        }),
         _vm._v(" "),
         _vm._m(0),
         _vm._v(" "),
@@ -15025,7 +15088,7 @@ var render = function() {
         _vm._v(" "),
         _vm._m(4)
       ],
-      1
+      2
     )
   ])
 }
@@ -15102,7 +15165,11 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "row" },
-    [_c("sidebar-nav"), _vm._v(" "), _c("main-pane")],
+    [
+      _c("sidebar-nav", { attrs: { lists: _vm.lists } }),
+      _vm._v(" "),
+      _c("main-pane", _vm._b({}, "main-pane", _vm.charts, false))
+    ],
     1
   )
 }
@@ -15157,20 +15224,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link active", attrs: { href: "#" } }, [
-        _vm._v("Overview")
-      ])
+  return _c("li", { staticClass: "nav-item" }, [
+    _c("a", { staticClass: "nav-link active", attrs: { href: "#" } }, [
+      _vm._v(_vm._s(_vm.listitem.name))
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -15384,8 +15444,9 @@ var render = function() {
       _c(
         "ul",
         { staticClass: "nav" },
-        [_c("sb-nav-list"), _vm._v(" "), _vm._m(1)],
-        1
+        _vm._l(_vm.lists, function(list) {
+          return _c("sb-nav-list", { key: list.id, attrs: { list: list } })
+        })
       )
     ]
   )
@@ -15405,45 +15466,6 @@ var staticRenderFns = [
         _vm._v("Welcome "),
         _c("br"),
         _c("span", { staticClass: "text-info" }, [_vm._v("Jason")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _vm._v("Lists\n            "),
-      _c("ul", { staticClass: "nav flex-column" }, [
-        _c("li", { staticClass: "nav-item" }, [
-          _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-            _vm._v("Users")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-            _vm._v("Sites")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-            _vm._v("Sessions")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-            _vm._v("Sites")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-            _vm._v("Views")
-          ])
-        ])
       ])
     ])
   }
@@ -16556,8 +16578,12 @@ module.exports = { ScChart: ScChart };
 /***/ }),
 
 /***/ "./resources/assets/js/scdashboard.js":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue__ = __webpack_require__("./resources/assets/js/components/Dashboard.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -16565,11 +16591,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var _require = __webpack_require__("./resources/assets/js/scchart.js"),
     ScChart = _require.ScChart;
 
+
+
 var ScDashboard = function () {
     function ScDashboard() {
         _classCallCheck(this, ScDashboard);
 
-        this.setDashboardDefinitions();
+        //this.setDashboardDefinitions();
         this.loadVue();
 
         this.dbType = document.querySelector('#dashboard').getAttribute('data-dashboard');
@@ -16585,23 +16613,42 @@ var ScDashboard = function () {
     _createClass(ScDashboard, [{
         key: 'loadVue',
         value: function loadVue() {
-            Vue.component('dashboard', __webpack_require__("./resources/assets/js/components/Dashboard.vue"));
-
-            Vue.component('sidebar-nav', __webpack_require__("./resources/assets/js/components/SidebarNav.vue"));
-            Vue.component('sb-nav-list', __webpack_require__("./resources/assets/js/components/SbNavList.vue"));
-            Vue.component('sb-nav-list-item', __webpack_require__("./resources/assets/js/components/SbNavListItem.vue"));
-
-            Vue.component('main-pane', __webpack_require__("./resources/assets/js/components/MainPane.vue"));
-            Vue.component('db-range-totals-bar', __webpack_require__("./resources/assets/js/components/DbRangeTotalsBar.vue"));
-            Vue.component('db-range-total-item', __webpack_require__("./resources/assets/js/components/DbRangeTotalItem.vue"));
-
             this.app = new Vue({
                 el: '#vue-main',
-                data: this.definition
+                data: function data() {
+                    return {
+                        lists: [{
+                            id: 0,
+                            name: 'analytics',
+                            listitems: [{
+                                id: 0,
+                                name: 'overview'
+                            }, {
+                                id: 1,
+                                name: 'pageviews'
+                            }, {
+                                id: 2,
+                                name: 'sessions'
+                            }, {
+                                id: 3,
+                                name: 'conversions'
+                            }, {
+                                id: 4,
+                                name: 'sales'
+                            }]
+                        }, {
+                            id: 1,
+                            name: 'lists'
+                        }],
+                        charts: []
+                    };
+                },
+
+                components: {
+                    'dashboard': __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue___default.a
+                }
 
             });
-
-            console.log(this.app.views);
         }
     }, {
         key: 'setDashboardDefinitions',
@@ -16610,7 +16657,7 @@ var ScDashboard = function () {
 
             if (!definition) {
                 this.definition = {
-                    views: [{
+                    data: [{
                         name: 'analytics',
                         children: [{
                             name: 'overview'
@@ -16625,6 +16672,7 @@ var ScDashboard = function () {
                         }, {
                             name: 'revenue'
                         }]
+
                     }, {
                         name: 'lists',
                         children: [{
@@ -16639,6 +16687,8 @@ var ScDashboard = function () {
             } else {
                 this.definition = definition;
             }
+
+            return this.definition;
         }
     }, {
         key: 'getData',

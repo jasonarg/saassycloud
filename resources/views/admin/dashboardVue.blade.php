@@ -26,7 +26,9 @@
     </nav>
 </header>
 <div id="vue-main" class="container-fluid">
-    <dashboard></dashboard>
+    <dashboard
+            :lists="lists"
+        />
 </div>
 <footer>
     <div class="container-fluid bg-dark text-white" style="position: fixed; bottom: 0px; min-height: 50px; z-index: 1001;">
