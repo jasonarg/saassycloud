@@ -3,6 +3,8 @@ let {ScChart} = require('./scchart.js');
 import Dashboard from './components/Dashboard.vue';
 import { EventBus } from './event-bus.js';
 
+const jd = require('./config/dashboards/overview/overview.json');
+
 class ScDashboard{
 
     constructor(){
@@ -148,5 +150,5 @@ class ScDashboard{
 
 window.onload = function() {
     let scDb = new ScDashboard();
-
+    console.log(jd);
 };

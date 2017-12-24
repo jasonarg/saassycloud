@@ -39429,6 +39429,24 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
+/***/ "./node_modules/json-loader/index.js":
+/***/ (function(module, exports) {
+
+module.exports = function (source) {
+  if (this.cacheable) this.cacheable();
+
+  var value = typeof source === "string" ? JSON.parse(source) : source;
+
+  value = JSON.stringify(value)
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029');
+
+  return `module.exports = ${value}`;
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash/lodash.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -83768,7 +83786,8 @@ __webpack_require__("./node_modules/lodash/lodash.js");
 __webpack_require__("./node_modules/axios/index.js");
 __webpack_require__("./node_modules/vue/dist/vue.common.js");
 __webpack_require__("./node_modules/chart.js/src/chart.js");
-module.exports = __webpack_require__("./node_modules/d3/index.js");
+__webpack_require__("./node_modules/d3/index.js");
+module.exports = __webpack_require__("./node_modules/json-loader/index.js");
 
 
 /***/ })

@@ -11,10 +11,27 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js').version().extract(['lodash', 'axios', 'vue', 'chart.js', 'd3']);
+mix.js('resources/assets/js/app.js', 'public/js').version().extract(['lodash', 'axios', 'vue', 'chart.js', 'd3', 'json-loader']);
+
+/*mix.webpackConfig({
+    resolve: {
+        module.exports = {
+            module: {
+                loaders: [
+                    {
+                        test: /\.json$/,
+                        loader: 'json-loader'
+                    }
+                ]
+            }
+        }
+    }
+});*/
 
 mix.sass('resources/assets/sass/app.scss', 'public/css').version();
 
 mix.copyDirectory('resources/assets/i', 'public/i');
 
 mix.browserSync('saassycloud.dev');
+
+

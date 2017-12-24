@@ -16564,6 +16564,13 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/assets/js/config/dashboards/overview/overview.json":
+/***/ (function(module, exports) {
+
+module.exports = {"type":"line","data":{"labels":[],"datasets":[]},"options":{"responsive":true,"maintainAspectRatio":false,"title":{"display":true,"text":"SaaSsy Cloud Analytics: Overview"},"tooltips":{"mode":"index","intersect":false},"hover":{"mode":"nearest","intersect":true},"scales":{"xAxes":[{"display":true,"scaleLabel":{"display":true,"labelString":"Date"}}],"yAxes":[{"display":true,"scaleLabel":{"display":true,"labelString":"Value"}}]}}}
+
+/***/ }),
+
 /***/ "./resources/assets/js/event-bus.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -16747,6 +16754,8 @@ var _require = __webpack_require__("./resources/assets/js/scchart.js"),
 
 
 
+var jd = __webpack_require__("./resources/assets/js/config/dashboards/overview/overview.json");
+
 var ScDashboard = function () {
     function ScDashboard() {
         _classCallCheck(this, ScDashboard);
@@ -16884,6 +16893,7 @@ var ScDashboard = function () {
 
 window.onload = function () {
     var scDb = new ScDashboard();
+    console.log(jd);
 };
 
 /***/ }),
