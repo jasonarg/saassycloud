@@ -16532,7 +16532,7 @@ var ScDashboard = function () {
     function ScDashboard() {
         _classCallCheck(this, ScDashboard);
 
-        //this.setDashboardDefinitions();
+        this.setDashboardDefinitions();
         this.loadVue();
 
         this.dbType = document.querySelector('#dashboard').getAttribute('data-dashboard');
@@ -16550,48 +16550,7 @@ var ScDashboard = function () {
         value: function loadVue() {
             this.app = new Vue({
                 el: '#vue-main',
-                data: function data() {
-                    return {
-                        lists: [{
-                            id: 0,
-                            name: 'analytics',
-                            listitems: [{
-                                id: 0,
-                                name: 'overview'
-                            }, {
-                                id: 1,
-                                name: 'pageviews'
-                            }, {
-                                id: 2,
-                                name: 'sessions'
-                            }, {
-                                id: 3,
-                                name: 'conversions'
-                            }, {
-                                id: 4,
-                                name: 'sales'
-                            }]
-                        }, {
-                            id: 1,
-                            name: 'lists',
-                            listitems: [{
-                                id: 0,
-                                name: 'sessions'
-                            }, {
-                                id: 1,
-                                name: 'conversions'
-                            }, {
-                                id: 2,
-                                name: 'users'
-                            }, {
-                                id: 3,
-                                name: 'sites'
-                            }]
-                        }],
-                        charts: []
-                    };
-                },
-
+                data: this.setDashboardDefinitions(),
                 components: {
                     'dashboard': __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue___default.a
                 }
@@ -16605,32 +16564,44 @@ var ScDashboard = function () {
 
             if (!definition) {
                 this.definition = {
-                    data: [{
+                    lists: [{
+                        id: 0,
                         name: 'analytics',
-                        children: [{
+                        listitems: [{
+                            id: 0,
                             name: 'overview'
                         }, {
-                            name: 'page-views'
+                            id: 1,
+                            name: 'pageviews'
                         }, {
+                            id: 2,
                             name: 'sessions'
                         }, {
+                            id: 3,
                             name: 'conversions'
                         }, {
+                            id: 4,
                             name: 'sales'
-                        }, {
-                            name: 'revenue'
                         }]
-
                     }, {
+                        id: 1,
                         name: 'lists',
-                        children: [{
+                        listitems: [{
+                            id: 0,
                             name: 'sessions'
                         }, {
+                            id: 1,
+                            name: 'conversions'
+                        }, {
+                            id: 2,
                             name: 'users'
                         }, {
-                            name: 'views'
+                            id: 3,
+                            name: 'sites'
                         }]
-                    }]
+                    }],
+                    charts: []
+
                 };
             } else {
                 this.definition = definition;

@@ -5,7 +5,7 @@ import Dashboard from './components/Dashboard.vue';
 class ScDashboard{
 
     constructor(){
-        //this.setDashboardDefinitions();
+        this.setDashboardDefinitions();
         this.loadVue();
 
         this.dbType = document.querySelector('#dashboard').getAttribute('data-dashboard');
@@ -21,61 +21,7 @@ class ScDashboard{
     loadVue(){
         this.app = new Vue({
             el: '#vue-main',
-            data(){
-              return {
-                  lists: [
-                      {
-                          id: 0,
-                          name: 'analytics',
-                          listitems: [
-                              {
-                                  id: 0,
-                                  name: 'overview'
-                              },
-                              {
-                                  id: 1,
-                                  name: 'pageviews'
-                              },
-                              {
-                                  id: 2,
-                                  name: 'sessions'
-                              },
-                              {
-                                  id: 3,
-                                  name: 'conversions'
-                              },
-                              {
-                                  id: 4,
-                                  name: 'sales'
-                              },
-                          ]
-                      },
-                      {
-                          id: 1,
-                          name: 'lists',
-                          listitems: [
-                              {
-                                  id: 0,
-                                  name: 'sessions'
-                              },
-                              {
-                                  id: 1,
-                                  name: 'conversions'
-                              },
-                              {
-                                  id: 2,
-                                  name: 'users'
-                              },
-                              {
-                                  id: 3,
-                                  name: 'sites'
-                              },
-                          ]
-                      }
-                    ],
-                  charts: []
-              };
-            },
+            data: this.setDashboardDefinitions(),
             components: {
                 'dashboard': Dashboard
             }
@@ -86,47 +32,59 @@ class ScDashboard{
     setDashboardDefinitions(definition = null){
         if(!definition) {
             this.definition =  {
-                    data: [
-                        {
-                            name: 'analytics',
-                            children: [
-                                {
-                                    name: 'overview'
-                                },
-                                {
-                                    name: 'page-views'
-                                },
-                                {
-                                    name: 'sessions'
-                                },
-                                {
-                                    name: 'conversions'
-                                },
-                                {
-                                    name: 'sales'
-                                },
-                                {
-                                    name: 'revenue'
-                                },
-                            ]
+                lists: [
+                    {
+                        id: 0,
+                        name: 'analytics',
+                        listitems: [
+                            {
+                                id: 0,
+                                name: 'overview'
+                            },
+                            {
+                                id: 1,
+                                name: 'pageviews'
+                            },
+                            {
+                                id: 2,
+                                name: 'sessions'
+                            },
+                            {
+                                id: 3,
+                                name: 'conversions'
+                            },
+                            {
+                                id: 4,
+                                name: 'sales'
+                            },
+                        ]
+                    },
+                    {
+                        id: 1,
+                        name: 'lists',
+                        listitems: [
+                            {
+                                id: 0,
+                                name: 'sessions'
+                            },
+                            {
+                                id: 1,
+                                name: 'conversions'
+                            },
+                            {
+                                id: 2,
+                                name: 'users'
+                            },
+                            {
+                                id: 3,
+                                name: 'sites'
+                            },
+                        ]
+                    }
+                ],
+                charts: []
 
-                        },
-                        {
-                            name: 'lists',
-                            children: [
-                                {
-                                    name: 'sessions'
-                                },
-                                {
-                                    name: 'users'
-                                },
-                                {
-                                    name: 'views'
-                                }
-                            ]
-                        }
-                    ]
-                };
+            };
         }
         else{
             this.definition = definition;
