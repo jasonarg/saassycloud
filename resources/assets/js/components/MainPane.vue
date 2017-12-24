@@ -13,42 +13,6 @@
             :key="row.id"
             :row="row"
         />
-
-        <div class="row justify-content-around mt-0 mb-0">
-            <div class="col-md-4 px-2">
-                <div class="mx-0 px-0 bg-white border" style="height: 250px;">
-                    <canvas id="overviewAbCompareTotal" class="scChart" style="height:200px;width: content-box;"></canvas>
-                </div>
-            </div>
-            <div class="col-md-4 px-2">
-                <div class="mx-0 px-0 bg-white border" style="height: 250px;">
-                    <canvas id="overviewAbCompareReferral" class="scChart" style="height:200px;width: content-box;"></canvas>
-
-                </div>
-            </div>
-            <div class="col-md-4 px-2">
-                <div class="mx-0 px-0 bg-white border" style="height: 250px;">
-                    <canvas id="overviewAbCompareMonthlyVsAnnual" class="scChart" style="height:200px;width: content-box;"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-around mt-3">
-            <div class="col-md-4 px-2">
-                <div class="mx-0 px-0 bg-white border" style="height: 515px;"></div>
-            </div>
-            <div class="col-md-8 px-3">
-                <div class="row">
-                    <div class="col-md-12 px-2">
-                        <div class="mx-0 px-0 bg-white border" style="height: 250px;"></div>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12 px-2">
-                        <div class="mx-0 px-0 bg-white border" style="height: 250px;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 

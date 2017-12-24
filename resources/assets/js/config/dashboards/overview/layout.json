@@ -6,8 +6,10 @@
       "height": "400",
       "elements": [
         {
+          "id": 0,
           "type": "chart",
-          "name": "overview"
+          "name": "overview",
+          "cols": "12"
         }
       ]
     },
@@ -16,16 +18,22 @@
       "height": "250",
       "elements": [
         {
+          "id": 1,
           "type": "chart",
-          "name": "saassy"
+          "name": "saassy",
+          "cols": "4"
         },
         {
+          "id": 2,
           "type": "chart",
-          "name": "saassier"
+          "name": "saassier",
+          "cols": "4"
         },
         {
+          "id": 3,
           "type": "chart",
-          "name": "saasiest"
+          "name": "saasiest",
+          "cols": "4"
         }
       ]
     },
@@ -34,29 +42,37 @@
       "height": "500",
       "elements": [
         {
+          "id": 4,
           "type": "chart",
-          "name": "salesAb"
+          "name": "salesAb",
+          "cols": "4"
         },
         {
+          "id":5,
           "type": "rows",
+          "cols": "8",
           "rows": [
             {
-              "id": 3,
+              "id": 6,
               "height": "230",
               "elements": [
                 {
-                "type": "chart",
-                "name": "asdasd"
+                  "id": "",
+                  "type": "chart",
+                  "name": "asdasd",
+                  "cols": "12"
                 }
               ]
             },
             {
-              "id": 4,
+              "id": 7,
               "height": "230",
               "elements": [
                 {
+                  "id": "",
                   "type": "chart",
-                  "name": "asdasdasd"
+                  "name": "asdasdasd",
+                  "cols": "12"
                 }
               ]
             }
@@ -66,3 +82,4 @@
     }
   ]
 }
+

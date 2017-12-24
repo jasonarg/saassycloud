@@ -1,6 +1,17 @@
+<template v-if="element.type === 'rows'">
+    <div v-bind:class="classString">
+        <db-row
+            v-for="row in element.rows"
+            :key="row.id"
+            :row="row"
+        />
+    </div>
+</template>
 <template>
-    <div class="col-md-12 mt-0 mb-2 p-2">
-
+    <div v-bind:class="classString">
+        <db-chart
+            :chart="element"
+        />
     </div>
 </template>
 
@@ -16,6 +27,14 @@
                 type: Object,
                 required: true
             }
+        },
+        data() {
+            return {}
+        },
+        computed: {
+          classString: function(){
+            return `col-md-${this.element.cols} mt-0 mb-2 p-2`;
+          }
         },
         components:{
             'db-row': DbRow,

@@ -1,7 +1,9 @@
 <template>
     <div class="row justify-content-center my-0">
         <db-col
-
+            v-for="element in row.elements"
+            :key="element.id"
+            :element="element"
         />
     </div>
 </template>

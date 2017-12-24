@@ -8,8 +8,8 @@
     export default {
         name: "db-chart",
         props: {
-            element: {
-                type: object,
+            chart: {
+                type: Object,
                 required: true
             }
         }

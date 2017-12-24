@@ -63,8 +63,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "db-chart",
     props: {
-        element: {
-            type: object,
+        chart: {
+            type: Object,
             required: true
         }
     }
@@ -87,6 +87,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -98,6 +109,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         element: {
             type: Object,
             required: true
+        }
+    },
+    data: function data() {
+        return {};
+    },
+
+    computed: {
+        classString: function classString() {
+            return 'col-md-' + this.element.cols + ' mt-0 mb-2 p-2';
         }
     },
     components: {
@@ -183,6 +203,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -246,42 +268,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DbTitle_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__DbTitle_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DbRow_vue__ = __webpack_require__("./resources/assets/js/components/DbRow.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DbRow_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__DbRow_vue__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4383,7 +4369,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4413,7 +4399,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4458,7 +4444,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15475,107 +15461,12 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.dashboard.rows, function(row) {
         return _c("db-row", { key: row.id, attrs: { row: row } })
-      }),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _vm._m(1)
+      })
     ],
     2
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-around mt-0 mb-0" }, [
-      _c("div", { staticClass: "col-md-4 px-2" }, [
-        _c(
-          "div",
-          {
-            staticClass: "mx-0 px-0 bg-white border",
-            staticStyle: { height: "250px" }
-          },
-          [
-            _c("canvas", {
-              staticClass: "scChart",
-              staticStyle: { height: "200px", width: "content-box" },
-              attrs: { id: "overviewAbCompareTotal" }
-            })
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-4 px-2" }, [
-        _c(
-          "div",
-          {
-            staticClass: "mx-0 px-0 bg-white border",
-            staticStyle: { height: "250px" }
-          },
-          [
-            _c("canvas", {
-              staticClass: "scChart",
-              staticStyle: { height: "200px", width: "content-box" },
-              attrs: { id: "overviewAbCompareReferral" }
-            })
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-4 px-2" }, [
-        _c(
-          "div",
-          {
-            staticClass: "mx-0 px-0 bg-white border",
-            staticStyle: { height: "250px" }
-          },
-          [
-            _c("canvas", {
-              staticClass: "scChart",
-              staticStyle: { height: "200px", width: "content-box" },
-              attrs: { id: "overviewAbCompareMonthlyVsAnnual" }
-            })
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-around mt-3" }, [
-      _c("div", { staticClass: "col-md-4 px-2" }, [
-        _c("div", {
-          staticClass: "mx-0 px-0 bg-white border",
-          staticStyle: { height: "515px" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-8 px-3" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-12 px-2" }, [
-            _c("div", {
-              staticClass: "mx-0 px-0 bg-white border",
-              staticStyle: { height: "250px" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row mt-3" }, [
-          _c("div", { staticClass: "col-md-12 px-2" }, [
-            _c("div", {
-              staticClass: "mx-0 px-0 bg-white border",
-              staticStyle: { height: "250px" }
-            })
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -15638,8 +15529,9 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "row justify-content-center my-0" },
-    [_c("db-col")],
-    1
+    _vm._l(_vm.row.elements, function(element) {
+      return _c("db-col", { key: element.id, attrs: { element: element } })
+    })
   )
 }
 var staticRenderFns = []
@@ -15793,7 +15685,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-12 mt-0 mb-2 p-2" })
+  return _c(
+    "div",
+    { class: _vm.classString },
+    [_c("db-chart", { attrs: { chart: _vm.element } })],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -16991,7 +16888,7 @@ module.exports = Component.exports
 /***/ "./resources/assets/js/config/dashboards/overview/layout.json":
 /***/ (function(module, exports) {
 
-module.exports = {"title":"overview","rows":[{"id":0,"height":"400","elements":[{"type":"chart","name":"overview"}]},{"id":1,"height":"250","elements":[{"type":"chart","name":"saassy"},{"type":"chart","name":"saassier"},{"type":"chart","name":"saasiest"}]},{"id":2,"height":"500","elements":[{"type":"chart","name":"salesAb"},{"type":"rows","rows":[{"id":3,"height":"230","elements":[{"type":"chart","name":"asdasd"}]},{"id":4,"height":"230","elements":[{"type":"chart","name":"asdasdasd"}]}]}]}]}
+module.exports = {"title":"overview","rows":[{"id":0,"height":"400","elements":[{"id":0,"type":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"250","elements":[{"id":1,"type":"chart","name":"saassy","cols":"4"},{"id":2,"type":"chart","name":"saassier","cols":"4"},{"id":3,"type":"chart","name":"saasiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"type":"chart","name":"salesAb","cols":"4"},{"id":5,"type":"rows","cols":"8","rows":[{"id":6,"height":"230","elements":[{"id":"","type":"chart","name":"asdasd","cols":"12"}]},{"id":7,"height":"230","elements":[{"id":"","type":"chart","name":"asdasdasd","cols":"12"}]}]}]}]}
 
 /***/ }),
 
