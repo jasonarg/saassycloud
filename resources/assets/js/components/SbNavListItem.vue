@@ -1,6 +1,6 @@
 <template>
     <li class="nav-item">
-        <a class="nav-link" href="#">{{ listitem.name }}</a>
+        <a class="nav-link" href="#">{{ labelName }}</a>
     </li>
 </template>
 
@@ -8,8 +8,13 @@
     export default {
         name: "sb-nav-list-item",
         props: {
-            listitem: Object,
+            listItem: Object,
             required: true
+        },
+        computed: {
+            labelName: function(){
+                return _.startCase(this.listItem.name);
+            }
         }
     }
 </script>

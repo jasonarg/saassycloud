@@ -210,6 +210,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: Object
         }
     },
+    computed: {
+        labelName: function labelName() {
+            return _.startCase(this.list.name);
+        }
+    },
     components: {
         'sb-nav-list-item': __WEBPACK_IMPORTED_MODULE_0__SbNavListItem_vue___default.a
     }
@@ -232,8 +237,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "sb-nav-list-item",
     props: {
-        listitem: Object,
+        listItem: Object,
         required: true
+    },
+    computed: {
+        labelName: function labelName() {
+            return _.startCase(this.listItem.name);
+        }
     }
 });
 
@@ -4151,7 +4161,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4181,7 +4191,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15055,14 +15065,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("li", { staticClass: "nav-item" }, [
-    _vm._v(_vm._s(_vm.list.name) + "\n    "),
+    _vm._v(_vm._s(_vm.labelName) + "\n    "),
     _c(
       "ul",
       { staticClass: "nav flex-column" },
-      _vm._l(_vm.list.listitems, function(listitem) {
+      _vm._l(_vm.list.listitems, function(listItem) {
         return _c("sb-nav-list-item", {
-          key: listitem.id,
-          attrs: { listitem: listitem }
+          key: listItem.id,
+          attrs: { listItem: listItem }
         })
       })
     )
@@ -15151,7 +15161,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("li", { staticClass: "nav-item" }, [
     _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-      _vm._v(_vm._s(_vm.listitem.name))
+      _vm._v(_vm._s(_vm.labelName))
     ])
   ])
 }
