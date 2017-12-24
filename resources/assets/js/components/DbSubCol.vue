@@ -1,19 +1,9 @@
 <template>
     <div v-bind:class="classString">
-        <template v-if="childIsRow">
-            <db-sub-row
-                    v-for="row in element.rows"
-                    :key="row.id"
-                    :row="row"
-            />
-        </template>
-        <template v-else>
-                <db-chart
-                        :chart="element"
-                        :height="height"
-                />
-
-        </template>
+        <db-chart
+                :chart="element"
+                :height="height"
+        />
     </div>
 </template>
 <script>
@@ -22,7 +12,7 @@
     import DbChart from './DbChart.vue';
 
     export default {
-        name: "db-col",
+        name: "db-sub-col",
         props: {
             element: {
                 type: Object,
@@ -36,9 +26,6 @@
         computed: {
             classString: function(){
                 return `col-md-${this.element.cols} mt-0 mb-2 p-2`;
-            },
-            childIsRow: function(){
-                return this.element.elType === 'rows' ? true : false;
             }
         },
         data() {
@@ -47,7 +34,6 @@
             }
         },
         components:{
-            'db-sub-row': DbSubRow,
             'db-chart': DbChart
         },
         mounted(){

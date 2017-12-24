@@ -1,6 +1,6 @@
 <template>
     <div id="" class="chartWrapper my-0 mx-0 p-3 bg-white border">
-        <canvas id="overviewCombined" class="scChart" style="height:400px; width: content-box;"></canvas>
+        <canvas id="overviewCombined" class="scChart" v-bind:style="styleString"></canvas>
     </div>
 </template>
 
@@ -11,6 +11,18 @@
             chart: {
                 type: Object,
                 required: true
+            },
+            height: {
+                type: String,
+                required: true
+            }
+        },
+        computed: {
+            styleString: function(){
+                return {
+                    width: 'content-box',
+                    height: `${this.height}px`
+                };
             }
         }
     }

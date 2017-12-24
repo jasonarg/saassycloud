@@ -7,7 +7,7 @@
       "elements": [
         {
           "id": 0,
-          "type": "chart",
+          "elType": "chart",
           "name": "overview",
           "cols": "12"
         }
@@ -15,23 +15,23 @@
     },
     {
       "id": 1,
-      "height": "250",
+      "height": "300",
       "elements": [
         {
           "id": 1,
-          "type": "chart",
+          "elType": "chart",
           "name": "saassy",
           "cols": "4"
         },
         {
           "id": 2,
-          "type": "chart",
+          "elType": "chart",
           "name": "saassier",
           "cols": "4"
         },
         {
           "id": 3,
-          "type": "chart",
+          "elType": "chart",
           "name": "saasiest",
           "cols": "4"
         }
@@ -43,13 +43,13 @@
       "elements": [
         {
           "id": 4,
-          "type": "chart",
+          "elType": "chart",
           "name": "salesAb",
           "cols": "4"
         },
         {
           "id":5,
-          "type": "rows",
+          "elType": "rows",
           "cols": "8",
           "rows": [
             {
@@ -58,7 +58,7 @@
               "elements": [
                 {
                   "id": "",
-                  "type": "chart",
+                  "elType": "chart",
                   "name": "asdasd",
                   "cols": "12"
                 }
@@ -70,7 +70,7 @@
               "elements": [
                 {
                   "id": "",
-                  "type": "chart",
+                  "elType": "chart",
                   "name": "asdasdasd",
                   "cols": "12"
                 }

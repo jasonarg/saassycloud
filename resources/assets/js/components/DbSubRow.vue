@@ -1,6 +1,6 @@
 <template>
     <div class="row justify-content-center my-0">
-        <db-col
+        <db-sub-col
             v-for="element in row.elements"
             :key="element.id"
             :element="element"
@@ -11,10 +11,10 @@
 
 <script>
 
-    import DbCol from './DbCol.vue';
+    import DbSubCol from './DbSubCol.vue';
 
     export default {
-        name: "db-row",
+        name: "db-sub-row",
         props: {
             row: {
                 type: Object,
@@ -22,7 +22,7 @@
             }
         },
         components: {
-            'db-col': DbCol
+            'db-sub-col': DbSubCol
         },
         mounted(){
             console.log(this.row);
