@@ -1,6 +1,6 @@
 <template>
     <li class="nav-item">
-        <a class="nav-link" @click="changeDashboard" href="#">{{ labelName }}</a>
+        <a class="nav-link" v-bind:class="{active: listItem.active}" @click="changeDashboard" href="#">{{ labelName }}</a>
     </li>
 </template>
 

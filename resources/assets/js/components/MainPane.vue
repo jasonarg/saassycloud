@@ -4,8 +4,9 @@
         <div class="row justify-content-center mb-0 pb-0">
             <div class="col-md-12 mt-2 mb-0 px-2 pb-0">
                 <div class="m-0 px-2 py-2 bg-white border">
-                    <h6 id="mainChartTitle" class="d-inline-block text-info my-1">SaaSsy Cloud Analytics: Overview</h6>
-                    <input id="dashboardRange" type="text" class="form-input float-right pl-3 mb-1" style="width: 280px; font-size: .8rem;" placeholder="November 18, 2017 - December 18, 2017" data-range-start="2017-11-18" data-range-end="2017-12-18"/>
+                <db-title
+                    :listItem="currentListItem"
+                />
                 </div>
             </div>
         </div>
@@ -57,11 +58,32 @@
 
 <script>
     import DbRangeTotalsBar from './DbRangeTotalsBar.vue';
+    import DbTitle from './DbTitle.vue';
 
     export default {
         name: "main-pane",
+        props: {
+            current: {
+                type: Object,
+                required: true
+            },
+            charts: {
+                type: Array,
+                required: true
+            },
+            lists: {
+                type: Array,
+                required: true
+            }
+        },
+        computed: {
+            currentListItem: function(){
+                return this.lists[this.current.list].listItems[this.current.listItem];
+            }
+        },
         components:{
-            'db-range-totals-bar': DbRangeTotalsBar
+            'db-range-totals-bar': DbRangeTotalsBar,
+            'db-title': DbTitle
         }
     }
 </script>

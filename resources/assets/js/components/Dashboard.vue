@@ -3,7 +3,11 @@
         <sidebar-nav
                 :lists="lists"
         />
-        <main-pane v-bind="charts"></main-pane>
+        <main-pane
+            :lists="lists"
+            :charts="charts"
+            :current="current"
+        />
     </div>
 </template>
 
@@ -17,8 +21,13 @@
                 type: Array,
                 required: true
             },
+            current: {
+                type: Object,
+                required: true
+            },
             charts: {
-                type: Array
+                type: Array,
+                required: true
             }
         },
         data(){

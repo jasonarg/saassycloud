@@ -27,7 +27,7 @@ class SessionOverviewResource extends Resource
                 'ui' => $this->userID,
             ],
             'rel' => [
-                'rc' => count($this->requests),
+                'rc' => min(20, count($this->requests)),
                 'co' => new ConversionOpportunityResource($this->conversionOpportunity)
             ]
 

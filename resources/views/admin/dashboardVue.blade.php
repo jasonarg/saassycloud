@@ -28,6 +28,8 @@
 <div id="vue-main" class="container-fluid">
     <dashboard
             :lists="lists"
+            :charts="charts"
+            :current="current"
         />
 </div>
 <footer>

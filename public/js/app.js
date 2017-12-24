@@ -18,6 +18,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -28,8 +32,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: Array,
             required: true
         },
+        current: {
+            type: Object,
+            required: true
+        },
         charts: {
-            type: Array
+            type: Array,
+            required: true
         }
     },
     data: function data() {
@@ -105,6 +114,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0&bustCache!./resources/assets/js/components/DbTitle.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "db-title",
+    props: {
+        listItem: {
+            type: Object,
+            required: true
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0&bustCache!./resources/assets/js/components/MainPane.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -112,6 +144,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue__ = __webpack_require__("./resources/assets/js/components/DbRangeTotalsBar.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DbTitle_vue__ = __webpack_require__("./resources/assets/js/components/DbTitle.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DbTitle_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__DbTitle_vue__);
 //
 //
 //
@@ -169,13 +203,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "main-pane",
+    props: {
+        current: {
+            type: Object,
+            required: true
+        },
+        charts: {
+            type: Array,
+            required: true
+        },
+        lists: {
+            type: Array,
+            required: true
+        }
+    },
+    computed: {
+        currentListItem: function currentListItem() {
+            return this.lists[this.current.list].listItems[this.current.listItem];
+        }
+    },
     components: {
-        'db-range-totals-bar': __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue___default.a
+        'db-range-totals-bar': __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue___default.a,
+        'db-title': __WEBPACK_IMPORTED_MODULE_1__DbTitle_vue___default.a
     }
 });
 
@@ -306,7 +362,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'sb-nav-list': __WEBPACK_IMPORTED_MODULE_0__SbNavList_vue___default.a
     },
     mounted: function mounted() {
-        console.log(this);
+        //console.log(this);
     }
 });
 
@@ -4199,6 +4255,21 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3242d8da\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./resources/assets/js/components/DbTitle.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-714b6bc4\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./resources/assets/js/components/SbNavListItem.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4222,7 +4293,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15085,7 +15156,7 @@ var render = function() {
     _c(
       "ul",
       { staticClass: "nav flex-column" },
-      _vm._l(_vm.list.listitems, function(listItem) {
+      _vm._l(_vm.list.listItems, function(listItem) {
         return _c("sb-nav-list-item", {
           key: listItem.id,
           attrs: { listItem: listItem }
@@ -15119,7 +15190,9 @@ var render = function() {
     [
       _c("sidebar-nav", { attrs: { lists: _vm.lists } }),
       _vm._v(" "),
-      _c("main-pane", _vm._b({}, "main-pane", _vm.charts, false))
+      _c("main-pane", {
+        attrs: { lists: _vm.lists, charts: _vm.charts, current: _vm.current }
+      })
     ],
     1
   )
@@ -15168,6 +15241,19 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-3242d8da\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0&bustCache!./resources/assets/js/components/DbTitle.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function(){},staticRenderFns:[]}
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3242d8da", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-714b6bc4\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0&bustCache!./resources/assets/js/components/SbNavListItem.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15180,6 +15266,7 @@ var render = function() {
       "a",
       {
         staticClass: "nav-link",
+        class: { active: _vm.listItem.active },
         attrs: { href: "#" },
         on: { click: _vm.changeDashboard }
       },
@@ -15215,49 +15302,27 @@ var render = function() {
     [
       _c("db-range-totals-bar"),
       _vm._v(" "),
+      _c("div", { staticClass: "row justify-content-center mb-0 pb-0" }, [
+        _c("div", { staticClass: "col-md-12 mt-2 mb-0 px-2 pb-0" }, [
+          _c(
+            "div",
+            { staticClass: "m-0 px-2 py-2 bg-white border" },
+            [_c("db-title", { attrs: { listItem: _vm.currentListItem } })],
+            1
+          )
+        ])
+      ]),
+      _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _vm._m(3)
+      _vm._m(2)
     ],
     1
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center mb-0 pb-0" }, [
-      _c("div", { staticClass: "col-md-12 mt-2 mb-0 px-2 pb-0" }, [
-        _c("div", { staticClass: "m-0 px-2 py-2 bg-white border" }, [
-          _c(
-            "h6",
-            {
-              staticClass: "d-inline-block text-info my-1",
-              attrs: { id: "mainChartTitle" }
-            },
-            [_vm._v("SaaSsy Cloud Analytics: Overview")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-input float-right pl-3 mb-1",
-            staticStyle: { width: "280px", "font-size": ".8rem" },
-            attrs: {
-              id: "dashboardRange",
-              type: "text",
-              placeholder: "November 18, 2017 - December 18, 2017",
-              "data-range-start": "2017-11-18",
-              "data-range-end": "2017-12-18"
-            }
-          })
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -15559,6 +15624,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-237f33e2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./DbRangeTotalItem.vue", function() {
      var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-237f33e2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./DbRangeTotalItem.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3242d8da\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./resources/assets/js/components/DbTitle.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3242d8da\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./resources/assets/js/components/DbTitle.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("850e51ba", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3242d8da\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./DbTitle.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3242d8da\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./DbTitle.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -16180,6 +16272,58 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/DbTitle.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3242d8da\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./resources/assets/js/components/DbTitle.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0&bustCache!./resources/assets/js/components/DbTitle.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-3242d8da\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0&bustCache!./resources/assets/js/components/DbTitle.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-3242d8da"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/DbTitle.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3242d8da", Component.options)
+  } else {
+    hotAPI.reload("data-v-3242d8da", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/components/MainPane.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16430,25 +16574,12 @@ var ScChart = function () {
         key: 'loadDataSet',
         value: function loadDataSet() {
             var summaryData = [];
+            var dataTotals = 0;
             for (var i = 0; i < this.config.data.labels.length; i++) {
                 summaryData[i] = this.config.data.labels[i] in this.groupedData ? this.groupedData[this.config.data.labels[i]].length : 0;
+                dataTotals += summaryData[i];
             }
             var dataset = {
-                label: "Page Views",
-                fill: true,
-                backgroundColor: window.chartColors.blue,
-                borderColor: window.chartColors.blue,
-                data: summaryData
-            };
-            this.config.data.datasets.push(dataset);
-
-            summaryData = [];
-            var dataTotals = 0;
-            for (var _i = 0; _i < this.config.data.labels.length; _i++) {
-                summaryData[_i] = this.config.data.labels[_i] in this.groupedData ? this.groupedData[this.config.data.labels[_i]].length : 0;
-                dataTotals += summaryData[_i];
-            }
-            dataset = {
                 label: "Sessions",
                 fill: true,
                 backgroundColor: window.chartColors.green,
@@ -16457,6 +16588,26 @@ var ScChart = function () {
             };
             this.config.data.datasets.push(dataset);
             this.totals.sessions = dataTotals;
+
+            summaryData = [];
+            for (var _i = 0; _i < this.config.data.labels.length; _i++) {
+                if (this.config.data.labels[_i] in this.groupedData) {
+                    summaryData[_i] = 0;
+                    for (var j = 0; j < this.groupedData[this.config.data.labels[_i]].length; j++) {
+                        summaryData[_i] += this.groupedData[this.config.data.labels[_i]][j].rel.rc;
+                    }
+                } else {
+                    summaryData[_i] = 0;
+                }
+            }
+            dataset = {
+                label: "Page Views",
+                fill: true,
+                backgroundColor: window.chartColors.blue,
+                borderColor: window.chartColors.blue,
+                data: summaryData
+            };
+            this.config.data.datasets.push(dataset);
 
             //console.log(this.totals);
         }
@@ -16473,7 +16624,7 @@ var ScChart = function () {
     }, {
         key: 'getRangeStart',
         value: function getRangeStart() {
-            return '2017-12-05';
+            return '2017-11-18';
         }
     }, {
         key: 'getRangeEnd',
@@ -16572,10 +16723,9 @@ var ScDashboard = function () {
         this.eventBusListeners();
         this.loadVue();
 
-        this.dbType = document.querySelector('#dashboard').getAttribute('data-dashboard');
-        this.dbRangeElement = document.querySelector('#dashboardRange');
-        this.rangeStart = this.dbRangeElement.getAttribute('data-range-start');
-        this.rangeEnd = this.dbRangeElement.getAttribute('data-range-end');
+        this.dbType = this.app.lists[this.app.current.list].listItems[this.app.current.listItem].name;
+        this.rangeStart = this.app.range.start;
+        this.rangeEnd = this.app.range.end;
 
         this.scChart = new ScChart();
 
@@ -16598,11 +16748,8 @@ var ScDashboard = function () {
                 components: {
                     'dashboard': __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue___default.a
                 },
-                methods: {
-                    logClick: function logClick() {
-                        console.log('hi');
-                    }
-                }
+                methods: {},
+                computed: {}
 
             });
         }
@@ -16616,49 +16763,68 @@ var ScDashboard = function () {
                     lists: [{
                         id: 0,
                         name: 'analytics',
-                        listitems: [{
+                        listItems: [{
                             id: 0,
                             name: 'overview',
-                            type: 'charts'
+                            type: 'charts',
+                            active: true
                         }, {
                             id: 1,
                             name: 'pageviews',
-                            type: 'charts'
+                            type: 'charts',
+                            active: false
                         }, {
                             id: 2,
                             name: 'sessions',
-                            type: 'charts'
+                            type: 'charts',
+                            active: false
                         }, {
                             id: 3,
                             name: 'conversions',
-                            type: 'charts'
+                            type: 'charts',
+                            active: false
                         }, {
                             id: 4,
                             name: 'sales',
-                            type: 'charts'
+                            type: 'charts',
+                            active: false
                         }]
                     }, {
                         id: 1,
                         name: 'lists',
-                        listitems: [{
+                        listItems: [{
                             id: 0,
                             name: 'sessions',
-                            type: 'list'
+                            type: 'list',
+                            active: false
                         }, {
                             id: 1,
                             name: 'conversions',
-                            type: 'list'
+                            type: 'list',
+                            active: false
                         }, {
                             id: 2,
                             name: 'users',
-                            type: 'list'
+                            type: 'list',
+                            active: false
                         }, {
                             id: 3,
                             name: 'sites',
-                            type: 'list'
+                            type: 'list',
+                            active: false
                         }]
                     }],
-                    charts: []
+                    charts: [],
+
+                    current: {
+                        list: 0,
+                        listItem: 0
+
+                    },
+                    range: {
+                        start: '2017-11-18',
+                        end: '2017-12-18'
+                    }
 
                 };
             } else {
@@ -16674,6 +16840,7 @@ var ScDashboard = function () {
 
             axios.get('/api/' + this.dbType + '/' + this.rangeStart + '/' + this.rangeEnd).then(function (response) {
                 _this.scChart.init(response.data);
+                // console.log(response.data);
             }).catch(function (error) {
                 //console.log(error);
             });

@@ -18,10 +18,36 @@ class ScChart {
 
     loadDataSet(){
         let summaryData = [];
+        let dataTotals = 0;
         for(let i = 0; i < this.config.data.labels.length; i++){
-            summaryData[i] =this.config.data.labels[i] in this.groupedData ? this.groupedData[this.config.data.labels[i]].length : 0;
+            summaryData[i] = this.config.data.labels[i] in this.groupedData ? this.groupedData[this.config.data.labels[i]].length : 0;
+            dataTotals += summaryData[i];
         }
         let dataset = {
+            label: "Sessions",
+            fill: true,
+            backgroundColor: window.chartColors.green,
+            borderColor: window.chartColors.green,
+            data: summaryData
+        }
+        this.config.data.datasets.push(dataset);
+        this.totals.sessions = dataTotals;
+
+
+        summaryData = [];
+        for(let i = 0; i < this.config.data.labels.length; i++){
+            if(this.config.data.labels[i] in this.groupedData){
+                summaryData[i] = 0;
+                for(let j = 0; j < this.groupedData[this.config.data.labels[i]].length; j++){
+                    summaryData[i] += this.groupedData[this.config.data.labels[i]][j].rel.rc;
+                }
+
+            }
+            else{
+                summaryData[i] = 0;
+            }
+        }
+        dataset = {
             label: "Page Views",
             fill: true,
             backgroundColor: window.chartColors.blue,
@@ -31,21 +57,6 @@ class ScChart {
         this.config.data.datasets.push(dataset);
 
 
-        summaryData = [];
-        let dataTotals = 0;
-        for(let i = 0; i < this.config.data.labels.length; i++){
-            summaryData[i] = this.config.data.labels[i] in this.groupedData ? this.groupedData[this.config.data.labels[i]].length : 0;
-            dataTotals += summaryData[i];
-        }
-        dataset = {
-            label: "Sessions",
-            fill: true,
-            backgroundColor: window.chartColors.green,
-            borderColor: window.chartColors.green,
-            data: summaryData
-        }
-        this.config.data.datasets.push(dataset);
-        this.totals.sessions = dataTotals;
 
         //console.log(this.totals);
     }
@@ -62,7 +73,7 @@ class ScChart {
     };
 
     getRangeStart(){
-        return '2017-12-05';
+        return '2017-11-18';
     }
 
     getRangeEnd(){

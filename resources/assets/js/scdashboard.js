@@ -10,10 +10,9 @@ class ScDashboard{
         this.eventBusListeners();
         this.loadVue();
 
-        this.dbType = document.querySelector('#dashboard').getAttribute('data-dashboard');
-        this.dbRangeElement = document.querySelector('#dashboardRange');
-        this.rangeStart = this.dbRangeElement.getAttribute('data-range-start');
-        this.rangeEnd  = this.dbRangeElement.getAttribute('data-range-end');
+        this.dbType = this.app.lists[this.app.current.list].listItems[this.app.current.listItem].name;
+        this.rangeStart = this.app.range.start;
+        this.rangeEnd  = this.app.range.end;
 
         this.scChart = new ScChart();
 
@@ -35,9 +34,8 @@ class ScDashboard{
                 'dashboard': Dashboard
             },
             methods: {
-                logClick: function(){
-                    console.log('hi');
-                }
+            },
+            computed: {
             }
 
         });
@@ -50,62 +48,81 @@ class ScDashboard{
                     {
                         id: 0,
                         name: 'analytics',
-                        listitems: [
+                        listItems: [
                             {
                                 id: 0,
                                 name: 'overview',
-                                type: 'charts'
+                                type: 'charts',
+                                active: true
                             },
                             {
                                 id: 1,
                                 name: 'pageviews',
-                                type: 'charts'
+                                type: 'charts',
+                                active: false
                             },
                             {
                                 id: 2,
                                 name: 'sessions',
-                                type: 'charts'
+                                type: 'charts',
+                                active: false
                             },
                             {
                                 id: 3,
                                 name: 'conversions',
-                                type: 'charts'
+                                type: 'charts',
+                                active: false
                             },
                             {
                                 id: 4,
                                 name: 'sales',
-                                type: 'charts'
+                                type: 'charts',
+                                active: false
                             },
                         ]
                     },
                     {
                         id: 1,
                         name: 'lists',
-                        listitems: [
+                        listItems: [
                             {
                                 id: 0,
                                 name: 'sessions',
-                                type: 'list'
+                                type: 'list',
+                                active: false
                             },
                             {
                                 id: 1,
                                 name: 'conversions',
-                                type: 'list'
+                                type: 'list',
+                                active: false
                             },
                             {
                                 id: 2,
                                 name: 'users',
-                                type: 'list'
+                                type: 'list',
+                                active: false
                             },
                             {
                                 id: 3,
                                 name: 'sites',
-                                type: 'list'
+                                type: 'list',
+                                active: false
                             },
                         ]
                     }
                 ],
-                charts: []
+                charts: [],
+
+                current: {
+                    list: 0,
+                    listItem: 0
+
+                },
+                range: {
+                    start: '2017-11-18',
+                    end: '2017-12-18'
+                }
 
             };
         }
@@ -121,6 +138,7 @@ class ScDashboard{
         axios.get(`/api/${this.dbType}/${this.rangeStart}/${this.rangeEnd}`)
             .then( (response) => {
                 this.scChart.init(response.data);
+               // console.log(response.data);
             }).catch(function (error) {
             //console.log(error);
         });
