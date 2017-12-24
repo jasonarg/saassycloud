@@ -4,6 +4,7 @@
             <sb-nav-list-item v-for="listItem in list.listitems"
                               :key="listItem.id"
                               :listItem="listItem"
+                              v-on:log="changeDb"
             />
         </ul>
     </li>
@@ -23,6 +24,11 @@
         computed: {
             labelName: function(){
                 return _.startCase(this.list.name);
+            }
+        },
+        methods: {
+            changeDb: function(event){
+                console.log(event);
             }
         },
         components: {

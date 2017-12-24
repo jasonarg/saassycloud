@@ -1,11 +1,13 @@
 let {ScChart} = require('./scchart.js');
 
 import Dashboard from './components/Dashboard.vue';
+import { EventBus } from './event-bus.js';
 
 class ScDashboard{
 
     constructor(){
         this.setDashboardDefinitions();
+        this.eventBusListeners();
         this.loadVue();
 
         this.dbType = document.querySelector('#dashboard').getAttribute('data-dashboard');
@@ -15,7 +17,14 @@ class ScDashboard{
 
         this.scChart = new ScChart();
 
+
         this.getData();
+    }
+
+    eventBusListeners(){
+        EventBus.$on('i-got-clicked', clickCount => {
+            console.log(`Oh, that's nice. It's gotten ${clickCount} clicks! :)`);
+        });
     }
 
     loadVue(){
@@ -24,6 +33,11 @@ class ScDashboard{
             data: this.setDashboardDefinitions(),
             components: {
                 'dashboard': Dashboard
+            },
+            methods: {
+                logClick: function(){
+                    console.log('hi');
+                }
             }
 
         });

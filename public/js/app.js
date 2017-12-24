@@ -199,6 +199,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -215,6 +216,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return _.startCase(this.list.name);
         }
     },
+    methods: {
+        changeDb: function changeDb(event) {
+            console.log(event);
+        }
+    },
     components: {
         'sb-nav-list-item': __WEBPACK_IMPORTED_MODULE_0__SbNavListItem_vue___default.a
     }
@@ -227,6 +233,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__event_bus_js__ = __webpack_require__("./resources/assets/js/event-bus.js");
 //
 //
 //
@@ -234,8 +241,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "sb-nav-list-item",
+    data: function data() {
+        return {
+            clickCount: 0
+        };
+    },
+
     props: {
         listItem: Object,
         required: true
@@ -243,6 +259,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         labelName: function labelName() {
             return _.startCase(this.listItem.name);
+        }
+    },
+    methods: {
+        logClick: function logClick(event) {
+            this.$emit('log', [event]);
+            this.clickCount += 1;
+            __WEBPACK_IMPORTED_MODULE_0__event_bus_js__["a" /* EventBus */].$emit('i-got-clicked', [this.clickCount]);
         }
     }
 });
@@ -4161,7 +4184,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4191,7 +4214,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15072,7 +15095,8 @@ var render = function() {
       _vm._l(_vm.list.listitems, function(listItem) {
         return _c("sb-nav-list-item", {
           key: listItem.id,
-          attrs: { listItem: listItem }
+          attrs: { listItem: listItem },
+          on: { log: _vm.changeDb }
         })
       })
     )
@@ -15160,9 +15184,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("li", { staticClass: "nav-item" }, [
-    _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-      _vm._v(_vm._s(_vm.labelName))
-    ])
+    _c(
+      "a",
+      {
+        staticClass: "nav-link",
+        attrs: { href: "#" },
+        on: { click: _vm.logClick }
+      },
+      [_vm._v(_vm._s(_vm.labelName))]
+    )
   ])
 }
 var staticRenderFns = []
@@ -16366,6 +16396,18 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/assets/js/event-bus.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EventBus; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__("./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+
+var EventBus = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a();
+
+/***/ }),
+
 /***/ "./resources/assets/js/scchart.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16519,6 +16561,7 @@ module.exports = { ScChart: ScChart };
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue__ = __webpack_require__("./resources/assets/js/components/Dashboard.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus_js__ = __webpack_require__("./resources/assets/js/event-bus.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -16528,11 +16571,13 @@ var _require = __webpack_require__("./resources/assets/js/scchart.js"),
 
 
 
+
 var ScDashboard = function () {
     function ScDashboard() {
         _classCallCheck(this, ScDashboard);
 
         this.setDashboardDefinitions();
+        this.eventBusListeners();
         this.loadVue();
 
         this.dbType = document.querySelector('#dashboard').getAttribute('data-dashboard');
@@ -16546,6 +16591,13 @@ var ScDashboard = function () {
     }
 
     _createClass(ScDashboard, [{
+        key: 'eventBusListeners',
+        value: function eventBusListeners() {
+            __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('i-got-clicked', function (clickCount) {
+                console.log('Oh, that\'s nice. It\'s gotten ' + clickCount + ' clicks! :)');
+            });
+        }
+    }, {
         key: 'loadVue',
         value: function loadVue() {
             this.app = new Vue({
@@ -16553,6 +16605,11 @@ var ScDashboard = function () {
                 data: this.setDashboardDefinitions(),
                 components: {
                     'dashboard': __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue___default.a
+                },
+                methods: {
+                    logClick: function logClick() {
+                        console.log('hi');
+                    }
                 }
 
             });
