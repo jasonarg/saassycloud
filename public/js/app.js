@@ -20,8 +20,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -32,12 +30,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: Array,
             required: true
         },
-        current: {
+        dashboard: {
             type: Object,
-            required: true
-        },
-        charts: {
-            type: Array,
             required: true
         }
     },
@@ -114,6 +108,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0&bustCache!./resources/assets/js/components/DbRow.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "db-row"
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0&bustCache!./resources/assets/js/components/DbTitle.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -130,14 +146,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "db-title",
     props: {
-        listItem: {
+        dashboard: {
             type: Object,
             required: true
         }
     },
     computed: {
         getTitle: function getTitle() {
-            return _.startCase(this.listItem.name);
+            return _.startCase(this.dashboard.title);
         }
     }
 });
@@ -153,6 +169,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DbTitle_vue__ = __webpack_require__("./resources/assets/js/components/DbTitle.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DbTitle_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__DbTitle_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DbRow_vue__ = __webpack_require__("./resources/assets/js/components/DbRow.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DbRow_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__DbRow_vue__);
 //
 //
 //
@@ -204,11 +222,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
+
 
 
 
@@ -216,27 +230,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "main-pane",
     props: {
-        current: {
+        dashboard: {
             type: Object,
             required: true
-        },
-        charts: {
-            type: Array,
-            required: true
-        },
-        lists: {
-            type: Array,
-            required: true
         }
     },
-    computed: {
-        currentListItem: function currentListItem() {
-            return this.lists[this.current.list].listItems[this.current.listItem];
-        }
-    },
+    computed: {},
     components: {
         'db-range-totals-bar': __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue___default.a,
-        'db-title': __WEBPACK_IMPORTED_MODULE_1__DbTitle_vue___default.a
+        'db-title': __WEBPACK_IMPORTED_MODULE_1__DbTitle_vue___default.a,
+        'db-row': __WEBPACK_IMPORTED_MODULE_2__DbRow_vue___default.a
+    },
+    mounted: function mounted() {
+        console.log(this.dashboard);
     }
 });
 
@@ -4298,7 +4304,22 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a79e3256\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./resources/assets/js/components/DbRow.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15195,9 +15216,7 @@ var render = function() {
     [
       _c("sidebar-nav", { attrs: { lists: _vm.lists } }),
       _vm._v(" "),
-      _c("main-pane", {
-        attrs: { lists: _vm.lists, charts: _vm.charts, current: _vm.current }
-      })
+      _c("main-pane", { attrs: { dashboard: _vm.dashboard } })
     ],
     1
   )
@@ -15340,44 +15359,21 @@ var render = function() {
         _c(
           "div",
           { staticClass: "col-md-12 mt-2 mb-0 px-2 pb-0" },
-          [_c("db-title", { attrs: { listItem: _vm.currentListItem } })],
+          [_c("db-title", { attrs: { dashboard: _vm.dashboard.title } })],
           1
         )
       ]),
       _vm._v(" "),
+      _c("db-row"),
+      _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      _vm._m(2)
+      _vm._m(1)
     ],
     1
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center my-0" }, [
-      _c("div", { staticClass: "col-md-12 mt-0 mb-2 p-2" }, [
-        _c(
-          "div",
-          {
-            staticClass: "chartWrapper my-0 mx-0 p-3 bg-white border",
-            attrs: { id: "" }
-          },
-          [
-            _c("canvas", {
-              staticClass: "scChart",
-              staticStyle: { height: "400px", width: "content-box" },
-              attrs: { id: "overviewCombined" }
-            })
-          ]
-        )
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -15475,6 +15471,51 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-7544ed10", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-a79e3256\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0&bustCache!./resources/assets/js/components/DbRow.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row justify-content-center my-0" }, [
+      _c("div", { staticClass: "col-md-12 mt-0 mb-2 p-2" }, [
+        _c(
+          "div",
+          {
+            staticClass: "chartWrapper my-0 mx-0 p-3 bg-white border",
+            attrs: { id: "" }
+          },
+          [
+            _c("canvas", {
+              staticClass: "scChart",
+              staticStyle: { height: "400px", width: "content-box" },
+              attrs: { id: "overviewCombined" }
+            })
+          ]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-a79e3256", module.exports)
   }
 }
 
@@ -15737,6 +15778,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7544ed10\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./MainPane.vue", function() {
      var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7544ed10\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./MainPane.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a79e3256\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./resources/assets/js/components/DbRow.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a79e3256\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./resources/assets/js/components/DbRow.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("5d0f250d", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a79e3256\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./DbRow.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a79e3256\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./DbRow.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -16078,14 +16146,6 @@ window.Vue = __webpack_require__("./node_modules/vue/dist/vue.common.js");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-/*
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
-const app = new Vue({
-    el: '#vue-main'
-});
-*/
-
 __webpack_require__("./resources/assets/js/scchart.js");
 __webpack_require__("./resources/assets/js/scdashboard.js");
 
@@ -16293,6 +16353,58 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-c4a57a08", Component.options)
   } else {
     hotAPI.reload("data-v-c4a57a08", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/DbRow.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a79e3256\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./resources/assets/js/components/DbRow.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0&bustCache!./resources/assets/js/components/DbRow.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-a79e3256\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0&bustCache!./resources/assets/js/components/DbRow.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-a79e3256"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/DbRow.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a79e3256", Component.options)
+  } else {
+    hotAPI.reload("data-v-a79e3256", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -16564,10 +16676,10 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ "./resources/assets/js/config/dashboards/overview/overview.json":
+/***/ "./resources/assets/js/config/dashboards/overview/layout.json":
 /***/ (function(module, exports) {
 
-module.exports = {"type":"line","data":{"labels":[],"datasets":[]},"options":{"responsive":true,"maintainAspectRatio":false,"title":{"display":true,"text":"SaaSsy Cloud Analytics: Overview"},"tooltips":{"mode":"index","intersect":false},"hover":{"mode":"nearest","intersect":true},"scales":{"xAxes":[{"display":true,"scaleLabel":{"display":true,"labelString":"Date"}}],"yAxes":[{"display":true,"scaleLabel":{"display":true,"labelString":"Value"}}]}}}
+module.exports = {"title":"overview","rows":[{"height":"400","elements":[{"type":"chart","name":"overview"}]},{"height":"250","elements":[{"type":"chart","name":"saassy"},{"type":"chart","name":"saassier"},{"type":"chart","name":"saasiest"}]},{"height":"500","elements":[{"type":"chart","name":"salesAb"},{"type":"elements","elements":[{"type":"chart","name":"monthlyVsAnnual"},{"type":"chart","name":"conversionsAbCompare"}]}]}]}
 
 /***/ }),
 
@@ -16754,7 +16866,7 @@ var _require = __webpack_require__("./resources/assets/js/scchart.js"),
 
 
 
-var jd = __webpack_require__("./resources/assets/js/config/dashboards/overview/overview.json");
+var jd = __webpack_require__("./resources/assets/js/config/dashboards/overview/layout.json");
 
 var ScDashboard = function () {
     function ScDashboard() {
@@ -16769,7 +16881,6 @@ var ScDashboard = function () {
         this.rangeEnd = this.app.range.end;
 
         this.scChart = new ScChart();
-
         this.getData();
     }
 
@@ -16819,16 +16930,6 @@ var ScDashboard = function () {
                             name: 'sessions',
                             type: 'charts',
                             active: false
-                        }, {
-                            id: 3,
-                            name: 'conversions',
-                            type: 'charts',
-                            active: false
-                        }, {
-                            id: 4,
-                            name: 'sales',
-                            type: 'charts',
-                            active: false
                         }]
                     }, {
                         id: 1,
@@ -16856,7 +16957,7 @@ var ScDashboard = function () {
                         }]
                     }],
                     charts: [],
-
+                    dashboard: jd,
                     current: {
                         list: 0,
                         listItem: 0
@@ -16881,7 +16982,7 @@ var ScDashboard = function () {
 
             axios.get('/api/' + this.dbType + '/' + this.rangeStart + '/' + this.rangeEnd).then(function (response) {
                 _this.scChart.init(response.data);
-                // console.log(response.data);
+                console.log(response.data);
             }).catch(function (error) {
                 //console.log(error);
             });
@@ -16893,7 +16994,6 @@ var ScDashboard = function () {
 
 window.onload = function () {
     var scDb = new ScDashboard();
-    console.log(jd);
 };
 
 /***/ }),

@@ -3,7 +3,7 @@ let {ScChart} = require('./scchart.js');
 import Dashboard from './components/Dashboard.vue';
 import { EventBus } from './event-bus.js';
 
-const jd = require('./config/dashboards/overview/overview.json');
+const jd = require('./config/dashboards/overview/layout.json');
 
 class ScDashboard{
 
@@ -17,8 +17,6 @@ class ScDashboard{
         this.rangeEnd  = this.app.range.end;
 
         this.scChart = new ScChart();
-
-
         this.getData();
     }
 
@@ -68,19 +66,7 @@ class ScDashboard{
                                 name: 'sessions',
                                 type: 'charts',
                                 active: false
-                            },
-                            {
-                                id: 3,
-                                name: 'conversions',
-                                type: 'charts',
-                                active: false
-                            },
-                            {
-                                id: 4,
-                                name: 'sales',
-                                type: 'charts',
-                                active: false
-                            },
+                            }
                         ]
                     },
                     {
@@ -115,7 +101,7 @@ class ScDashboard{
                     }
                 ],
                 charts: [],
-
+                dashboard: jd,
                 current: {
                     list: 0,
                     listItem: 0
@@ -140,7 +126,7 @@ class ScDashboard{
         axios.get(`/api/${this.dbType}/${this.rangeStart}/${this.rangeEnd}`)
             .then( (response) => {
                 this.scChart.init(response.data);
-               // console.log(response.data);
+                console.log(response.data);
             }).catch(function (error) {
             //console.log(error);
         });
@@ -150,5 +136,4 @@ class ScDashboard{
 
 window.onload = function() {
     let scDb = new ScDashboard();
-    console.log(jd);
 };

@@ -4,17 +4,12 @@
         <div class="row justify-content-center mb-0 pb-0">
             <div class="col-md-12 mt-2 mb-0 px-2 pb-0">
                 <db-title
-                    :listItem="currentListItem"
+                    :dashboard="dashboard.title"
                 />
             </div>
         </div>
-        <div class="row justify-content-center my-0">
-            <div class="col-md-12 mt-0 mb-2 p-2">
-                <div id="" class="chartWrapper my-0 mx-0 p-3 bg-white border">
-                    <canvas id="overviewCombined" class="scChart" style="height:400px;width: content-box;"></canvas>
-                </div>
-            </div>
-        </div>
+        <db-row
+        />
 
         <div class="row justify-content-around mt-0 mb-0">
             <div class="col-md-4 px-2">
@@ -57,32 +52,27 @@
 <script>
     import DbRangeTotalsBar from './DbRangeTotalsBar.vue';
     import DbTitle from './DbTitle.vue';
+    import DbRow from './DbRow.vue';
 
     export default {
         name: "main-pane",
         props: {
-            current: {
+            dashboard: {
                 type: Object,
-                required: true
-            },
-            charts: {
-                type: Array,
-                required: true
-            },
-            lists: {
-                type: Array,
                 required: true
             }
         },
         computed: {
-            currentListItem: function(){
-                return this.lists[this.current.list].listItems[this.current.listItem];
-            }
         },
         components:{
             'db-range-totals-bar': DbRangeTotalsBar,
-            'db-title': DbTitle
+            'db-title': DbTitle,
+            'db-row': DbRow
+        },
+        mounted() {
+            console.log(this.dashboard);
         }
+
     }
 </script>
 

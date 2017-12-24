@@ -4,9 +4,7 @@
                 :lists="lists"
         />
         <main-pane
-            :lists="lists"
-            :charts="charts"
-            :current="current"
+            :dashboard="dashboard"
         />
     </div>
 </template>
@@ -21,12 +19,8 @@
                 type: Array,
                 required: true
             },
-            current: {
+            dashboard: {
                 type: Object,
-                required: true
-            },
-            charts: {
-                type: Array,
                 required: true
             }
         },

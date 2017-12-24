@@ -9,14 +9,14 @@
     export default {
         name: "db-title",
         props: {
-            listItem: {
+            dashboard: {
                 type: Object,
                 required: true
             }
         },
         computed: {
             getTitle: function(){
-                return _.startCase(this.listItem.name);
+                return _.startCase(this.dashboard.title);
             }
         }
     }
