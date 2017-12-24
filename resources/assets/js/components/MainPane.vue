@@ -3,11 +3,9 @@
         <db-range-totals-bar></db-range-totals-bar>
         <div class="row justify-content-center mb-0 pb-0">
             <div class="col-md-12 mt-2 mb-0 px-2 pb-0">
-                <div class="m-0 px-2 py-2 bg-white border">
                 <db-title
                     :listItem="currentListItem"
                 />
-                </div>
             </div>
         </div>
         <div class="row justify-content-center my-0">

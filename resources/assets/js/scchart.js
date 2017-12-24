@@ -29,7 +29,7 @@ class ScChart {
             backgroundColor: window.chartColors.green,
             borderColor: window.chartColors.green,
             data: summaryData
-        }
+        };
         this.config.data.datasets.push(dataset);
         this.totals.sessions = dataTotals;
 
@@ -122,7 +122,7 @@ ScChart.prototype.config = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Month'
+                    labelString: 'Date'
                 }
             }],
             yAxes: [{

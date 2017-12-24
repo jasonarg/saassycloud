@@ -124,6 +124,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "db-title",
@@ -131,6 +133,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         listItem: {
             type: Object,
             required: true
+        }
+    },
+    computed: {
+        getTitle: function getTitle() {
+            return _.startCase(this.listItem.name);
         }
     }
 });
@@ -146,8 +153,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DbTitle_vue__ = __webpack_require__("./resources/assets/js/components/DbTitle.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DbTitle_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__DbTitle_vue__);
-//
-//
 //
 //
 //
@@ -4263,7 +4268,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4293,7 +4298,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15244,7 +15249,36 @@ if (false) {
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-3242d8da\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0&bustCache!./resources/assets/js/components/DbTitle.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports={render:function(){},staticRenderFns:[]}
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "m-0 px-2 py-2 bg-white border" }, [
+    _c(
+      "h6",
+      {
+        staticClass: "d-inline-block text-info my-1",
+        attrs: { id: "mainChartTitle" }
+      },
+      [_vm._v("SaaSsy Cloud Analytics: " + _vm._s(_vm.getTitle))]
+    ),
+    _vm._v(" "),
+    _c("input", {
+      staticClass: "form-input float-right pl-3 mb-1",
+      staticStyle: { width: "280px", "font-size": ".8rem" },
+      attrs: {
+        id: "dashboardRange",
+        type: "text",
+        placeholder: "November 18, 2017 - December 18, 2017",
+        "data-range-start": "2017-11-18",
+        "data-range-end": "2017-12-18"
+      }
+    })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
@@ -15303,14 +15337,12 @@ var render = function() {
       _c("db-range-totals-bar"),
       _vm._v(" "),
       _c("div", { staticClass: "row justify-content-center mb-0 pb-0" }, [
-        _c("div", { staticClass: "col-md-12 mt-2 mb-0 px-2 pb-0" }, [
-          _c(
-            "div",
-            { staticClass: "m-0 px-2 py-2 bg-white border" },
-            [_c("db-title", { attrs: { listItem: _vm.currentListItem } })],
-            1
-          )
-        ])
+        _c(
+          "div",
+          { staticClass: "col-md-12 mt-2 mb-0 px-2 pb-0" },
+          [_c("db-title", { attrs: { listItem: _vm.currentListItem } })],
+          1
+        )
       ]),
       _vm._v(" "),
       _vm._m(0),
@@ -16679,7 +16711,7 @@ ScChart.prototype.config = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Month'
+                    labelString: 'Date'
                 }
             }],
             yAxes: [{

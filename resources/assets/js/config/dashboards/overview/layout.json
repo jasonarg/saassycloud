@@ -1,0 +1,52 @@
+{
+  "rows": [
+    {
+      "height": "400",
+      "elements": [
+        {
+          "type": "chart",
+          "name": "overview"
+        }
+      ]
+    },
+    {
+      "height": "250",
+      "elements": [
+        {
+          "type": "chart",
+          "name": "saassy"
+        },
+        {
+          "type": "chart",
+          "name": "saassier"
+        },
+        {
+          "type": "chart",
+          "name": "saasiest"
+        }
+      ]
+    },
+    {
+      "height": "500",
+      "elements": [
+        {
+          "type": "chart",
+          "name": "salesAb"
+        },
+        {
+          "type": "elements",
+          "elements": [
+            {
+              "type": "chart",
+              "name": "monthlyVsAnnual"
+            },
+            {
+              "type": "chart",
+              "name": "conversionsAbCompare"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
