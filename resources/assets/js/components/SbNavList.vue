@@ -4,7 +4,6 @@
             <sb-nav-list-item v-for="listItem in list.listitems"
                               :key="listItem.id"
                               :listItem="listItem"
-                              v-on:log="changeDb"
             />
         </ul>
     </li>
@@ -27,9 +26,6 @@
             }
         },
         methods: {
-            changeDb: function(event){
-                console.log(event);
-            }
         },
         components: {
             'sb-nav-list-item': SbNavListItem

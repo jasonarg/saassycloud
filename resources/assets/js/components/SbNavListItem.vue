@@ -1,6 +1,6 @@
 <template>
     <li class="nav-item">
-        <a class="nav-link" @click="logClick" href="#">{{ labelName }}</a>
+        <a class="nav-link" @click="changeDashboard" href="#">{{ labelName }}</a>
     </li>
 </template>
 
@@ -25,10 +25,8 @@
             }
         },
         methods: {
-            logClick: function(event){
-                this.$emit('log', [event]);
-                this.clickCount += 1;
-                EventBus.$emit('i-got-clicked', [this.clickCount]);
+            changeDashboard: function(){
+                EventBus.$emit('changeDashboard', [this.listItem]);
             }
         }
     }

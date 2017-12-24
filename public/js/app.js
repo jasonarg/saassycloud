@@ -199,7 +199,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -216,11 +215,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return _.startCase(this.list.name);
         }
     },
-    methods: {
-        changeDb: function changeDb(event) {
-            console.log(event);
-        }
-    },
+    methods: {},
     components: {
         'sb-nav-list-item': __WEBPACK_IMPORTED_MODULE_0__SbNavListItem_vue___default.a
     }
@@ -262,10 +257,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        logClick: function logClick(event) {
-            this.$emit('log', [event]);
-            this.clickCount += 1;
-            __WEBPACK_IMPORTED_MODULE_0__event_bus_js__["a" /* EventBus */].$emit('i-got-clicked', [this.clickCount]);
+        changeDashboard: function changeDashboard() {
+            __WEBPACK_IMPORTED_MODULE_0__event_bus_js__["a" /* EventBus */].$emit('changeDashboard', [this.listItem]);
         }
     }
 });
@@ -4184,7 +4177,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4214,7 +4207,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15095,8 +15088,7 @@ var render = function() {
       _vm._l(_vm.list.listitems, function(listItem) {
         return _c("sb-nav-list-item", {
           key: listItem.id,
-          attrs: { listItem: listItem },
-          on: { log: _vm.changeDb }
+          attrs: { listItem: listItem }
         })
       })
     )
@@ -15189,7 +15181,7 @@ var render = function() {
       {
         staticClass: "nav-link",
         attrs: { href: "#" },
-        on: { click: _vm.logClick }
+        on: { click: _vm.changeDashboard }
       },
       [_vm._v(_vm._s(_vm.labelName))]
     )
@@ -16593,8 +16585,8 @@ var ScDashboard = function () {
     _createClass(ScDashboard, [{
         key: 'eventBusListeners',
         value: function eventBusListeners() {
-            __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('i-got-clicked', function (clickCount) {
-                console.log('Oh, that\'s nice. It\'s gotten ' + clickCount + ' clicks! :)');
+            __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('changeDashboard', function (listItem) {
+                console.log(listItem);
             });
         }
     }, {
@@ -16626,35 +16618,44 @@ var ScDashboard = function () {
                         name: 'analytics',
                         listitems: [{
                             id: 0,
-                            name: 'overview'
+                            name: 'overview',
+                            type: 'charts'
                         }, {
                             id: 1,
-                            name: 'pageviews'
+                            name: 'pageviews',
+                            type: 'charts'
                         }, {
                             id: 2,
-                            name: 'sessions'
+                            name: 'sessions',
+                            type: 'charts'
                         }, {
                             id: 3,
-                            name: 'conversions'
+                            name: 'conversions',
+                            type: 'charts'
                         }, {
                             id: 4,
-                            name: 'sales'
+                            name: 'sales',
+                            type: 'charts'
                         }]
                     }, {
                         id: 1,
                         name: 'lists',
                         listitems: [{
                             id: 0,
-                            name: 'sessions'
+                            name: 'sessions',
+                            type: 'list'
                         }, {
                             id: 1,
-                            name: 'conversions'
+                            name: 'conversions',
+                            type: 'list'
                         }, {
                             id: 2,
-                            name: 'users'
+                            name: 'users',
+                            type: 'list'
                         }, {
                             id: 3,
-                            name: 'sites'
+                            name: 'sites',
+                            type: 'list'
                         }]
                     }],
                     charts: []

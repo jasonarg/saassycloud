@@ -22,8 +22,8 @@ class ScDashboard{
     }
 
     eventBusListeners(){
-        EventBus.$on('i-got-clicked', clickCount => {
-            console.log(`Oh, that's nice. It's gotten ${clickCount} clicks! :)`);
+        EventBus.$on('changeDashboard', listItem => {
+            console.log(listItem);
         });
     }
 
@@ -53,23 +53,28 @@ class ScDashboard{
                         listitems: [
                             {
                                 id: 0,
-                                name: 'overview'
+                                name: 'overview',
+                                type: 'charts'
                             },
                             {
                                 id: 1,
-                                name: 'pageviews'
+                                name: 'pageviews',
+                                type: 'charts'
                             },
                             {
                                 id: 2,
-                                name: 'sessions'
+                                name: 'sessions',
+                                type: 'charts'
                             },
                             {
                                 id: 3,
-                                name: 'conversions'
+                                name: 'conversions',
+                                type: 'charts'
                             },
                             {
                                 id: 4,
-                                name: 'sales'
+                                name: 'sales',
+                                type: 'charts'
                             },
                         ]
                     },
@@ -79,19 +84,23 @@ class ScDashboard{
                         listitems: [
                             {
                                 id: 0,
-                                name: 'sessions'
+                                name: 'sessions',
+                                type: 'list'
                             },
                             {
                                 id: 1,
-                                name: 'conversions'
+                                name: 'conversions',
+                                type: 'list'
                             },
                             {
                                 id: 2,
-                                name: 'users'
+                                name: 'users',
+                                type: 'list'
                             },
                             {
                                 id: 3,
-                                name: 'sites'
+                                name: 'sites',
+                                type: 'list'
                             },
                         ]
                     }
