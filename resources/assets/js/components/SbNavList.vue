@@ -1,9 +1,10 @@
 <template>
     <li class="nav-item">{{ labelName }}
         <ul class="nav flex-column">
-            <sb-nav-list-item v-for="listItem in list.listItems"
-                              :key="listItem.id"
-                              :listItem="listItem"
+            <sb-nav-list-item
+                v-for="listItem in list.listItems"
+                :key="listItem.id"
+                :listItem="listItem"
             />
         </ul>
     </li>

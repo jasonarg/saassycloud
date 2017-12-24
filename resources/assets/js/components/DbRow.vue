@@ -9,8 +9,20 @@
 </template>
 
 <script>
+
+    import DbCol from './DbCol.vue';
+
     export default {
-        name: "db-row"
+        name: "db-row",
+        props: {
+            row: {
+                type: Object,
+                required: true
+            }
+        },
+        mounted(){
+            console.log(this.row);
+        }
     }
 </script>
 

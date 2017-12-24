@@ -4,11 +4,14 @@
         <div class="row justify-content-center mb-0 pb-0">
             <div class="col-md-12 mt-2 mb-0 px-2 pb-0">
                 <db-title
-                    :dashboard="dashboard.title"
+                    :dashboard="dashboard"
                 />
             </div>
         </div>
         <db-row
+            v-for="row in dashboard.rows"
+            :key="row.id"
+            :row="row"
         />
 
         <div class="row justify-content-around mt-0 mb-0">

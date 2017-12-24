@@ -2,6 +2,7 @@
   "title": "overview",
   "rows": [
     {
+      "id": 0,
       "height": "400",
       "elements": [
         {
@@ -11,6 +12,7 @@
       ]
     },
     {
+      "id": 1,
       "height": "250",
       "elements": [
         {
@@ -28,6 +30,7 @@
       ]
     },
     {
+      "id": 2,
       "height": "500",
       "elements": [
         {
@@ -35,15 +38,27 @@
           "name": "salesAb"
         },
         {
-          "type": "elements",
-          "elements": [
+          "type": "rows",
+          "rows": [
             {
-              "type": "chart",
-              "name": "monthlyVsAnnual"
+              "id": 3,
+              "height": "230",
+              "elements": [
+                {
+                "type": "chart",
+                "name": "asdasd"
+                }
+              ]
             },
             {
-              "type": "chart",
-              "name": "conversionsAbCompare"
+              "id": 4,
+              "height": "230",
+              "elements": [
+                {
+                  "type": "chart",
+                  "name": "asdasdasd"
+                }
+              ]
             }
           ]
         }
