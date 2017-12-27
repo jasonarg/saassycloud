@@ -1,6 +1,6 @@
-class ChartOverview {
+class ChartMonthlyAnnualAb {
 
-    polishData(data) {
+    groupData(data) {
         let dates = _.groupBy(data.sessions, (session) => {
             let date = new Date(session.a.at);
             return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
@@ -10,7 +10,7 @@ class ChartOverview {
     };
 }
 
-ChartOverview.prototype.config = {
+ChartMonthlyAnnualAb.prototype.config = {
     type: "line",
     data: {
         labels: [],
@@ -55,4 +55,4 @@ ChartOverview.prototype.config = {
 };
 
 
-module.exports = {ChartOverview};
+module.exports = {ChartMonthlyAnnualAb};

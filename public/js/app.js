@@ -17281,7 +17281,7 @@ webpackContext.id = "./resources/assets/js/config/dashboards recursive ^\\.\\/.*
 /***/ "./resources/assets/js/config/dashboards/overview/layout.json":
 /***/ (function(module, exports) {
 
-module.exports = {"title":"overview","rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saasiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesAb","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"asdasd","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"asdasdasd","cols":"12"}]}]}]}]}
+module.exports = {"title":"overview","rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saasiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesAb","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"packageAb","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"monthlyAnnualAb","cols":"12"}]}]}]}]}
 
 /***/ }),
 
@@ -17486,6 +17486,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /*
 let {ScChart} = require('./scchart.js');
 */
+var _ = __webpack_require__("./node_modules/lodash/lodash.js");
 
 
 
@@ -17522,10 +17523,6 @@ var ScDashboard = function () {
             }
             this.scdbData.layout.navigation = this.configFiles.navigation.lists;
             this.scdbData.layout.dashboard = this.configFiles.dashboards[this.route];
-            var chartList = this.extractCharts(this.scdbData.layout.dashboard.rows);
-            for (var chart in chartList) {
-                console.log(chartList[chart]);
-            }
         }
     }, {
         key: 'extractCharts',
@@ -17581,6 +17578,12 @@ var ScDashboard = function () {
         value: function polishData() {
             //for each chart in the current dashboard call it's polish function and
             //store in proper place
+            var chartList = this.extractCharts(this.scdbData.layout.dashboard.rows);
+            for (var chart in chartList) {
+                //instantiate a proxy of that chart's class and then
+                // call that chart class's polishData method and store
+                console.log('Chart' + _.upperFirst(chartList[chart]));
+            }
         }
     }, {
         key: 'loadDataIntoDashboard',

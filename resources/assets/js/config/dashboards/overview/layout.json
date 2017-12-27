@@ -59,7 +59,7 @@
                 {
                   "id": "",
                   "elType": "chart",
-                  "name": "asdasd",
+                  "name": "packageAb",
                   "cols": "12"
                 }
               ]
@@ -71,7 +71,7 @@
                 {
                   "id": "",
                   "elType": "chart",
-                  "name": "asdasdasd",
+                  "name": "monthlyAnnualAb",
                   "cols": "12"
                 }
               ]

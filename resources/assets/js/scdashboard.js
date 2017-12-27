@@ -1,6 +1,7 @@
 /*
 let {ScChart} = require('./scchart.js');
 */
+let _ = require('lodash');
 import Dashboard from './components/Dashboard.vue';
 import { EventBus } from './event-bus.js';
 
@@ -37,10 +38,6 @@ class ScDashboard{
         }
         this.scdbData.layout.navigation = this.configFiles.navigation.lists;
         this.scdbData.layout.dashboard = this.configFiles.dashboards[this.route];
-        let chartList = this.extractCharts(this.scdbData.layout.dashboard.rows);
-        for(let chart in chartList){
-            console.log(chartList[chart]);
-        }
     }
 
     extractCharts(rows){
@@ -97,6 +94,13 @@ class ScDashboard{
     polishData(){
         //for each chart in the current dashboard call it's polish function and
         //store in proper place
+        let chartList = this.extractCharts(this.scdbData.layout.dashboard.rows);
+        for(let chart in chartList){
+            //instantiate a proxy of that chart's class and then
+            // call that chart class's polishData method and store
+            console.log(`Chart${_.upperFirst(chartList[chart])}`);
+
+        }
     }
 
     loadDataIntoDashboard(){

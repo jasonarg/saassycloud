@@ -1,6 +1,6 @@
 class ChartOverview {
 
-    polishData(data) {
+    groupData(data) {
         let dates = _.groupBy(data.sessions, (session) => {
             let date = new Date(session.a.at);
             return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
