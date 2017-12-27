@@ -13,7 +13,6 @@ class ScChart {
         this.setLabels();
         this.loadDataSet(this.groupedData);
         this.myLine = new Chart(document.getElementById("overviewCombined").getContext("2d"), this.config);
-
     };
 
     loadDataSet(){

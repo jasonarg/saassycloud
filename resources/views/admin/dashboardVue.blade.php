@@ -27,7 +27,7 @@
 </header>
 <div id="vue-main" class="container-fluid">
     <dashboard
-            :lists="lists"
+            :navigation="navigation"
             :dashboard="dashboard"
         />
 </div>

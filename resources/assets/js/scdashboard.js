@@ -1,139 +1,143 @@
+/*
 let {ScChart} = require('./scchart.js');
-
+*/
 import Dashboard from './components/Dashboard.vue';
 import { EventBus } from './event-bus.js';
 
-const jd = require('./config/dashboards/overview/layout.json');
+
+
 
 class ScDashboard{
 
-    constructor(){
-        this.setDashboardDefinitions();
-        this.eventBusListeners();
-        this.loadVue();
-
-        this.dbType = this.app.lists[this.app.current.list].listItems[this.app.current.listItem].name;
-        this.rangeStart = this.app.range.start;
-        this.rangeEnd  = this.app.range.end;
-
-        this.scChart = new ScChart();
-        this.getData();
+    constructor(rangeStart, rangeEnd){
+        this.scdbData.range.start = rangeStart;
+        this.scdbData.range.end = rangeEnd;
+        this.getRoute();
+        this.loadConfig();
+        this.loadData();
+        this.loadView();
+        this.loadEventListeners();
+       /*
+        this.groomData();*/
     }
 
-    eventBusListeners(){
-        EventBus.$on('changeDashboard', listItem => {
-            console.log(listItem);
-        });
+    getRoute(){
+        this.route = 'overview';
     }
 
-    loadVue(){
+    loadConfig(){
+        this.configFiles = {};
+        this.configFiles.navigation = require('./config/navigation.json');
+
+        this.configFiles.dashboards = {};
+
+        for(let dashboard in this.configFiles.navigation.lists[0].listItems){
+            this.configFiles.dashboards[this.configFiles.navigation.lists[0].listItems[dashboard].name]
+                = require(`./config/dashboards/${this.configFiles.navigation.lists[0].listItems[dashboard].name}/layout.json`);
+        }
+        this.scdbData.layout.navigation = this.configFiles.navigation.lists;
+        this.scdbData.layout.dashboard = this.configFiles.dashboards[this.route];
+        let chartList = this.extractCharts(this.scdbData.layout.dashboard.rows);
+        for(let chart in chartList){
+            console.log(chartList[chart]);
+        }
+    }
+
+    extractCharts(rows){
+        let rtnArray = [];
+        for(let row in rows){
+            for(let element in rows[row].elements){
+                if(rows[row].elements[element].elType === "chart"){
+                    rtnArray.push(rows[row].elements[element].name);
+                }
+                else{
+                     rtnArray = rtnArray.concat(this.extractCharts(rows[row].elements[element].rows));
+                }
+
+            }
+        }
+
+        return rtnArray;
+    }
+
+
+
+    loadView(){
+
         this.app = new Vue({
             el: '#vue-main',
-            data: this.setDashboardDefinitions(),
+            data: this.scdbData.layout,
             components: {
                 'dashboard': Dashboard
             },
-            methods: {
-            },
-            computed: {
+            mounted(){
+                console.log(this.data);
             }
 
         });
     }
 
-    setDashboardDefinitions(definition = null){
-        if(!definition) {
-            this.definition =  {
-                lists: [
-                    {
-                        id: 0,
-                        name: 'analytics',
-                        listItems: [
-                            {
-                                id: 0,
-                                name: 'overview',
-                                type: 'charts',
-                                active: true
-                            },
-                            {
-                                id: 1,
-                                name: 'pageviews',
-                                type: 'charts',
-                                active: false
-                            },
-                            {
-                                id: 2,
-                                name: 'sessions',
-                                type: 'charts',
-                                active: false
-                            }
-                        ]
-                    },
-                    {
-                        id: 1,
-                        name: 'lists',
-                        listItems: [
-                            {
-                                id: 0,
-                                name: 'sessions',
-                                type: 'list',
-                                active: false
-                            },
-                            {
-                                id: 1,
-                                name: 'conversions',
-                                type: 'list',
-                                active: false
-                            },
-                            {
-                                id: 2,
-                                name: 'users',
-                                type: 'list',
-                                active: false
-                            },
-                            {
-                                id: 3,
-                                name: 'sites',
-                                type: 'list',
-                                active: false
-                            },
-                        ]
-                    }
-                ],
-                charts: [],
-                dashboard: jd,
-                current: {
-                    list: 0,
-                    listItem: 0
+    loadData(){
+         axios.get(`/api/${this.route}/${this.scdbData.range.start}/${this.scdbData.range.end}`)
+            .then( (response) => {
+                this.scdbData.viewData.rough = response.data;
+                this.polishDataAndLoadIntoDashboard();
 
-                },
-                range: {
-                    start: '2017-11-18',
-                    end: '2017-12-18'
-                }
 
-            };
-        }
-        else{
-            this.definition = definition;
-        }
-
-        return this.definition;
-
+            }).catch(function (error) {
+                console.log(error);
+        });
     }
 
-    getData(){
-        axios.get(`/api/${this.dbType}/${this.rangeStart}/${this.rangeEnd}`)
-            .then( (response) => {
-                this.scChart.init(response.data);
-                console.log(response.data);
-            }).catch(function (error) {
-            //console.log(error);
+    polishDataAndLoadIntoDashboard(){
+        this.polishData();
+        this.loadDataIntoDashboard();
+    }
+
+    polishData(){
+        //for each chart in the current dashboard call it's polish function and
+        //store in proper place
+    }
+
+    loadDataIntoDashboard(){
+//for each chart in active dashboard
+        //pass in data and create an instance of chart.js
+    }
+
+    loadEventListeners() {
+
+        EventBus.$on('changeDashboard', listItem => {
+            console.log(listItem);
         });
+
+        EventBus.$on('changeRange', (rangeStart, rangeEnd) => {
+            console.log(rangeStart, rangeEnd);
+        });
+
     }
 }
 
+ScDashboard.prototype.scdbData = {
+    view: 'dashboards',
+    node: 'overview',
+    range: {
+        start: null,
+        end: null
+    },
+    viewConfig: {},
+    layout: {
+        navigation: {},
+        dashboard: {}
+    },
+    viewData: {
+        rough: {
+
+        },
+        polished: []
+    }
+};
+
 
 window.onload = function() {
-    let scDb = new ScDashboard();
+    let scDb = new ScDashboard('2017-11-18', '2017-12-18');
 };

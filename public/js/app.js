@@ -26,7 +26,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
-        lists: {
+        navigation: {
             type: Array,
             required: true
         },
@@ -130,7 +130,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     computed: {
         classString: function classString() {
-            return 'col-md-' + this.element.cols + ' mt-0 mb-2 p-2';
+            return 'col-md-' + this.element.cols + ' mt-0 mb-2 ' + (this.childIsRow ? 'py-0 px-2' : 'p-2');
         },
         childIsRow: function childIsRow() {
             return this.element.elType === 'rows' ? true : false;
@@ -287,7 +287,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     computed: {
         classString: function classString() {
-            return 'col-md-' + this.element.cols + ' mt-0 mb-2 p-2';
+            return 'col-md-' + this.element.cols + ' my-0 mb-2 p-2';
         }
     },
     data: function data() {
@@ -543,7 +543,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "sidebar-nav",
     props: {
-        lists: {
+        navigation: {
             type: Array
         }
     },
@@ -15456,7 +15456,7 @@ var render = function() {
     "div",
     { staticClass: "row" },
     [
-      _c("sidebar-nav", { attrs: { lists: _vm.lists } }),
+      _c("sidebar-nav", { attrs: { navigation: _vm.navigation } }),
       _vm._v(" "),
       _c("main-pane", { attrs: { dashboard: _vm.dashboard } })
     ],
@@ -15584,7 +15584,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "row justify-content-center my-0" },
+    { staticClass: "row justify-content-center my-0 py-0" },
     _vm._l(_vm.row.elements, function(element) {
       return _c("db-sub-col", {
         key: element.id,
@@ -15763,7 +15763,7 @@ var render = function() {
       _c(
         "ul",
         { staticClass: "nav" },
-        _vm._l(_vm.lists, function(list) {
+        _vm._l(_vm.navigation, function(list) {
           return _c("sb-nav-list", { key: list.id, attrs: { list: list } })
         })
       )
@@ -17252,10 +17252,57 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/assets/js/config/dashboards recursive ^\\.\\/.*\\/layout\\.json$":
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./overview/layout.json": "./resources/assets/js/config/dashboards/overview/layout.json",
+	"./pageviews/layout.json": "./resources/assets/js/config/dashboards/pageviews/layout.json",
+	"./sessions/layout.json": "./resources/assets/js/config/dashboards/sessions/layout.json"
+};
+function webpackContext(req) {
+	return __webpack_require__(webpackContextResolve(req));
+};
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) // check for number or string
+		throw new Error("Cannot find module '" + req + "'.");
+	return id;
+};
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./resources/assets/js/config/dashboards recursive ^\\.\\/.*\\/layout\\.json$";
+
+/***/ }),
+
 /***/ "./resources/assets/js/config/dashboards/overview/layout.json":
 /***/ (function(module, exports) {
 
-module.exports = {"title":"overview","rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saasiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesAb","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"230","elements":[{"id":"","elType":"chart","name":"asdasd","cols":"12"}]},{"id":7,"height":"230","elements":[{"id":"","elType":"chart","name":"asdasdasd","cols":"12"}]}]}]}]}
+module.exports = {"title":"overview","rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saasiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesAb","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"asdasd","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"asdasdasd","cols":"12"}]}]}]}]}
+
+/***/ }),
+
+/***/ "./resources/assets/js/config/dashboards/pageviews/layout.json":
+/***/ (function(module, exports) {
+
+module.exports = {"title":"overview","rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saasiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesAb","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"asdasd","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"asdasdasd","cols":"12"}]}]}]}]}
+
+/***/ }),
+
+/***/ "./resources/assets/js/config/dashboards/sessions/layout.json":
+/***/ (function(module, exports) {
+
+module.exports = {"title":"overview","rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saasiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesAb","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"asdasd","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"asdasdasd","cols":"12"}]}]}]}]}
+
+/***/ }),
+
+/***/ "./resources/assets/js/config/navigation.json":
+/***/ (function(module, exports) {
+
+module.exports = {"lists":[{"id":0,"name":"dashboards","listItems":[{"id":0,"name":"overview","type":"charts","active":true},{"id":1,"name":"pageviews","type":"charts","active":false},{"id":2,"name":"sessions","type":"charts","active":false}]},{"id":1,"name":"tables","listItems":[{"id":0,"name":"sessions","type":"list","active":false},{"id":1,"name":"conversions","type":"list","active":false},{"id":2,"name":"users","type":"list","active":false},{"id":3,"name":"sites","type":"list","active":false}]}]}
 
 /***/ }),
 
@@ -17436,131 +17483,121 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _require = __webpack_require__("./resources/assets/js/scchart.js"),
-    ScChart = _require.ScChart;
+/*
+let {ScChart} = require('./scchart.js');
+*/
 
 
-
-
-var jd = __webpack_require__("./resources/assets/js/config/dashboards/overview/layout.json");
 
 var ScDashboard = function () {
-    function ScDashboard() {
+    function ScDashboard(rangeStart, rangeEnd) {
         _classCallCheck(this, ScDashboard);
 
-        this.setDashboardDefinitions();
-        this.eventBusListeners();
-        this.loadVue();
-
-        this.dbType = this.app.lists[this.app.current.list].listItems[this.app.current.listItem].name;
-        this.rangeStart = this.app.range.start;
-        this.rangeEnd = this.app.range.end;
-
-        this.scChart = new ScChart();
-        this.getData();
+        this.scdbData.range.start = rangeStart;
+        this.scdbData.range.end = rangeEnd;
+        this.getRoute();
+        this.loadConfig();
+        this.loadData();
+        this.loadView();
+        this.loadEventListeners();
+        /*
+         this.groomData();*/
     }
 
     _createClass(ScDashboard, [{
-        key: 'eventBusListeners',
-        value: function eventBusListeners() {
-            __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('changeDashboard', function (listItem) {
-                console.log(listItem);
-            });
+        key: 'getRoute',
+        value: function getRoute() {
+            this.route = 'overview';
         }
     }, {
-        key: 'loadVue',
-        value: function loadVue() {
+        key: 'loadConfig',
+        value: function loadConfig() {
+            this.configFiles = {};
+            this.configFiles.navigation = __webpack_require__("./resources/assets/js/config/navigation.json");
+
+            this.configFiles.dashboards = {};
+
+            for (var dashboard in this.configFiles.navigation.lists[0].listItems) {
+                this.configFiles.dashboards[this.configFiles.navigation.lists[0].listItems[dashboard].name] = __webpack_require__("./resources/assets/js/config/dashboards recursive ^\\.\\/.*\\/layout\\.json$")("./" + this.configFiles.navigation.lists[0].listItems[dashboard].name + '/layout.json');
+            }
+            this.scdbData.layout.navigation = this.configFiles.navigation.lists;
+            this.scdbData.layout.dashboard = this.configFiles.dashboards[this.route];
+            var chartList = this.extractCharts(this.scdbData.layout.dashboard.rows);
+            for (var chart in chartList) {
+                console.log(chartList[chart]);
+            }
+        }
+    }, {
+        key: 'extractCharts',
+        value: function extractCharts(rows) {
+            var rtnArray = [];
+            for (var row in rows) {
+                for (var element in rows[row].elements) {
+                    if (rows[row].elements[element].elType === "chart") {
+                        rtnArray.push(rows[row].elements[element].name);
+                    } else {
+                        rtnArray = rtnArray.concat(this.extractCharts(rows[row].elements[element].rows));
+                    }
+                }
+            }
+
+            return rtnArray;
+        }
+    }, {
+        key: 'loadView',
+        value: function loadView() {
+
             this.app = new Vue({
                 el: '#vue-main',
-                data: this.setDashboardDefinitions(),
+                data: this.scdbData.layout,
                 components: {
                     'dashboard': __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue___default.a
                 },
-                methods: {},
-                computed: {}
-
+                mounted: function mounted() {
+                    console.log(this.data);
+                }
             });
         }
     }, {
-        key: 'setDashboardDefinitions',
-        value: function setDashboardDefinitions() {
-            var definition = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-            if (!definition) {
-                this.definition = {
-                    lists: [{
-                        id: 0,
-                        name: 'analytics',
-                        listItems: [{
-                            id: 0,
-                            name: 'overview',
-                            type: 'charts',
-                            active: true
-                        }, {
-                            id: 1,
-                            name: 'pageviews',
-                            type: 'charts',
-                            active: false
-                        }, {
-                            id: 2,
-                            name: 'sessions',
-                            type: 'charts',
-                            active: false
-                        }]
-                    }, {
-                        id: 1,
-                        name: 'lists',
-                        listItems: [{
-                            id: 0,
-                            name: 'sessions',
-                            type: 'list',
-                            active: false
-                        }, {
-                            id: 1,
-                            name: 'conversions',
-                            type: 'list',
-                            active: false
-                        }, {
-                            id: 2,
-                            name: 'users',
-                            type: 'list',
-                            active: false
-                        }, {
-                            id: 3,
-                            name: 'sites',
-                            type: 'list',
-                            active: false
-                        }]
-                    }],
-                    charts: [],
-                    dashboard: jd,
-                    current: {
-                        list: 0,
-                        listItem: 0
-
-                    },
-                    range: {
-                        start: '2017-11-18',
-                        end: '2017-12-18'
-                    }
-
-                };
-            } else {
-                this.definition = definition;
-            }
-
-            return this.definition;
-        }
-    }, {
-        key: 'getData',
-        value: function getData() {
+        key: 'loadData',
+        value: function loadData() {
             var _this = this;
 
-            axios.get('/api/' + this.dbType + '/' + this.rangeStart + '/' + this.rangeEnd).then(function (response) {
-                _this.scChart.init(response.data);
-                console.log(response.data);
+            axios.get('/api/' + this.route + '/' + this.scdbData.range.start + '/' + this.scdbData.range.end).then(function (response) {
+                _this.scdbData.viewData.rough = response.data;
+                _this.polishDataAndLoadIntoDashboard();
             }).catch(function (error) {
-                //console.log(error);
+                console.log(error);
+            });
+        }
+    }, {
+        key: 'polishDataAndLoadIntoDashboard',
+        value: function polishDataAndLoadIntoDashboard() {
+            this.polishData();
+            this.loadDataIntoDashboard();
+        }
+    }, {
+        key: 'polishData',
+        value: function polishData() {
+            //for each chart in the current dashboard call it's polish function and
+            //store in proper place
+        }
+    }, {
+        key: 'loadDataIntoDashboard',
+        value: function loadDataIntoDashboard() {
+            //for each chart in active dashboard
+            //pass in data and create an instance of chart.js
+        }
+    }, {
+        key: 'loadEventListeners',
+        value: function loadEventListeners() {
+
+            __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('changeDashboard', function (listItem) {
+                console.log(listItem);
+            });
+
+            __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('changeRange', function (rangeStart, rangeEnd) {
+                console.log(rangeStart, rangeEnd);
             });
         }
     }]);
@@ -17568,8 +17605,26 @@ var ScDashboard = function () {
     return ScDashboard;
 }();
 
+ScDashboard.prototype.scdbData = {
+    view: 'dashboards',
+    node: 'overview',
+    range: {
+        start: null,
+        end: null
+    },
+    viewConfig: {},
+    layout: {
+        navigation: {},
+        dashboard: {}
+    },
+    viewData: {
+        rough: {},
+        polished: []
+    }
+};
+
 window.onload = function () {
-    var scDb = new ScDashboard();
+    var scDb = new ScDashboard('2017-11-18', '2017-12-18');
 };
 
 /***/ }),

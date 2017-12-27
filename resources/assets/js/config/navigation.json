@@ -1,0 +1,58 @@
+{
+  "lists": [
+    {
+      "id": 0,
+      "name": "dashboards",
+      "listItems": [
+        {
+          "id": 0,
+          "name": "overview",
+          "type": "charts",
+          "active": true
+        },
+        {
+          "id": 1,
+          "name": "pageviews",
+          "type": "charts",
+          "active": false
+        },
+        {
+          "id": 2,
+          "name": "sessions",
+          "type": "charts",
+          "active": false
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "tables",
+      "listItems": [
+        {
+          "id": 0,
+          "name": "sessions",
+          "type": "list",
+          "active": false
+        },
+        {
+          "id": 1,
+          "name": "conversions",
+          "type": "list",
+          "active": false
+        },
+        {
+          "id": 2,
+          "name": "users",
+          "type": "list",
+          "active": false
+        },
+        {
+          "id": 3,
+          "name": "sites",
+          "type": "list",
+          "active": false
+        }
+      ]
+    }
+  ]
+}

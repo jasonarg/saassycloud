@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <sidebar-nav
-                :lists="lists"
+                :navigation="navigation"
         />
         <main-pane
             :dashboard="dashboard"
@@ -15,7 +15,7 @@
 
     export default {
         props: {
-            lists: {
+            navigation: {
                 type: Array,
                 required: true
             },

@@ -1,5 +1,5 @@
 <template>
-    <div class="row justify-content-center my-0">
+    <div class="row justify-content-center my-0 py-0">
         <db-sub-col
             v-for="element in row.elements"
             :key="element.id"

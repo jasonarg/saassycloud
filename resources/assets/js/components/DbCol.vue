@@ -35,7 +35,7 @@
         },
         computed: {
             classString: function(){
-                return `col-md-${this.element.cols} mt-0 mb-2 p-2`;
+                return `col-md-${this.element.cols} mt-0 mb-2 ${this.childIsRow ? 'py-0 px-2' : 'p-2'}`;
             },
             childIsRow: function(){
                 return this.element.elType === 'rows' ? true : false;

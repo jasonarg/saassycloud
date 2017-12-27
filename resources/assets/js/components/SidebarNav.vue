@@ -6,7 +6,7 @@
         </div>
         <ul class="nav">
             <sb-nav-list
-                    v-for="list in lists"
+                    v-for="list in navigation"
                     :key="list.id"
                     :list="list"
             />
@@ -20,7 +20,7 @@
     export default {
         name: "sidebar-nav",
         props: {
-            lists: {
+            navigation: {
                 type: Array
             }
         },
