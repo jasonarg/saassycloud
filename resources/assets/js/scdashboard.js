@@ -1,15 +1,21 @@
-/*
-let {ScChart} = require('./scchart.js');
-*/
 let _ = require('lodash');
+import  proxyClassLoader  from './config/proxyclassloader.js';
 import Dashboard from './components/Dashboard.vue';
 import { EventBus } from './event-bus.js';
 
-
-
-
 class ScDashboard{
 
+    /**
+     * Sets up the dashboard by:
+     *   Figuring out what's the current route,
+     *   Loading the config for that route
+     *   Loading the data for that route
+     *   Loading the view
+     *   Registering event handlers
+     *
+     * @param rangeStart
+     * @param rangeEnd
+     */
     constructor(rangeStart, rangeEnd){
         this.scdbData.range.start = rangeStart;
         this.scdbData.range.end = rangeEnd;
@@ -22,10 +28,20 @@ class ScDashboard{
         this.groomData();*/
     }
 
+    /**
+     * Router
+     *
+     * @returns void
+     */
     getRoute(){
         this.route = 'overview';
     }
 
+    /**
+     * Loads dashboard layout config files for sidebar and dashboard
+     *
+     * @returns void
+     */
     loadConfig(){
         this.configFiles = {};
         this.configFiles.navigation = require('./config/navigation.json');
@@ -40,6 +56,12 @@ class ScDashboard{
         this.scdbData.layout.dashboard = this.configFiles.dashboards[this.route];
     }
 
+    /**
+     * Recursive method to return a flattened array of all chart names defined in a nested layout.json file
+     *
+     * @param rows
+     * @returns {Array}
+     */
     extractCharts(rows){
         let rtnArray = [];
         for(let row in rows){
@@ -57,8 +79,11 @@ class ScDashboard{
         return rtnArray;
     }
 
-
-
+    /**
+     * Load's the Vue.js instance
+     *
+     * @returns void
+     */
     loadView(){
 
         this.app = new Vue({
@@ -68,17 +93,23 @@ class ScDashboard{
                 'dashboard': Dashboard
             },
             mounted(){
-                console.log(this.data);
             }
 
         });
     }
 
+    /**
+     * Requests data needed for current route from the api via axios promise,
+     * upon fulfillment, stores it in this.scdbData.routeData.rough
+     * Calls this.polishDataAndLoadIntoDashboard()
+     *
+     * @returns void
+     */
     loadData(){
          axios.get(`/api/${this.route}/${this.scdbData.range.start}/${this.scdbData.range.end}`)
             .then( (response) => {
-                this.scdbData.viewData.rough = response.data;
-                this.polishDataAndLoadIntoDashboard();
+                this.scdbData.routeData.rough = response.data;
+                this.polishDataAndLoadIntoChart();
 
 
             }).catch(function (error) {
@@ -86,28 +117,66 @@ class ScDashboard{
         });
     }
 
-    polishDataAndLoadIntoDashboard(){
+    /**
+     * Wrapper function for prepping data returned from async get call from api
+     *
+     * @returns void
+     */
+    polishDataAndLoadIntoChart(){
         this.polishData();
-        this.loadDataIntoDashboard();
+        this.loadDataIntoChart();
     }
 
+    /**
+     * Extracts all chart names from dashboard layout
+     * Instantiates the specific ChartXXXXXX class for each chart
+     * Calls polishData, setLabels, and makeDatasets
+     * Stores their results in this.scdbData.routeData.charts.CHARTNAME
+     */
     polishData(){
-        //for each chart in the current dashboard call it's polish function and
-        //store in proper place
         let chartList = this.extractCharts(this.scdbData.layout.dashboard.rows);
+        let stop = 0;
         for(let chart in chartList){
-            //instantiate a proxy of that chart's class and then
-            // call that chart class's polishData method and store
-            console.log(`Chart${_.upperFirst(chartList[chart])}`);
+            //temporary until all other classes are defined
+            if(stop < 1){
+                let chartConfig = proxyClassLoader(`Chart${_.upperFirst(chartList[chart])}`);
+                this.scdbData.routeData.charts[chartList[chart]] = {};
+                this.scdbData.routeData.charts[chartList[chart]].polishedData = chartConfig.polishData(this.scdbData.routeData.rough);
+                this.scdbData.routeData.charts[chartList[chart]].labels = chartConfig.setLabels(this.scdbData.range.start,
+                    this.scdbData.range.end);
+                let dsAndTotals = chartConfig.makeDatasets(this.scdbData.routeData.charts[chartList[chart]].labels,
+                    this.scdbData.routeData.charts[chartList[chart]].polishedData);
+
+                this.scdbData.routeData.charts[chartList[chart]].totals = dsAndTotals.totals;
+                this.scdbData.routeData.charts[chartList[chart]].datasets = dsAndTotals.datasets;
+                this.scdbData.routeData.charts[chartList[chart]].config = chartConfig.config;
+                this.scdbData.routeData.charts[chartList[chart]].config.data.labels = this.scdbData.routeData.charts[chartList[chart]].labels;
+                this.scdbData.routeData.charts[chartList[chart]].config.data.datasets = this.scdbData.routeData.charts[chartList[chart]].datasets;
+
+                stop = 1;
+            }
+        }
+    }
+
+    /**
+     * For each this.scdbData.routeData.charts
+     *   read in the config, load in the label and dataset data
+     *   instantiate a new Chart class with this config data
+     */
+    loadDataIntoChart(){
+        //for each chart in active dashboard
+        //pass in data and create an instance of chart.js
+        for(let i in this.scdbData.routeData.charts){
+           new Chart(document.getElementById(i).getContext("2d"), this.scdbData.routeData.charts[i].config);
+
 
         }
     }
 
-    loadDataIntoDashboard(){
-//for each chart in active dashboard
-        //pass in data and create an instance of chart.js
-    }
 
+    /**
+     * Loads listeners for events emitted from the global Vue event bus
+     */
     loadEventListeners() {
 
         EventBus.$on('changeDashboard', listItem => {
@@ -123,7 +192,7 @@ class ScDashboard{
 
 ScDashboard.prototype.scdbData = {
     view: 'dashboards',
-    node: 'overview',
+    route: 'overview',
     range: {
         start: null,
         end: null
@@ -133,12 +202,24 @@ ScDashboard.prototype.scdbData = {
         navigation: {},
         dashboard: {}
     },
-    viewData: {
+    routeData: {
         rough: {
 
         },
-        polished: []
+        charts: {
+
+        }
     }
+};
+
+ScDashboard.prototype.colors = {
+    red: 'rgba(255, 99, 132, .6)',
+    orange: 'rgba(255, 159, 64, .6)',
+    yellow: 'rgba(255, 205, 86, .6)',
+    green: 'rgba(75, 192, 192, .6)',
+    blue: 'rgba(54, 162, 235, .6)',
+    purple: 'rgba(153, 102, 255, .6)',
+    grey: 'rgba(201, 203, 207, .6)'
 };
 
 

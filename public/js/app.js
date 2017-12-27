@@ -15698,7 +15698,7 @@ var render = function() {
       _c("canvas", {
         staticClass: "scChart",
         style: _vm.styleString,
-        attrs: { id: "overviewCombined" }
+        attrs: { id: _vm.chart.name }
       })
     ]
   )
@@ -17278,6 +17278,596 @@ webpackContext.id = "./resources/assets/js/config/dashboards recursive ^\\.\\/.*
 
 /***/ }),
 
+/***/ "./resources/assets/js/config/dashboards/overview/chartmonthlyannualab.js":
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ChartMonthlyAnnualAb = function () {
+    function ChartMonthlyAnnualAb() {
+        _classCallCheck(this, ChartMonthlyAnnualAb);
+    }
+
+    _createClass(ChartMonthlyAnnualAb, [{
+        key: "groupData",
+        value: function groupData(data) {
+            var dates = _.groupBy(data.sessions, function (session) {
+                var date = new Date(session.a.at);
+                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+            });
+
+            return dates;
+        }
+    }]);
+
+    return ChartMonthlyAnnualAb;
+}();
+
+ChartMonthlyAnnualAb.prototype.config = {
+    type: "line",
+    data: {
+        labels: [],
+        datasets: []
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: "SaaSsy Cloud Analytics: Overview"
+        },
+        tooltips: {
+            mode: "index",
+            intersect: false
+        },
+        hover: {
+            mode: "nearest",
+            intersect: true
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Date"
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Value"
+                }
+            }]
+        }
+    }
+};
+
+module.exports = { ChartMonthlyAnnualAb: ChartMonthlyAnnualAb };
+
+/***/ }),
+
+/***/ "./resources/assets/js/config/dashboards/overview/chartoverview.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var d3 = __webpack_require__("./node_modules/d3/index.js");
+
+var ChartOverview = function () {
+    function ChartOverview() {
+        _classCallCheck(this, ChartOverview);
+    }
+
+    _createClass(ChartOverview, [{
+        key: "polishData",
+        value: function polishData(data) {
+            var dates = _.groupBy(data.sessions, function (session) {
+                var date = new Date(session.a.at);
+                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+            });
+
+            return dates;
+        }
+    }, {
+        key: "setLabels",
+        value: function setLabels(rangeStart, rangeEnd) {
+            var range = d3.timeDay.range(new Date(rangeStart), new Date(rangeEnd));
+            var labels = [];
+            for (var i = 0; i < range.length; i++) {
+                labels[i] = range[i].getFullYear() + "-" + (range[i].getMonth() + 1) + "-" + range[i].getDate();
+            }
+            return labels;
+        }
+    }, {
+        key: "makeDatasets",
+        value: function makeDatasets(labels, polishedData) {
+            var returnData = {};
+            returnData.totals = {};
+            this.datasets = [{
+                name: "session",
+                label: "Sessions",
+                fill: true,
+                backgroundColor: window.chartColors.green,
+                borderColor: window.chartColors.green,
+                data: []
+            }, {
+                name: "pageViews",
+                label: "Page Views",
+                fill: true,
+                backgroundColor: window.chartColors.blue,
+                borderColor: window.chartColors.blue,
+                data: []
+            }];
+            for (var i in this.datasets) {
+                var summaryData = [];
+                var dataTotals = 0;
+                for (var j = 0; j < labels.length; j++) {
+                    summaryData[j] = labels[j] in polishedData ? polishedData[labels[j]].length : 0;
+                    dataTotals += summaryData[j];
+                }
+                this.datasets[i].data = summaryData;
+                returnData.totals[this.datasets[i]] = dataTotals;
+            }
+
+            returnData.datasets = this.datasets;
+
+            return returnData;
+            /*
+            
+            
+                        let summaryData = [];
+                        let dataTotals = 0;
+                        for(let i = 0; i < this.config.data.labels.length; i++){
+                            summaryData[i] = this.config.data.labels[i] in this.groupedData ? this.groupedData[this.config.data.labels[i]].length : 0;
+                            dataTotals += summaryData[i];
+                        }
+                        let dataset = {
+                            label: "Sessions",
+                            fill: true,
+                            backgroundColor: window.chartColors.green,
+                            borderColor: window.chartColors.green,
+                            data: summaryData
+                        };
+                        this.config.data.datasets.push(dataset);
+                        this.totals.sessions = dataTotals;
+            
+            
+                        summaryData = [];
+                        for(let i = 0; i < this.config.data.labels.length; i++){
+                            if(this.config.data.labels[i] in this.groupedData){
+                                summaryData[i] = 0;
+                                for(let j = 0; j < this.groupedData[this.config.data.labels[i]].length; j++){
+                                    summaryData[i] += this.groupedData[this.config.data.labels[i]][j].rel.rc;
+                                }
+            
+                            }
+                            else{
+                                summaryData[i] = 0;
+                            }
+                        }
+                        dataset = {
+                            label: "Page Views",
+                            fill: true,
+                            backgroundColor: window.chartColors.blue,
+                            borderColor: window.chartColors.blue,
+                            data: summaryData
+                        }
+                        this.config.data.datasets.push(dataset);
+            */
+
+            //console.log(this.totals);
+        }
+    }]);
+
+    return ChartOverview;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (ChartOverview);
+
+
+ChartOverview.prototype.config = {
+    type: "line",
+    data: {
+        labels: [],
+        datasets: []
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: "SaaSsy Cloud Analytics: Overview"
+        },
+        tooltips: {
+            mode: "index",
+            intersect: false
+        },
+        hover: {
+            mode: "nearest",
+            intersect: true
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Date"
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Value"
+                }
+            }]
+        }
+    }
+};
+
+/***/ }),
+
+/***/ "./resources/assets/js/config/dashboards/overview/chartpackageab.js":
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ChartPackageAb = function () {
+    function ChartPackageAb() {
+        _classCallCheck(this, ChartPackageAb);
+    }
+
+    _createClass(ChartPackageAb, [{
+        key: "groupData",
+        value: function groupData(data) {
+            var dates = _.groupBy(data.sessions, function (session) {
+                var date = new Date(session.a.at);
+                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+            });
+
+            return dates;
+        }
+    }]);
+
+    return ChartPackageAb;
+}();
+
+ChartPackageAb.prototype.config = {
+    type: "line",
+    data: {
+        labels: [],
+        datasets: []
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: "SaaSsy Cloud Analytics: Overview"
+        },
+        tooltips: {
+            mode: "index",
+            intersect: false
+        },
+        hover: {
+            mode: "nearest",
+            intersect: true
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Date"
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Value"
+                }
+            }]
+        }
+    }
+};
+
+module.exports = { ChartPackageAb: ChartPackageAb };
+
+/***/ }),
+
+/***/ "./resources/assets/js/config/dashboards/overview/chartsaasiest.js":
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ChartSaasiest = function () {
+    function ChartSaasiest() {
+        _classCallCheck(this, ChartSaasiest);
+    }
+
+    _createClass(ChartSaasiest, [{
+        key: "groupData",
+        value: function groupData(data) {
+            var dates = _.groupBy(data.sessions, function (session) {
+                var date = new Date(session.a.at);
+                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+            });
+
+            return dates;
+        }
+    }]);
+
+    return ChartSaasiest;
+}();
+
+ChartSaasiest.prototype.config = {
+    type: "line",
+    data: {
+        labels: [],
+        datasets: []
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: "SaaSsy Cloud Analytics: Overview"
+        },
+        tooltips: {
+            mode: "index",
+            intersect: false
+        },
+        hover: {
+            mode: "nearest",
+            intersect: true
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Date"
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Value"
+                }
+            }]
+        }
+    }
+};
+
+module.exports = { ChartSaasiest: ChartSaasiest };
+
+/***/ }),
+
+/***/ "./resources/assets/js/config/dashboards/overview/chartsaassier.js":
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ChartOverview = function () {
+    function ChartOverview() {
+        _classCallCheck(this, ChartOverview);
+    }
+
+    _createClass(ChartOverview, [{
+        key: "groupData",
+        value: function groupData(data) {
+            var dates = _.groupBy(data.sessions, function (session) {
+                var date = new Date(session.a.at);
+                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+            });
+
+            return dates;
+        }
+    }]);
+
+    return ChartOverview;
+}();
+
+ChartOverview.prototype.config = {
+    type: "line",
+    data: {
+        labels: [],
+        datasets: []
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: "SaaSsy Cloud Analytics: Overview"
+        },
+        tooltips: {
+            mode: "index",
+            intersect: false
+        },
+        hover: {
+            mode: "nearest",
+            intersect: true
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Date"
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Value"
+                }
+            }]
+        }
+    }
+};
+
+module.exports = { ChartOverview: ChartOverview };
+
+/***/ }),
+
+/***/ "./resources/assets/js/config/dashboards/overview/chartsaassy.js":
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ChartSaassy = function () {
+    function ChartSaassy() {
+        _classCallCheck(this, ChartSaassy);
+    }
+
+    _createClass(ChartSaassy, [{
+        key: "groupData",
+        value: function groupData(data) {
+            var dates = _.groupBy(data.sessions, function (session) {
+                var date = new Date(session.a.at);
+                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+            });
+
+            return dates;
+        }
+    }]);
+
+    return ChartSaassy;
+}();
+
+ChartSaassy.prototype.config = {
+    type: "line",
+    data: {
+        labels: [],
+        datasets: []
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: "SaaSsy Cloud Analytics: Overview"
+        },
+        tooltips: {
+            mode: "index",
+            intersect: false
+        },
+        hover: {
+            mode: "nearest",
+            intersect: true
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Date"
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Value"
+                }
+            }]
+        }
+    }
+};
+
+module.exports = { ChartSaassy: ChartSaassy };
+
+/***/ }),
+
+/***/ "./resources/assets/js/config/dashboards/overview/chartsalesab.js":
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ChartSalesAb = function () {
+    function ChartSalesAb() {
+        _classCallCheck(this, ChartSalesAb);
+    }
+
+    _createClass(ChartSalesAb, [{
+        key: "groupData",
+        value: function groupData(data) {
+            var dates = _.groupBy(data.sessions, function (session) {
+                var date = new Date(session.a.at);
+                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+            });
+
+            return dates;
+        }
+    }]);
+
+    return ChartSalesAb;
+}();
+
+ChartSalesAb.prototype.config = {
+    type: "line",
+    data: {
+        labels: [],
+        datasets: []
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: "SaaSsy Cloud Analytics: Overview"
+        },
+        tooltips: {
+            mode: "index",
+            intersect: false
+        },
+        hover: {
+            mode: "nearest",
+            intersect: true
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Date"
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Value"
+                }
+            }]
+        }
+    }
+};
+
+module.exports = { ChartSalesAb: ChartSalesAb };
+
+/***/ }),
+
 /***/ "./resources/assets/js/config/dashboards/overview/layout.json":
 /***/ (function(module, exports) {
 
@@ -17303,6 +17893,48 @@ module.exports = {"title":"overview","rows":[{"id":0,"height":"400","elements":[
 /***/ (function(module, exports) {
 
 module.exports = {"lists":[{"id":0,"name":"dashboards","listItems":[{"id":0,"name":"overview","type":"charts","active":true},{"id":1,"name":"pageviews","type":"charts","active":false},{"id":2,"name":"sessions","type":"charts","active":false}]},{"id":1,"name":"tables","listItems":[{"id":0,"name":"sessions","type":"list","active":false},{"id":1,"name":"conversions","type":"list","active":false},{"id":2,"name":"users","type":"list","active":false},{"id":3,"name":"sites","type":"list","active":false}]}]}
+
+/***/ }),
+
+/***/ "./resources/assets/js/config/proxyclassloader.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = proxyClassLoader;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dashboards_overview_chartoverview_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartoverview.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaassy.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaassier.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaasiest_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaasiest.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaasiest_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaasiest_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesab_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsalesab.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesab_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesab_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dashboards_overview_chartpackageab_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartpackageab.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dashboards_overview_chartpackageab_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__dashboards_overview_chartpackageab_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartmonthlyannualab.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js__);
+
+
+
+
+
+
+
+
+var classes = {
+    ChartOverview: __WEBPACK_IMPORTED_MODULE_0__dashboards_overview_chartoverview_js__["a" /* default */],
+    ChartSaassy: __WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js___default.a,
+    ChartSaassier: __WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js___default.a,
+    ChartSaasiest: __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaasiest_js___default.a,
+    ChartSalesAb: __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesab_js___default.a,
+    ChartPackageAb: __WEBPACK_IMPORTED_MODULE_5__dashboards_overview_chartpackageab_js___default.a,
+    ChartMonthlyAnnualAb: __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js___default.a
+};
+
+function proxyClassLoader(className) {
+    return new classes[className]();
+}
 
 /***/ }),
 
@@ -17476,21 +18108,32 @@ module.exports = { ScChart: ScChart };
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue__ = __webpack_require__("./resources/assets/js/components/Dashboard.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus_js__ = __webpack_require__("./resources/assets/js/event-bus.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_proxyclassloader_js__ = __webpack_require__("./resources/assets/js/config/proxyclassloader.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue__ = __webpack_require__("./resources/assets/js/components/Dashboard.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__event_bus_js__ = __webpack_require__("./resources/assets/js/event-bus.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-/*
-let {ScChart} = require('./scchart.js');
-*/
 var _ = __webpack_require__("./node_modules/lodash/lodash.js");
 
 
 
+
 var ScDashboard = function () {
+
+    /**
+     * Sets up the dashboard by:
+     *   Figuring out what's the current route,
+     *   Loading the config for that route
+     *   Loading the data for that route
+     *   Loading the view
+     *   Registering event handlers
+     *
+     * @param rangeStart
+     * @param rangeEnd
+     */
     function ScDashboard(rangeStart, rangeEnd) {
         _classCallCheck(this, ScDashboard);
 
@@ -17505,11 +18148,25 @@ var ScDashboard = function () {
          this.groomData();*/
     }
 
+    /**
+     * Router
+     *
+     * @returns void
+     */
+
+
     _createClass(ScDashboard, [{
         key: 'getRoute',
         value: function getRoute() {
             this.route = 'overview';
         }
+
+        /**
+         * Loads dashboard layout config files for sidebar and dashboard
+         *
+         * @returns void
+         */
+
     }, {
         key: 'loadConfig',
         value: function loadConfig() {
@@ -17524,6 +18181,14 @@ var ScDashboard = function () {
             this.scdbData.layout.navigation = this.configFiles.navigation.lists;
             this.scdbData.layout.dashboard = this.configFiles.dashboards[this.route];
         }
+
+        /**
+         * Recursive method to return a flattened array of all chart names defined in a nested layout.json file
+         *
+         * @param rows
+         * @returns {Array}
+         */
+
     }, {
         key: 'extractCharts',
         value: function extractCharts(rows) {
@@ -17540,6 +18205,13 @@ var ScDashboard = function () {
 
             return rtnArray;
         }
+
+        /**
+         * Load's the Vue.js instance
+         *
+         * @returns void
+         */
+
     }, {
         key: 'loadView',
         value: function loadView() {
@@ -17548,58 +18220,107 @@ var ScDashboard = function () {
                 el: '#vue-main',
                 data: this.scdbData.layout,
                 components: {
-                    'dashboard': __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_vue___default.a
+                    'dashboard': __WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue___default.a
                 },
-                mounted: function mounted() {
-                    console.log(this.data);
-                }
+                mounted: function mounted() {}
             });
         }
+
+        /**
+         * Requests data needed for current route from the api via axios promise,
+         * upon fulfillment, stores it in this.scdbData.routeData.rough
+         * Calls this.polishDataAndLoadIntoDashboard()
+         *
+         * @returns void
+         */
+
     }, {
         key: 'loadData',
         value: function loadData() {
             var _this = this;
 
             axios.get('/api/' + this.route + '/' + this.scdbData.range.start + '/' + this.scdbData.range.end).then(function (response) {
-                _this.scdbData.viewData.rough = response.data;
-                _this.polishDataAndLoadIntoDashboard();
+                _this.scdbData.routeData.rough = response.data;
+                _this.polishDataAndLoadIntoChart();
             }).catch(function (error) {
                 console.log(error);
             });
         }
+
+        /**
+         * Wrapper function for prepping data returned from async get call from api
+         *
+         * @returns void
+         */
+
     }, {
-        key: 'polishDataAndLoadIntoDashboard',
-        value: function polishDataAndLoadIntoDashboard() {
+        key: 'polishDataAndLoadIntoChart',
+        value: function polishDataAndLoadIntoChart() {
             this.polishData();
-            this.loadDataIntoDashboard();
+            this.loadDataIntoChart();
         }
+
+        /**
+         * Extracts all chart names from dashboard layout
+         * Instantiates the specific ChartXXXXXX class for each chart
+         * Calls polishData, setLabels, and makeDatasets
+         * Stores their results in this.scdbData.routeData.charts.CHARTNAME
+         */
+
     }, {
         key: 'polishData',
         value: function polishData() {
-            //for each chart in the current dashboard call it's polish function and
-            //store in proper place
             var chartList = this.extractCharts(this.scdbData.layout.dashboard.rows);
+            var stop = 0;
             for (var chart in chartList) {
-                //instantiate a proxy of that chart's class and then
-                // call that chart class's polishData method and store
-                console.log('Chart' + _.upperFirst(chartList[chart]));
+                //temporary until all other classes are defined
+                if (stop < 1) {
+                    var chartConfig = Object(__WEBPACK_IMPORTED_MODULE_0__config_proxyclassloader_js__["a" /* default */])('Chart' + _.upperFirst(chartList[chart]));
+                    this.scdbData.routeData.charts[chartList[chart]] = {};
+                    this.scdbData.routeData.charts[chartList[chart]].polishedData = chartConfig.polishData(this.scdbData.routeData.rough);
+                    this.scdbData.routeData.charts[chartList[chart]].labels = chartConfig.setLabels(this.scdbData.range.start, this.scdbData.range.end);
+                    var dsAndTotals = chartConfig.makeDatasets(this.scdbData.routeData.charts[chartList[chart]].labels, this.scdbData.routeData.charts[chartList[chart]].polishedData);
+
+                    this.scdbData.routeData.charts[chartList[chart]].totals = dsAndTotals.totals;
+                    this.scdbData.routeData.charts[chartList[chart]].datasets = dsAndTotals.datasets;
+                    this.scdbData.routeData.charts[chartList[chart]].config = chartConfig.config;
+                    this.scdbData.routeData.charts[chartList[chart]].config.data.labels = this.scdbData.routeData.charts[chartList[chart]].labels;
+                    this.scdbData.routeData.charts[chartList[chart]].config.data.datasets = this.scdbData.routeData.charts[chartList[chart]].datasets;
+
+                    stop = 1;
+                }
             }
         }
+
+        /**
+         * For each this.scdbData.routeData.charts
+         *   read in the config, load in the label and dataset data
+         *   instantiate a new Chart class with this config data
+         */
+
     }, {
-        key: 'loadDataIntoDashboard',
-        value: function loadDataIntoDashboard() {
+        key: 'loadDataIntoChart',
+        value: function loadDataIntoChart() {
             //for each chart in active dashboard
             //pass in data and create an instance of chart.js
+            for (var i in this.scdbData.routeData.charts) {
+                new Chart(document.getElementById(i).getContext("2d"), this.scdbData.routeData.charts[i].config);
+            }
         }
+
+        /**
+         * Loads listeners for events emitted from the global Vue event bus
+         */
+
     }, {
         key: 'loadEventListeners',
         value: function loadEventListeners() {
 
-            __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('changeDashboard', function (listItem) {
+            __WEBPACK_IMPORTED_MODULE_2__event_bus_js__["a" /* EventBus */].$on('changeDashboard', function (listItem) {
                 console.log(listItem);
             });
 
-            __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('changeRange', function (rangeStart, rangeEnd) {
+            __WEBPACK_IMPORTED_MODULE_2__event_bus_js__["a" /* EventBus */].$on('changeRange', function (rangeStart, rangeEnd) {
                 console.log(rangeStart, rangeEnd);
             });
         }
@@ -17610,7 +18331,7 @@ var ScDashboard = function () {
 
 ScDashboard.prototype.scdbData = {
     view: 'dashboards',
-    node: 'overview',
+    route: 'overview',
     range: {
         start: null,
         end: null
@@ -17620,10 +18341,20 @@ ScDashboard.prototype.scdbData = {
         navigation: {},
         dashboard: {}
     },
-    viewData: {
+    routeData: {
         rough: {},
-        polished: []
+        charts: {}
     }
+};
+
+ScDashboard.prototype.colors = {
+    red: 'rgba(255, 99, 132, .6)',
+    orange: 'rgba(255, 159, 64, .6)',
+    yellow: 'rgba(255, 205, 86, .6)',
+    green: 'rgba(75, 192, 192, .6)',
+    blue: 'rgba(54, 162, 235, .6)',
+    purple: 'rgba(153, 102, 255, .6)',
+    grey: 'rgba(201, 203, 207, .6)'
 };
 
 window.onload = function () {

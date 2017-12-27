@@ -1,6 +1,6 @@
 <template>
     <div id="" class="chartWrapper my-0 mx-0 p-3 bg-white border">
-        <canvas id="overviewCombined" class="scChart" v-bind:style="styleString"></canvas>
+        <canvas v-bind:id="chart.name" class="scChart" v-bind:style="styleString"></canvas>
     </div>
 </template>
 

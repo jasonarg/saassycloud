@@ -6,10 +6,6 @@ import ChartSalesAb from './dashboards/overview/chartsalesab.js';
 import ChartPackageAb from './dashboards/overview/chartpackageab.js';
 import ChartMonthlyAnnualAb from './dashboards/overview/chartmonthlyannualab.js';
 
-
-
-
-
 const classes = {
     ChartOverview,
     ChartSaassy,
@@ -20,10 +16,6 @@ const classes = {
     ChartMonthlyAnnualAb
 }
 
-class ProxyClassLoader {
-    constructor (className, opts) {
-        return new classes[className](opts);
-    }
+export default function proxyClassLoader(className){
+    return new classes[className];
 }
-
-export default ProxyClassLoader;
