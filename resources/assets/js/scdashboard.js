@@ -1,7 +1,7 @@
 let _ = require('lodash');
 import  proxyClassLoader  from './config/proxyclassloader.js';
 import Dashboard from './components/Dashboard.vue';
-import { EventBus } from './eventBus.js';
+import { EventBus } from './eventbus.js';
 
 class ScDashboard{
 

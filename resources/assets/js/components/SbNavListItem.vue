@@ -6,7 +6,7 @@
 
 <script>
 
-    import { EventBus } from './../eventBus.js';
+    import { EventBus } from './../eventbus.js';
 
     export default {
         name: "sb-nav-list-item",
