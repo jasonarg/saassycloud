@@ -25,7 +25,6 @@
             'db-sub-col': DbSubCol
         },
         mounted(){
-            console.log(this.row);
         }
     }
 </script>

@@ -25,7 +25,6 @@
             'db-col': DbCol
         },
         mounted(){
-            console.log(this.row);
         }
     }
 </script>

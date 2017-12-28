@@ -164,8 +164,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "db-range-total-item"
+    name: "db-range-total-item",
+    props: {
+        item: {
+            type: Object,
+            required: true
+        }
+    },
+    computed: {
+        itemName: function itemName() {
+            return _.startCase(this.item.name);
+        },
+        itemValue: function itemValue() {
+            return number_format(this.item.name);
+        }
+    }
 });
 
 /***/ }),
@@ -187,23 +202,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "db-range-totalsbar",
+    props: {
+        items: {
+            type: Array,
+            required: true
+        }
+    },
     components: {
         'db-range-total-item': __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalItem_vue___default.a
     }
@@ -244,9 +253,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: {
         'db-col': __WEBPACK_IMPORTED_MODULE_0__DbCol_vue___default.a
     },
-    mounted: function mounted() {
-        console.log(this.row);
-    }
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -337,9 +344,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: {
         'db-sub-col': __WEBPACK_IMPORTED_MODULE_0__DbSubCol_vue___default.a
     },
-    mounted: function mounted() {
-        console.log(this.row);
-    }
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -385,6 +390,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DbTitle_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__DbTitle_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DbRow_vue__ = __webpack_require__("./resources/assets/js/components/DbRow.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DbRow_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__DbRow_vue__);
+//
+//
 //
 //
 //
@@ -4441,7 +4448,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4486,7 +4493,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4516,7 +4523,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4546,7 +4553,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4576,7 +4583,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15482,20 +15489,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "col-md-2 mt-3 overview-head-item" }, [
+    _c("span", { staticClass: "d-block text-muted" }, [
+      _vm._v(_vm._s(_vm.itemName))
+    ]),
+    _vm._v(" "),
+    _c("h4", {}, [_vm._v(_vm._s(_vm.item.value))])
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-3 overview-head-item" }, [
-      _c("span", { staticClass: "d-block text-muted" }, [_vm._v("Page Views")]),
-      _vm._v(" "),
-      _c("h4", {}, [_vm._v("48,340")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -15651,7 +15653,9 @@ var render = function() {
       attrs: { id: "dashboard", "data-dashboard": "overview" }
     },
     [
-      _c("db-range-totals-bar"),
+      _c("db-range-totals-bar", {
+        attrs: { items: _vm.dashboard.rangeTotals.items }
+      }),
       _vm._v(" "),
       _c("div", { staticClass: "row justify-content-center mb-0 pb-0" }, [
         _c(
@@ -15810,62 +15814,12 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "row justify-content-between" },
-    [
-      _c("db-range-total-item"),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _vm._m(3)
-    ],
-    1
+    _vm._l(_vm.items, function(item) {
+      return _c("db-range-total-item", { key: item.id, attrs: { item: item } })
+    })
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-3 overview-head-item" }, [
-      _c("span", { staticClass: "d-block text-muted" }, [_vm._v("Sessions")]),
-      _vm._v(" "),
-      _c("h4", {}, [_vm._v("21,729")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-3 overview-head-item" }, [
-      _c("span", { staticClass: "d-block text-muted" }, [_vm._v("Converions")]),
-      _vm._v(" "),
-      _c("h4", {}, [_vm._v("3,729")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-3 overview-head-item" }, [
-      _c("span", { staticClass: "d-block text-muted" }, [_vm._v("Sales")]),
-      _vm._v(" "),
-      _c("h4", {}, [_vm._v("1,729")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-3 overview-head-item" }, [
-      _c("span", { staticClass: "d-block text-muted" }, [_vm._v("Revenue")]),
-      _vm._v(" "),
-      _c("h4", {}, [_vm._v("$421,729")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -17428,7 +17382,7 @@ var ChartOverview = function (_ScChart) {
             returnData.totals = {};
             returnData.datasets = [];
             this.datasets = [{
-                name: "session",
+                name: "sessions",
                 summaryFunction: function summaryFunction(label) {
                     return label in polishedData ? polishedData[label].length : 0;
                 },
@@ -17469,7 +17423,7 @@ var ChartOverview = function (_ScChart) {
                 }
                 this.datasets[i].dataset.data = summaryData;
                 returnData.datasets.push(this.datasets[i].dataset);
-                returnData.totals[this.datasets[i]] = dataTotals;
+                returnData.totals[this.datasets[i].name] = dataTotals;
             }
 
             return returnData;
@@ -17887,7 +17841,7 @@ module.exports = { ChartSalesAb: ChartSalesAb };
 /***/ "./resources/assets/js/config/dashboards/overview/layout.json":
 /***/ (function(module, exports) {
 
-module.exports = {"title":"overview","rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saasiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesAb","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"packageAb","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"monthlyAnnualAb","cols":"12"}]}]}]}]}
+module.exports = {"title":"overview","rangeTotals":{"items":[{"id":0,"name":"pageViews","value":0},{"id":1,"name":"sessions","value":0},{"id":2,"name":"conversions","value":0},{"id":3,"name":"sales","value":0},{"id":4,"name":"revenue","value":0}]},"rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saasiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesAb","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"packageAb","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"monthlyAnnualAb","cols":"12"}]}]}]}]}
 
 /***/ }),
 
@@ -18104,11 +18058,17 @@ var ScDashboard = function () {
 
             this.app = new Vue({
                 el: '#vue-main',
+                /*            data(){
+                                return { layout: this.scdbData.layout }
+                            },*/
                 data: this.scdbData.layout,
                 components: {
                     'dashboard': __WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue___default.a
                 },
-                mounted: function mounted() {}
+                mounted: function mounted() {},
+
+                methods: {}
+
             });
         }
 
@@ -18167,7 +18127,7 @@ var ScDashboard = function () {
                     this.scdbData.routeData.charts[chartList[chart]].labels = chartConfig.setLabels(this.scdbData.range.start, this.scdbData.range.end);
                     var dsAndTotals = chartConfig.makeDatasets(this.scdbData.routeData.charts[chartList[chart]].labels, this.scdbData.routeData.charts[chartList[chart]].polishedData);
 
-                    this.scdbData.routeData.charts[chartList[chart]].totals = dsAndTotals.totals;
+                    this.scdbData.routeData.totals = dsAndTotals.totals;
                     this.scdbData.routeData.charts[chartList[chart]].datasets = dsAndTotals.datasets;
                     this.scdbData.routeData.charts[chartList[chart]].config = chartConfig.config;
                     this.scdbData.routeData.charts[chartList[chart]].config.data.labels = this.scdbData.routeData.charts[chartList[chart]].labels;
@@ -18182,6 +18142,7 @@ var ScDashboard = function () {
          * For each this.scdbData.routeData.charts
          *   read in the config, load in the label and dataset data
          *   instantiate a new Chart class with this config data
+         *   Update the Vue data for totals
          */
 
     }, {
@@ -18191,6 +18152,11 @@ var ScDashboard = function () {
             //pass in data and create an instance of chart.js
             for (var i in this.scdbData.routeData.charts) {
                 new Chart(document.getElementById(i).getContext("2d"), this.scdbData.routeData.charts[i].config);
+            }
+            for (var _i in this.app.$data.dashboard.rangeTotals.items) {
+                if (this.scdbData.routeData.totals[this.app.$data.dashboard.rangeTotals.items[_i].name]) {
+                    this.app.$data.dashboard.rangeTotals.items[_i].value = this.scdbData.routeData.totals[this.app.$data.dashboard.rangeTotals.items[_i].name];
+                }
             }
         }
 

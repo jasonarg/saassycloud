@@ -1,6 +1,8 @@
 <template>
     <div id="dashboard" class="col-sm-9 ml-sm-auto col-md-10 py-5 my-3 bg-light" data-dashboard="overview">
-        <db-range-totals-bar></db-range-totals-bar>
+        <db-range-totals-bar
+            :items="dashboard.rangeTotals.items"
+        />
         <div class="row justify-content-center mb-0 pb-0">
             <div class="col-md-12 mt-2 mb-0 px-2 pb-0">
                 <db-title

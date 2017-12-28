@@ -89,10 +89,7 @@ class ScDashboard{
             data: this.scdbData.layout,
             components: {
                 'dashboard': Dashboard
-            },
-            mounted(){
             }
-
         });
     }
 
@@ -145,7 +142,7 @@ class ScDashboard{
                 let dsAndTotals = chartConfig.makeDatasets(this.scdbData.routeData.charts[chartList[chart]].labels,
                     this.scdbData.routeData.charts[chartList[chart]].polishedData);
 
-                this.scdbData.routeData.charts[chartList[chart]].totals = dsAndTotals.totals;
+                this.scdbData.routeData.totals = dsAndTotals.totals;
                 this.scdbData.routeData.charts[chartList[chart]].datasets = dsAndTotals.datasets;
                 this.scdbData.routeData.charts[chartList[chart]].config = chartConfig.config;
                 this.scdbData.routeData.charts[chartList[chart]].config.data.labels = this.scdbData.routeData.charts[chartList[chart]].labels;
@@ -153,6 +150,7 @@ class ScDashboard{
 
                 stop = 1;
             }
+
         }
     }
 
@@ -160,14 +158,18 @@ class ScDashboard{
      * For each this.scdbData.routeData.charts
      *   read in the config, load in the label and dataset data
      *   instantiate a new Chart class with this config data
+     *   Update the Vue data for totals
      */
     loadDataIntoChart(){
         //for each chart in active dashboard
         //pass in data and create an instance of chart.js
         for(let i in this.scdbData.routeData.charts){
            new Chart(document.getElementById(i).getContext("2d"), this.scdbData.routeData.charts[i].config);
-
-
+        }
+        for(let i in this.app.$data.dashboard.rangeTotals.items){
+            if(this.scdbData.routeData.totals[this.app.$data.dashboard.rangeTotals.items[i].name]){
+                this.app.$data.dashboard.rangeTotals.items[i].value = this.scdbData.routeData.totals[this.app.$data.dashboard.rangeTotals.items[i].name];
+            }
         }
     }
 

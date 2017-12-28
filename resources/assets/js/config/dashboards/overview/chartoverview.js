@@ -48,7 +48,7 @@ export default class ChartOverview extends ScChart{
         returnData.datasets = [];
         this.datasets = [
             {
-                name: "session",
+                name: "sessions",
                 summaryFunction(label){
                    return label in polishedData ? polishedData[label].length : 0;
                 },
@@ -92,7 +92,7 @@ export default class ChartOverview extends ScChart{
             }
             this.datasets[i].dataset.data = summaryData;
             returnData.datasets.push(this.datasets[i].dataset);
-            returnData.totals[this.datasets[i]] = dataTotals;
+            returnData.totals[this.datasets[i].name] = dataTotals;
         }
 
 
