@@ -1,5 +1,4 @@
-let _ = require('lodash');
-import  proxyClassLoader  from './config/proxyclassloader.js';
+import proxyClassLoader  from './config/proxyclassloader.js';
 import Dashboard from './components/Dashboard.vue';
 import { EventBus } from './eventbus.js';
 
@@ -83,7 +82,6 @@ class ScDashboard{
      * @returns void
      */
     loadView(){
-
         this.app = new Vue({
             el: '#vue-main',
             data: this.scdbData.layout,
@@ -191,6 +189,7 @@ class ScDashboard{
 }
 
 /**
+ * Initial property values for this.scdbData
  *
  * @type {{view: string, route: string, range: {start: null, end: null}, viewConfig: {}, layout: {navigation: {}, dashboard: {}}, routeData: {rough: {}, charts: {}}}}
  */
@@ -215,7 +214,6 @@ ScDashboard.prototype.scdbData = {
         }
     }
 };
-
 
 window.onload = function() {
     let scDb = new ScDashboard('2017-11-18', '2017-12-18');

@@ -17958,7 +17958,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _ = __webpack_require__("./node_modules/lodash/lodash.js");
 
 
 
@@ -18055,20 +18054,12 @@ var ScDashboard = function () {
     }, {
         key: 'loadView',
         value: function loadView() {
-
             this.app = new Vue({
                 el: '#vue-main',
-                /*            data(){
-                                return { layout: this.scdbData.layout }
-                            },*/
                 data: this.scdbData.layout,
                 components: {
                     'dashboard': __WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue___default.a
-                },
-                mounted: function mounted() {},
-
-                methods: {}
-
+                }
             });
         }
 
@@ -18182,6 +18173,7 @@ var ScDashboard = function () {
 }();
 
 /**
+ * Initial property values for this.scdbData
  *
  * @type {{view: string, route: string, range: {start: null, end: null}, viewConfig: {}, layout: {navigation: {}, dashboard: {}}, routeData: {rough: {}, charts: {}}}}
  */
