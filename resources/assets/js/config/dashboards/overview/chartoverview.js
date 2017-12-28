@@ -46,57 +46,27 @@ export default class ChartOverview extends ScChart{
         let returnData = {};
         returnData.totals = {};
         returnData.datasets = [];
-        this.datasets = [
-            {
-                name: "sessions",
-                summaryFunction(label){
-                   return label in polishedData ? polishedData[label].length : 0;
-                },
-                dataset:
-                {
-                    label: "Sessions",
-                    fill: true,
-                    backgroundColor: this.colors.red,
-                    borderColor: this.colors.red,
-                    data: []
-                }
-            },
-            {
-                name: "pageViews",
-                summaryFunction(label){
-                    let returnData = 0;
-                    if(label in polishedData){
-                        for(let j = 0; j < polishedData[label].length; j++){
-                            returnData += polishedData[label][j].rel.rc;
-                        }
-
-                    }
-                    return returnData;
-                },
-                dataset:
-                {
-                    label: "Page Views",
-                    fill: true,
-                    backgroundColor: this.colors.blue,
-                    borderColor: this.colors.blue,
-                    data: []
-                }
-            }
-        ];
         for(let i in this.datasets){
             let summaryData = [];
             let dataTotals = 0;
             for(let j = 0; j < labels.length; j++){
-                summaryData[j] = this.datasets[i].summaryFunction(labels[j]);
+                summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
                 dataTotals += summaryData[j];
             }
             this.datasets[i].dataset.data = summaryData;
+            this.setDatasetColor(i);
             returnData.datasets.push(this.datasets[i].dataset);
             returnData.totals[this.datasets[i].name] = dataTotals;
         }
 
 
         return returnData;
+    }
+
+    setDatasetColor(i){
+        this.datasets[i].dataset.backgroundColor = this.colors[this.datasets[i].dataset.backgroundColor];
+        this.datasets[i].dataset.borderColor = this.colors[this.datasets[i].dataset.borderColor];
+
     }
 }
 
@@ -148,3 +118,45 @@ ChartOverview.prototype.config = {
         }
     }
 };
+
+/**
+ * Datasets used by this chart
+ * @type {*[]}
+ */
+ChartOverview.prototype.datasets = [
+    {
+        name: "sessions",
+        summaryFunction(label, polishedData){
+            return label in polishedData ? polishedData[label].length : 0;
+        },
+        dataset:
+            {
+                label: "Sessions",
+                fill: true,
+                backgroundColor: "red",
+                borderColor: "red",
+                data: []
+            }
+    },
+    {
+        name: "pageViews",
+        summaryFunction(label, polishedData){
+            let returnData = 0;
+            if(label in polishedData){
+                for(let j = 0; j < polishedData[label].length; j++){
+                    returnData += polishedData[label][j].rel.rc;
+                }
+
+            }
+            return returnData;
+        },
+        dataset:
+            {
+                label: "Page Views",
+                fill: true,
+                backgroundColor: "blue",
+                borderColor: "blue",
+                data: []
+            }
+    }
+];
