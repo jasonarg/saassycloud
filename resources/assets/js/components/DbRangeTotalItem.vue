@@ -1,7 +1,7 @@
 <template>
     <div class="col-md-2 mt-3 overview-head-item">
         <span class="d-block text-muted">{{ itemName }}</span>
-        <h4 class="">{{ item.value }}</h4>
+        <h4 class="">{{ itemValue }}</h4>
     </div>
 </template>
 
@@ -20,7 +20,14 @@
              return _.startCase(this.item.name);
             },
             itemValue: function(){
-                return number_format(this.item.name);
+                let numberFormatter = new Intl.NumberFormat('en-US');
+                if(this.item.type === "money"){
+                    numberFormatter = new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD'
+                    });
+                }
+                return numberFormatter.format(this.item.value);
             }
         }
     }

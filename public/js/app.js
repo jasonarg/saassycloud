@@ -178,7 +178,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return _.startCase(this.item.name);
         },
         itemValue: function itemValue() {
-            return number_format(this.item.name);
+            var numberFormatter = new Intl.NumberFormat('en-US');
+            if (this.item.type === "money") {
+                numberFormatter = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD'
+                });
+            }
+            return numberFormatter.format(this.item.value);
         }
     }
 });
@@ -4448,7 +4455,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15494,7 +15501,7 @@ var render = function() {
       _vm._v(_vm._s(_vm.itemName))
     ]),
     _vm._v(" "),
-    _c("h4", {}, [_vm._v(_vm._s(_vm.item.value))])
+    _c("h4", {}, [_vm._v(_vm._s(_vm.itemValue))])
   ])
 }
 var staticRenderFns = []
@@ -17917,7 +17924,7 @@ module.exports = { ChartSalesAb: ChartSalesAb };
 /***/ "./resources/assets/js/config/dashboards/overview/layout.json":
 /***/ (function(module, exports) {
 
-module.exports = {"title":"overview","rangeTotals":{"items":[{"id":0,"name":"pageViews","value":0},{"id":1,"name":"sessions","value":0},{"id":2,"name":"conversions","value":0},{"id":3,"name":"sales","value":0},{"id":4,"name":"revenue","value":0}]},"rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saasiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesAb","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"packageAb","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"monthlyAnnualAb","cols":"12"}]}]}]}]}
+module.exports = {"title":"overview","rangeTotals":{"items":[{"id":0,"name":"pageViews","value":0,"type":"integer"},{"id":1,"name":"sessions","value":0,"type":"integer"},{"id":2,"name":"conversions","value":0,"type":"integer"},{"id":3,"name":"sales","value":0,"type":"integer"},{"id":4,"name":"revenue","value":0,"type":"money"}]},"rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saasiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesAb","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"packageAb","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"monthlyAnnualAb","cols":"12"}]}]}]}]}
 
 /***/ }),
 

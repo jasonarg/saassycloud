@@ -5,27 +5,32 @@
       {
         "id": 0,
         "name": "pageViews",
-        "value": 0
+        "value": 0,
+        "type": "integer"
       },
       {
         "id": 1,
         "name": "sessions",
-        "value": 0
+        "value": 0,
+        "type": "integer"
       },
       {
         "id": 2,
         "name": "conversions",
-        "value": 0
+        "value": 0,
+        "type": "integer"
       },
       {
         "id": 3,
         "name": "sales",
-        "value": 0
+        "value": 0,
+        "type": "integer"
       },
       {
         "id": 4,
         "name": "revenue",
-        "value": 0
+        "value": 0,
+        "type": "money"
       }
     ]
   },
