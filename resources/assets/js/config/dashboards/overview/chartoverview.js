@@ -121,6 +121,36 @@ ChartOverview.prototype.config = {
  */
 ChartOverview.prototype.datasets = [
     {
+        name: "revenue",
+        summaryFunction(label, polishedData){
+            let returnData = 0;
+            if(label in polishedData){
+                for(let j = 0; j < polishedData[label].length; j++){
+                    if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                        let rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
+                        if(polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M"){
+                            rev = rev * 12;
+                        }
+                        returnData += rev;
+                    }
+                    else{
+                        returnData += 0;
+                    }
+                }
+
+            }
+            return returnData;
+        },
+        dataset:
+            {
+                label: "Revenue",
+                fill: true,
+                backgroundColor: "orange",
+                borderColor: "orange",
+                data: []
+            }
+    },
+    {
         name: "sales",
         summaryFunction(label, polishedData){
             let returnData = 0;

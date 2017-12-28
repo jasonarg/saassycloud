@@ -17455,6 +17455,33 @@ ChartOverview.prototype.config = {
  * @type {*[]}
  */
 ChartOverview.prototype.datasets = [{
+    name: "revenue",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                    var rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
+                    if (polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M") {
+                        rev = rev * 12;
+                    }
+                    returnData += rev;
+                } else {
+                    returnData += 0;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Revenue",
+        fill: true,
+        backgroundColor: "orange",
+        borderColor: "orange",
+        data: []
+    }
+}, {
     name: "sales",
     summaryFunction: function summaryFunction(label, polishedData) {
         var returnData = 0;
