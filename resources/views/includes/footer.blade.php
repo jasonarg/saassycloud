@@ -3,7 +3,16 @@
 
     </div>
     <div class="col-md-6">
+        @if (Auth::guest())
         <a href="/login" class="text-muted float-right">Login</a>
+        @else
+            <a href="#" class="text-muted float-right" onclick="event.preventDefault();document.getElementById('logout-form-footer').submit();">Logout</a>
+
+            <form id="logout-form-footer" action="{{ route('logout') }}" method="POST"
+                  style="display: none;">
+                {{ csrf_field() }}
+            </form>
+        @endif
     </div>
 </div>
         <div class="row pt-5 pl-3">
