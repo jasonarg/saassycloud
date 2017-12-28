@@ -18,6 +18,9 @@ class Sale extends RootModel
         return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function conversionOpportunity(){
         return $this->belongsTo(ConversionOpportunity::class, 'conversion_opportunity_id', 'id');
     }

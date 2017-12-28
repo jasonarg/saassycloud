@@ -36,7 +36,7 @@ class DashboardDataController extends Controller{
         $whereArray = [];
         $whereArray[] = ['created_at', '>=', $from->toDateString()];
         $whereArray[] = ['created_at', '<=', $through->toDateString()];
-        $return["sessions"] = new SessionOverviewsResource(Session::where($whereArray)->with(['requests', 'conversionOpportunity.assignedAbViewGroup', 'conversionOpportunity.chosenPackage'])->get());
+        $return["sessions"] = new SessionOverviewsResource(Session::where($whereArray)->with(['requests', 'conversionOpportunity.assignedAbViewGroup', 'conversionOpportunity.chosenPackage', 'conversionOpportunity.sale'])->get());
 
 
 

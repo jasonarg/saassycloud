@@ -31,6 +31,8 @@ class ConversionOpportunityResource extends Resource
             'relationships' => [
                 'abViewGroup' => new AbViewGroupResource($this->assignedAbViewGroup),
                 'chosenPackage' => new ProductPackageResource($this->chosenPackage),
+                'sale' => new SaleResource($this->sale),
+
             ]
 
         ];

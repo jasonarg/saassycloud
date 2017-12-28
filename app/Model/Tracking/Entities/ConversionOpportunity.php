@@ -30,4 +30,11 @@ class ConversionOpportunity extends RootModel
     public function chosenPackage(){
         return $this->belongsTo('\App\Model\Product\Entities\ProductPackage', 'package_chosen_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sale(){
+        return $this->hasOne(Sale::class);
+    }
 }

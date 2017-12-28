@@ -9,6 +9,7 @@
 namespace App\Model\Core\Entities;
 
 use App\Model\RootModel;
+use App\Model\Tracking\Entities\Sale;
 
 class Customer extends RootModel
 {
@@ -30,6 +31,10 @@ class Customer extends RootModel
 
     public function organization(){
         return $this->belongsTo('\App\Model\Core\Entities\Organization', 'organization_id', 'id');
+    }
+
+    public function sales(){
+        return $this->hasMany(Sale::class);
     }
 
 }
