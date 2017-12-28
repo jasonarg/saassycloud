@@ -39,7 +39,7 @@
             'db-row': DbRow
         },
         mounted() {
-            console.log(this.dashboard);
+            //console.log(this.dashboard);
         }
 
     }

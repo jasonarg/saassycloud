@@ -430,7 +430,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'db-row': __WEBPACK_IMPORTED_MODULE_2__DbRow_vue___default.a
     },
     mounted: function mounted() {
-        console.log(this.dashboard);
+        //console.log(this.dashboard);
     }
 });
 
@@ -17378,9 +17378,10 @@ var ChartOverview = function (_ScChart) {
          * @returns {*}
          */
         value: function makeDatasets(labels, polishedData) {
-            var returnData = {};
-            returnData.totals = {};
-            returnData.datasets = [];
+            var returnData = {
+                totals: {},
+                datasets: []
+            };
             for (var i in this.datasets) {
                 var summaryData = [];
                 var dataTotals = 0;

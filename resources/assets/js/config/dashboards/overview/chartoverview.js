@@ -43,9 +43,10 @@ export default class ChartOverview extends ScChart{
      * @returns {*}
      */
     makeDatasets(labels, polishedData){
-        let returnData = {};
-        returnData.totals = {};
-        returnData.datasets = [];
+        let returnData = {
+            totals: {},
+            datasets: []
+        };
         for(let i in this.datasets){
             let summaryData = [];
             let dataTotals = 0;
