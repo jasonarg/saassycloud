@@ -18065,6 +18065,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
+var d3 = __webpack_require__("./node_modules/d3/index.js");
 
 var ScDashboard = function () {
 
@@ -18079,11 +18080,10 @@ var ScDashboard = function () {
      * @param rangeStart
      * @param rangeEnd
      */
-    function ScDashboard(rangeStart, rangeEnd) {
+    function ScDashboard() {
         _classCallCheck(this, ScDashboard);
 
-        this.scdbData.range.start = rangeStart;
-        this.scdbData.range.end = rangeEnd;
+        this.setRange();
         this.getRoute();
         this.loadConfig();
         this.loadData();
@@ -18091,14 +18091,34 @@ var ScDashboard = function () {
         this.loadEventListeners();
     }
 
-    /**
-     * Router
-     *
-     * @returns void
-     */
-
-
     _createClass(ScDashboard, [{
+        key: 'setRange',
+        value: function setRange() {
+            var rangeStart = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+            var rangeEnd = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+            var formatTime = d3.timeFormat("%Y-%m-%d");
+            var parseTime = d3.timeParse("%Y-%m-%d");
+            if (!rangeEnd) {
+                rangeEnd = formatTime(new Date());
+            }
+
+            if (!rangeStart) {
+                var rangeEndObj = parseTime(rangeEnd);
+                var rangeStartObj = d3.timeDay.offset(rangeEndObj, -30);
+                rangeStart = formatTime(rangeStartObj);
+            }
+            this.scdbData.range.start = rangeStart;
+            this.scdbData.range.end = rangeEnd;
+        }
+
+        /**
+         * Router
+         *
+         * @returns void
+         */
+
+    }, {
         key: 'getRoute',
         value: function getRoute() {
             this.route = 'overview';
@@ -18253,6 +18273,7 @@ var ScDashboard = function () {
                     this.app.$data.dashboard.rangeTotals.items[_i].value = this.scdbData.routeData.totals[this.app.$data.dashboard.rangeTotals.items[_i].name];
                 }
             }
+            console.log(this.scdbData.range);
         }
 
         /**
@@ -18302,7 +18323,7 @@ ScDashboard.prototype.scdbData = {
 };
 
 window.onload = function () {
-    var scDb = new ScDashboard('2017-12-01', '2017-12-31');
+    var scDb = new ScDashboard();
 };
 
 /***/ }),

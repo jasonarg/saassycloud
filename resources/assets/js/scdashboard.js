@@ -1,6 +1,7 @@
 import proxyClassLoader  from './config/proxyclassloader.js';
 import Dashboard from './components/Dashboard.vue';
 import { EventBus } from './eventbus.js';
+let d3 = require('d3');
 
 class ScDashboard{
 
@@ -15,14 +16,30 @@ class ScDashboard{
      * @param rangeStart
      * @param rangeEnd
      */
-    constructor(rangeStart, rangeEnd){
-        this.scdbData.range.start = rangeStart;
-        this.scdbData.range.end = rangeEnd;
+    constructor(){
+        this.setRange();
         this.getRoute();
         this.loadConfig();
         this.loadData();
         this.loadView();
         this.loadEventListeners();
+    }
+
+    setRange(rangeStart = null, rangeEnd = null){
+        let formatTime = d3.timeFormat("%Y-%m-%d");
+        let parseTime = d3.timeParse("%Y-%m-%d");
+        if(!rangeEnd){
+            rangeEnd = formatTime(new Date);
+        }
+
+        if(!rangeStart){
+            let rangeEndObj = parseTime(rangeEnd);
+            let rangeStartObj = d3.timeDay.offset(rangeEndObj, -30);
+            rangeStart = formatTime(rangeStartObj);
+        }
+        this.scdbData.range.start = rangeStart;
+        this.scdbData.range.end = rangeEnd;
+
     }
 
     /**
@@ -169,6 +186,7 @@ class ScDashboard{
                 this.app.$data.dashboard.rangeTotals.items[i].value = this.scdbData.routeData.totals[this.app.$data.dashboard.rangeTotals.items[i].name];
             }
         }
+        console.log(this.scdbData.range);
     }
 
 
@@ -216,5 +234,5 @@ ScDashboard.prototype.scdbData = {
 };
 
 window.onload = function() {
-    let scDb = new ScDashboard('2017-12-01', '2017-12-31');
+    let scDb = new ScDashboard();
 };
