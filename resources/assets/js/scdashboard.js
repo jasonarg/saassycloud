@@ -24,8 +24,6 @@ class ScDashboard{
         this.loadData();
         this.loadView();
         this.loadEventListeners();
-       /*
-        this.groomData();*/
     }
 
     /**
@@ -190,6 +188,10 @@ class ScDashboard{
     }
 }
 
+/**
+ *
+ * @type {{view: string, route: string, range: {start: null, end: null}, viewConfig: {}, layout: {navigation: {}, dashboard: {}}, routeData: {rough: {}, charts: {}}}}
+ */
 ScDashboard.prototype.scdbData = {
     view: 'dashboards',
     route: 'overview',

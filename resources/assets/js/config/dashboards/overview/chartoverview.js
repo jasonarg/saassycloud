@@ -2,7 +2,13 @@ let d3 = require('d3');
 import { ScChart } from './../../../scchart.js';
 
 export default class ChartOverview extends ScChart{
-
+    /**
+     * Polishes Raw api data needed for chart rendering
+     *
+     * @param data
+     *
+     * @returns Object
+     */
      polishData(data) {
         let dates = _.groupBy(data.sessions, (session) => {
             let date = new Date(session.a.at);
@@ -12,6 +18,13 @@ export default class ChartOverview extends ScChart{
         return dates;
     };
 
+    /**
+     * Creates labels for the associated chart.js chart
+     *
+     * @param rangeStart
+     * @param rangeEnd
+     * @returns {Array}
+     */
     setLabels(rangeStart, rangeEnd){
         let range = d3.timeDay.range(new Date(rangeStart), new Date(rangeEnd));
         let labels = [];
@@ -21,6 +34,14 @@ export default class ChartOverview extends ScChart{
         return labels;
     };
 
+
+    /**
+     * Creates all datasets needed for the associated chart.js instance
+     *
+     * @param labels
+     * @param polishedData
+     * @returns {*}
+     */
     makeDatasets(labels, polishedData){
         let returnData = {};
         returnData.totals = {};
@@ -35,8 +56,8 @@ export default class ChartOverview extends ScChart{
                 {
                     label: "Sessions",
                     fill: true,
-                    backgroundColor: this.colors.green,
-                    borderColor: this.colors.green,
+                    backgroundColor: this.colors.red,
+                    borderColor: this.colors.red,
                     data: []
                 }
             },
@@ -79,6 +100,11 @@ export default class ChartOverview extends ScChart{
     }
 }
 
+/**
+ * Boilerplate chart.js config object for the chart
+ *
+ * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
+ */
 ChartOverview.prototype.config = {
     type: "line",
     data: {

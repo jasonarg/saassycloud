@@ -17377,6 +17377,14 @@ var ChartOverview = function (_ScChart) {
 
     _createClass(ChartOverview, [{
         key: 'polishData',
+
+        /**
+         * Polishes Raw api data needed for chart rendering
+         *
+         * @param data
+         *
+         * @returns Object
+         */
         value: function polishData(data) {
             var dates = _.groupBy(data.sessions, function (session) {
                 var date = new Date(session.a.at);
@@ -17387,6 +17395,15 @@ var ChartOverview = function (_ScChart) {
         }
     }, {
         key: 'setLabels',
+
+
+        /**
+         * Creates labels for the associated chart.js chart
+         *
+         * @param rangeStart
+         * @param rangeEnd
+         * @returns {Array}
+         */
         value: function setLabels(rangeStart, rangeEnd) {
             var range = d3.timeDay.range(new Date(rangeStart), new Date(rangeEnd));
             var labels = [];
@@ -17397,6 +17414,15 @@ var ChartOverview = function (_ScChart) {
         }
     }, {
         key: 'makeDatasets',
+
+
+        /**
+         * Creates all datasets needed for the associated chart.js instance
+         *
+         * @param labels
+         * @param polishedData
+         * @returns {*}
+         */
         value: function makeDatasets(labels, polishedData) {
             var returnData = {};
             returnData.totals = {};
@@ -17410,8 +17436,8 @@ var ChartOverview = function (_ScChart) {
                 dataset: {
                     label: "Sessions",
                     fill: true,
-                    backgroundColor: this.colors.green,
-                    borderColor: this.colors.green,
+                    backgroundColor: this.colors.red,
+                    borderColor: this.colors.red,
                     data: []
                 }
             }, {
@@ -17453,9 +17479,14 @@ var ChartOverview = function (_ScChart) {
     return ChartOverview;
 }(__WEBPACK_IMPORTED_MODULE_0__scchart_js__["ScChart"]);
 
+/**
+ * Boilerplate chart.js config object for the chart
+ *
+ * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
+ */
+
+
 /* harmony default export */ __webpack_exports__["a"] = (ChartOverview);
-
-
 ChartOverview.prototype.config = {
     type: "line",
     data: {
@@ -18001,8 +18032,6 @@ var ScDashboard = function () {
         this.loadData();
         this.loadView();
         this.loadEventListeners();
-        /*
-         this.groomData();*/
     }
 
     /**
@@ -18185,6 +18214,12 @@ var ScDashboard = function () {
 
     return ScDashboard;
 }();
+
+/**
+ *
+ * @type {{view: string, route: string, range: {start: null, end: null}, viewConfig: {}, layout: {navigation: {}, dashboard: {}}, routeData: {rough: {}, charts: {}}}}
+ */
+
 
 ScDashboard.prototype.scdbData = {
     view: 'dashboards',
