@@ -64,11 +64,6 @@ export default class ChartOverview extends ScChart{
         return returnData;
     }
 
-    setDatasetColor(i){
-        this.datasets[i].dataset.backgroundColor = this.colors[this.datasets[i].dataset.backgroundColor];
-        this.datasets[i].dataset.borderColor = this.colors[this.datasets[i].dataset.borderColor];
-
-    }
 }
 
 /**

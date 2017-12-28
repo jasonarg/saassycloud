@@ -17397,12 +17397,6 @@ var ChartOverview = function (_ScChart) {
 
             return returnData;
         }
-    }, {
-        key: 'setDatasetColor',
-        value: function setDatasetColor(i) {
-            this.datasets[i].dataset.backgroundColor = this.colors[this.datasets[i].dataset.backgroundColor];
-            this.datasets[i].dataset.borderColor = this.colors[this.datasets[i].dataset.borderColor];
-        }
     }]);
 
     return ChartOverview;
@@ -17936,11 +17930,32 @@ var EventBus = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a();
 /***/ "./resources/assets/js/scchart.js":
 /***/ (function(module, exports) {
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var ScChart = function ScChart() {
-    _classCallCheck(this, ScChart);
-};
+var ScChart = function () {
+    function ScChart() {
+        _classCallCheck(this, ScChart);
+    }
+
+    _createClass(ScChart, [{
+        key: 'setDatasetColor',
+
+
+        /**
+         * Updates a dataset's color to the translucent rgba value as defined in the colors property.
+         *
+         * @param i the index of the dataset to update
+         */
+        value: function setDatasetColor(i) {
+            this.datasets[i].dataset.backgroundColor = this.colors[this.datasets[i].dataset.backgroundColor];
+            this.datasets[i].dataset.borderColor = this.colors[this.datasets[i].dataset.borderColor];
+        }
+    }]);
+
+    return ScChart;
+}();
 
 ;
 
