@@ -12832,6 +12832,10 @@ $input-placeholder-color: lighten($text-color, 30%);
   color: #666;
 }
 
+.overview-head-item:first-child {
+  padding-left: 3rem;
+}
+
 .overview-head-item:last-child {
   border: 0;
 }
