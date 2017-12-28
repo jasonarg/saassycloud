@@ -477,7 +477,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__event_bus_js__ = __webpack_require__("./resources/assets/js/event-bus.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__eventBus_js__ = __webpack_require__("./resources/assets/js/eventBus.js");
 //
 //
 //
@@ -507,7 +507,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         changeDashboard: function changeDashboard() {
-            __WEBPACK_IMPORTED_MODULE_0__event_bus_js__["a" /* EventBus */].$emit('changeDashboard', [this.listItem]);
+            __WEBPACK_IMPORTED_MODULE_0__eventBus_js__["a" /* EventBus */].$emit('changeDashboard', [this.listItem]);
         }
     }
 });
@@ -17353,120 +17353,105 @@ module.exports = { ChartMonthlyAnnualAb: ChartMonthlyAnnualAb };
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js__ = __webpack_require__("./resources/assets/js/scchart.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scchart_js__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var d3 = __webpack_require__("./node_modules/d3/index.js");
 
-var ChartOverview = function () {
+
+var ChartOverview = function (_ScChart) {
+    _inherits(ChartOverview, _ScChart);
+
     function ChartOverview() {
         _classCallCheck(this, ChartOverview);
+
+        return _possibleConstructorReturn(this, (ChartOverview.__proto__ || Object.getPrototypeOf(ChartOverview)).apply(this, arguments));
     }
 
     _createClass(ChartOverview, [{
-        key: "polishData",
+        key: 'polishData',
         value: function polishData(data) {
             var dates = _.groupBy(data.sessions, function (session) {
                 var date = new Date(session.a.at);
-                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
             });
 
             return dates;
         }
     }, {
-        key: "setLabels",
+        key: 'setLabels',
         value: function setLabels(rangeStart, rangeEnd) {
             var range = d3.timeDay.range(new Date(rangeStart), new Date(rangeEnd));
             var labels = [];
             for (var i = 0; i < range.length; i++) {
-                labels[i] = range[i].getFullYear() + "-" + (range[i].getMonth() + 1) + "-" + range[i].getDate();
+                labels[i] = range[i].getFullYear() + '-' + (range[i].getMonth() + 1) + '-' + range[i].getDate();
             }
             return labels;
         }
     }, {
-        key: "makeDatasets",
+        key: 'makeDatasets',
         value: function makeDatasets(labels, polishedData) {
             var returnData = {};
             returnData.totals = {};
+            returnData.datasets = [];
             this.datasets = [{
                 name: "session",
-                label: "Sessions",
-                fill: true,
-                backgroundColor: window.chartColors.green,
-                borderColor: window.chartColors.green,
-                data: []
+                summaryFunction: function summaryFunction(label) {
+                    return label in polishedData ? polishedData[label].length : 0;
+                },
+
+                dataset: {
+                    label: "Sessions",
+                    fill: true,
+                    backgroundColor: this.colors.green,
+                    borderColor: this.colors.green,
+                    data: []
+                }
             }, {
                 name: "pageViews",
-                label: "Page Views",
-                fill: true,
-                backgroundColor: window.chartColors.blue,
-                borderColor: window.chartColors.blue,
-                data: []
+                summaryFunction: function summaryFunction(label) {
+                    var returnData = 0;
+                    if (label in polishedData) {
+                        for (var j = 0; j < polishedData[label].length; j++) {
+                            returnData += polishedData[label][j].rel.rc;
+                        }
+                    }
+                    return returnData;
+                },
+
+                dataset: {
+                    label: "Page Views",
+                    fill: true,
+                    backgroundColor: this.colors.blue,
+                    borderColor: this.colors.blue,
+                    data: []
+                }
             }];
             for (var i in this.datasets) {
                 var summaryData = [];
                 var dataTotals = 0;
                 for (var j = 0; j < labels.length; j++) {
-                    summaryData[j] = labels[j] in polishedData ? polishedData[labels[j]].length : 0;
+                    summaryData[j] = this.datasets[i].summaryFunction(labels[j]);
                     dataTotals += summaryData[j];
                 }
-                this.datasets[i].data = summaryData;
+                this.datasets[i].dataset.data = summaryData;
+                returnData.datasets.push(this.datasets[i].dataset);
                 returnData.totals[this.datasets[i]] = dataTotals;
             }
 
-            returnData.datasets = this.datasets;
-
             return returnData;
-            /*
-            
-            
-                        let summaryData = [];
-                        let dataTotals = 0;
-                        for(let i = 0; i < this.config.data.labels.length; i++){
-                            summaryData[i] = this.config.data.labels[i] in this.groupedData ? this.groupedData[this.config.data.labels[i]].length : 0;
-                            dataTotals += summaryData[i];
-                        }
-                        let dataset = {
-                            label: "Sessions",
-                            fill: true,
-                            backgroundColor: window.chartColors.green,
-                            borderColor: window.chartColors.green,
-                            data: summaryData
-                        };
-                        this.config.data.datasets.push(dataset);
-                        this.totals.sessions = dataTotals;
-            
-            
-                        summaryData = [];
-                        for(let i = 0; i < this.config.data.labels.length; i++){
-                            if(this.config.data.labels[i] in this.groupedData){
-                                summaryData[i] = 0;
-                                for(let j = 0; j < this.groupedData[this.config.data.labels[i]].length; j++){
-                                    summaryData[i] += this.groupedData[this.config.data.labels[i]][j].rel.rc;
-                                }
-            
-                            }
-                            else{
-                                summaryData[i] = 0;
-                            }
-                        }
-                        dataset = {
-                            label: "Page Views",
-                            fill: true,
-                            backgroundColor: window.chartColors.blue,
-                            borderColor: window.chartColors.blue,
-                            data: summaryData
-                        }
-                        this.config.data.datasets.push(dataset);
-            */
-
-            //console.log(this.totals);
         }
     }]);
 
     return ChartOverview;
-}();
+}(__WEBPACK_IMPORTED_MODULE_0__scchart_js__["ScChart"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (ChartOverview);
 
@@ -17938,7 +17923,7 @@ function proxyClassLoader(className) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/event-bus.js":
+/***/ "./resources/assets/js/eventBus.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17951,152 +17936,24 @@ var EventBus = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a();
 /***/ }),
 
 /***/ "./resources/assets/js/scchart.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+/***/ (function(module, exports) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _ = __webpack_require__("./node_modules/lodash/lodash.js");
-var d3 = __webpack_require__("./node_modules/d3/index.js");
-
-var ScChart = function () {
-    function ScChart() {
-        _classCallCheck(this, ScChart);
-
-        this.totals = {};
-        this.groupedData = {};
-    }
-
-    _createClass(ScChart, [{
-        key: 'init',
-        value: function init(data) {
-            this.groupedData = this.groupData(data);
-            this.setLabels();
-            this.loadDataSet(this.groupedData);
-            this.myLine = new Chart(document.getElementById("overviewCombined").getContext("2d"), this.config);
-        }
-    }, {
-        key: 'loadDataSet',
-        value: function loadDataSet() {
-            var summaryData = [];
-            var dataTotals = 0;
-            for (var i = 0; i < this.config.data.labels.length; i++) {
-                summaryData[i] = this.config.data.labels[i] in this.groupedData ? this.groupedData[this.config.data.labels[i]].length : 0;
-                dataTotals += summaryData[i];
-            }
-            var dataset = {
-                label: "Sessions",
-                fill: true,
-                backgroundColor: window.chartColors.green,
-                borderColor: window.chartColors.green,
-                data: summaryData
-            };
-            this.config.data.datasets.push(dataset);
-            this.totals.sessions = dataTotals;
-
-            summaryData = [];
-            for (var _i = 0; _i < this.config.data.labels.length; _i++) {
-                if (this.config.data.labels[_i] in this.groupedData) {
-                    summaryData[_i] = 0;
-                    for (var j = 0; j < this.groupedData[this.config.data.labels[_i]].length; j++) {
-                        summaryData[_i] += this.groupedData[this.config.data.labels[_i]][j].rel.rc;
-                    }
-                } else {
-                    summaryData[_i] = 0;
-                }
-            }
-            dataset = {
-                label: "Page Views",
-                fill: true,
-                backgroundColor: window.chartColors.blue,
-                borderColor: window.chartColors.blue,
-                data: summaryData
-            };
-            this.config.data.datasets.push(dataset);
-
-            //console.log(this.totals);
-        }
-    }, {
-        key: 'groupData',
-        value: function groupData(data) {
-            var dates = _.groupBy(data.sessions, function (session) {
-                var date = new Date(session.a.at);
-                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-            });
-
-            return dates;
-        }
-    }, {
-        key: 'getRangeStart',
-        value: function getRangeStart() {
-            return '2017-11-18';
-        }
-    }, {
-        key: 'getRangeEnd',
-        value: function getRangeEnd() {
-            return '2017-12-19';
-        }
-    }, {
-        key: 'setLabels',
-        value: function setLabels() {
-            var range = d3.timeDay.range(new Date(this.getRangeStart()), new Date(this.getRangeEnd()));
-            var labels = [];
-            for (var i = 0; i < range.length; i++) {
-                labels[i] = range[i].getFullYear() + '-' + (range[i].getMonth() + 1) + '-' + range[i].getDate();
-            }
-            this.config.data.labels = labels;
-        }
-    }, {
-        key: 'colorNames',
-        value: function colorNames() {
-            return Object.keys(window.chartColors);
-        }
-    }]);
-
-    return ScChart;
-}();
+var ScChart = function ScChart() {
+    _classCallCheck(this, ScChart);
+};
 
 ;
 
-ScChart.prototype.config = {
-    type: 'line',
-    data: {
-        labels: [],
-        datasets: []
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        title: {
-            display: true,
-            text: 'SaaSsy Cloud Analytics: Overview'
-        },
-        tooltips: {
-            mode: 'index',
-            intersect: false
-        },
-        hover: {
-            mode: 'nearest',
-            intersect: true
-        },
-        scales: {
-            xAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Date'
-                }
-            }],
-            yAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Value'
-                }
-            }]
-        }
-    }
+ScChart.prototype.colors = {
+    red: 'rgba(255, 99, 132, .6)',
+    orange: 'rgba(255, 159, 64, .6)',
+    yellow: 'rgba(255, 205, 86, .6)',
+    green: 'rgba(75, 192, 192, .6)',
+    blue: 'rgba(54, 162, 235, .6)',
+    purple: 'rgba(153, 102, 255, .6)',
+    grey: 'rgba(201, 203, 207, .6)'
 };
 
 module.exports = { ScChart: ScChart };
@@ -18111,7 +17968,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_proxyclassloader_js__ = __webpack_require__("./resources/assets/js/config/proxyclassloader.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue__ = __webpack_require__("./resources/assets/js/components/Dashboard.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__event_bus_js__ = __webpack_require__("./resources/assets/js/event-bus.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__eventBus_js__ = __webpack_require__("./resources/assets/js/eventBus.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -18316,11 +18173,11 @@ var ScDashboard = function () {
         key: 'loadEventListeners',
         value: function loadEventListeners() {
 
-            __WEBPACK_IMPORTED_MODULE_2__event_bus_js__["a" /* EventBus */].$on('changeDashboard', function (listItem) {
+            __WEBPACK_IMPORTED_MODULE_2__eventBus_js__["a" /* EventBus */].$on('changeDashboard', function (listItem) {
                 console.log(listItem);
             });
 
-            __WEBPACK_IMPORTED_MODULE_2__event_bus_js__["a" /* EventBus */].$on('changeRange', function (rangeStart, rangeEnd) {
+            __WEBPACK_IMPORTED_MODULE_2__eventBus_js__["a" /* EventBus */].$on('changeRange', function (rangeStart, rangeEnd) {
                 console.log(rangeStart, rangeEnd);
             });
         }
@@ -18345,16 +18202,6 @@ ScDashboard.prototype.scdbData = {
         rough: {},
         charts: {}
     }
-};
-
-ScDashboard.prototype.colors = {
-    red: 'rgba(255, 99, 132, .6)',
-    orange: 'rgba(255, 159, 64, .6)',
-    yellow: 'rgba(255, 205, 86, .6)',
-    green: 'rgba(75, 192, 192, .6)',
-    blue: 'rgba(54, 162, 235, .6)',
-    purple: 'rgba(153, 102, 255, .6)',
-    grey: 'rgba(201, 203, 207, .6)'
 };
 
 window.onload = function () {

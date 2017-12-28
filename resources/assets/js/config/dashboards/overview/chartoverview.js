@@ -1,6 +1,7 @@
 let d3 = require('d3');
+import { ScChart } from './../../../scchart.js';
 
-export default class ChartOverview {
+export default class ChartOverview extends ScChart{
 
      polishData(data) {
         let dates = _.groupBy(data.sessions, (session) => {
@@ -23,84 +24,58 @@ export default class ChartOverview {
     makeDatasets(labels, polishedData){
         let returnData = {};
         returnData.totals = {};
+        returnData.datasets = [];
         this.datasets = [
             {
                 name: "session",
-                label: "Sessions",
-                fill: true,
-                backgroundColor: window.chartColors.green,
-                borderColor: window.chartColors.green,
-                data: []
+                summaryFunction(label){
+                   return label in polishedData ? polishedData[label].length : 0;
+                },
+                dataset:
+                {
+                    label: "Sessions",
+                    fill: true,
+                    backgroundColor: this.colors.green,
+                    borderColor: this.colors.green,
+                    data: []
+                }
             },
             {
                 name: "pageViews",
-                label: "Page Views",
-                fill: true,
-                backgroundColor: window.chartColors.blue,
-                borderColor: window.chartColors.blue,
-                data: []
+                summaryFunction(label){
+                    let returnData = 0;
+                    if(label in polishedData){
+                        for(let j = 0; j < polishedData[label].length; j++){
+                            returnData += polishedData[label][j].rel.rc;
+                        }
+
+                    }
+                    return returnData;
+                },
+                dataset:
+                {
+                    label: "Page Views",
+                    fill: true,
+                    backgroundColor: this.colors.blue,
+                    borderColor: this.colors.blue,
+                    data: []
+                }
             }
         ];
         for(let i in this.datasets){
             let summaryData = [];
             let dataTotals = 0;
             for(let j = 0; j < labels.length; j++){
-                summaryData[j] = labels[j] in polishedData ? polishedData[labels[j]].length : 0;
+                summaryData[j] = this.datasets[i].summaryFunction(labels[j]);
                 dataTotals += summaryData[j];
             }
-            this.datasets[i].data = summaryData;
+            this.datasets[i].dataset.data = summaryData;
+            returnData.datasets.push(this.datasets[i].dataset);
             returnData.totals[this.datasets[i]] = dataTotals;
         }
 
-        returnData.datasets = this.datasets;
 
         return returnData;
-/*
-
-
-            let summaryData = [];
-            let dataTotals = 0;
-            for(let i = 0; i < this.config.data.labels.length; i++){
-                summaryData[i] = this.config.data.labels[i] in this.groupedData ? this.groupedData[this.config.data.labels[i]].length : 0;
-                dataTotals += summaryData[i];
-            }
-            let dataset = {
-                label: "Sessions",
-                fill: true,
-                backgroundColor: window.chartColors.green,
-                borderColor: window.chartColors.green,
-                data: summaryData
-            };
-            this.config.data.datasets.push(dataset);
-            this.totals.sessions = dataTotals;
-
-
-            summaryData = [];
-            for(let i = 0; i < this.config.data.labels.length; i++){
-                if(this.config.data.labels[i] in this.groupedData){
-                    summaryData[i] = 0;
-                    for(let j = 0; j < this.groupedData[this.config.data.labels[i]].length; j++){
-                        summaryData[i] += this.groupedData[this.config.data.labels[i]][j].rel.rc;
-                    }
-
-                }
-                else{
-                    summaryData[i] = 0;
-                }
-            }
-            dataset = {
-                label: "Page Views",
-                fill: true,
-                backgroundColor: window.chartColors.blue,
-                borderColor: window.chartColors.blue,
-                data: summaryData
-            }
-            this.config.data.datasets.push(dataset);
-*/
-
-
-
-            //console.log(this.totals);
     }
 }
 
