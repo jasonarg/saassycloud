@@ -186,7 +186,6 @@ class ScDashboard{
                 this.app.$data.dashboard.rangeTotals.items[i].value = this.scdbData.routeData.totals[this.app.$data.dashboard.rangeTotals.items[i].name];
             }
         }
-        console.log(this.scdbData.range);
     }
 
 

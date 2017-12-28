@@ -17366,7 +17366,10 @@ var ChartOverview = function (_ScChart) {
          * @returns {Array}
          */
         value: function setLabels(rangeStart, rangeEnd) {
-            var range = d3.timeDay.range(new Date(rangeStart), new Date(rangeEnd));
+            var parseTime = d3.timeParse("%Y-%m-%d");
+            var rangeEndObj = parseTime(rangeEnd);
+            var rangeEndPlusOneObj = d3.timeDay.offset(rangeEndObj, +1);
+            var range = d3.timeDay.range(new Date(rangeStart), rangeEndPlusOneObj);
             var labels = [];
             for (var i = 0; i < range.length; i++) {
                 labels[i] = range[i].getFullYear() + '-' + (range[i].getMonth() + 1) + '-' + range[i].getDate();
@@ -18273,7 +18276,6 @@ var ScDashboard = function () {
                     this.app.$data.dashboard.rangeTotals.items[_i].value = this.scdbData.routeData.totals[this.app.$data.dashboard.rangeTotals.items[_i].name];
                 }
             }
-            console.log(this.scdbData.range);
         }
 
         /**

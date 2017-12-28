@@ -32,10 +32,9 @@ class DashboardDataController extends Controller{
         else{
             $through = Carbon::createFromFormat('Y-m-d', $through);
         }
-
         $whereArray = [];
         $whereArray[] = ['created_at', '>=', $from->toDateString()];
-        $whereArray[] = ['created_at', '<=', $through->toDateString()];
+        $whereArray[] = ['created_at', '<=', $through->toDateString()." 23:59:59"];
         $return["sessions"] = new SessionOverviewsResource(Session::where($whereArray)->with(['requests', 'conversionOpportunity.assignedAbViewGroup', 'conversionOpportunity.chosenPackage', 'conversionOpportunity.sale'])->get());
 
 
