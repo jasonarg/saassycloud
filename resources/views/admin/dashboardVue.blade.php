@@ -27,8 +27,8 @@
 </header>
 <div id="vue-main" class="container-fluid">
     <dashboard
-            :navigation="navigation"
-            :dashboard="dashboard"
+            :navigation="layout.navigation"
+            :dashboard="layout.dashboard"
         />
 </div>
 <footer>

@@ -369,6 +369,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+var d3 = __webpack_require__("./node_modules/d3/index.js");
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "db-title",
     props: {
@@ -378,9 +379,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     computed: {
-        getTitle: function getTitle() {
+        title: function title() {
             return _.startCase(this.dashboard.title);
+        },
+        placeHolder: function placeHolder() {
+            var formatTime = d3.timeFormat("%B %d, %Y");
+            var parseTime = d3.timeParse("%Y-%m-%d");
+            var rangeStartStrObj = parseTime(this.dashboard.range.start);
+            var rangeEndStrObj = parseTime(this.dashboard.range.end);
+
+            return formatTime(rangeStartStrObj) + " - " + formatTime(rangeEndStrObj);
         }
+
     }
 });
 
@@ -4470,7 +4480,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15530,7 +15540,7 @@ var render = function() {
         staticClass: "d-inline-block text-info my-1",
         attrs: { id: "mainChartTitle" }
       },
-      [_vm._v("SaaSsy Cloud Analytics: " + _vm._s(_vm.getTitle))]
+      [_vm._v("SaaSsy Cloud Analytics: " + _vm._s(_vm.title))]
     ),
     _vm._v(" "),
     _c("input", {
@@ -15539,9 +15549,7 @@ var render = function() {
       attrs: {
         id: "dashboardRange",
         type: "text",
-        placeholder: "November 18, 2017 - December 18, 2017",
-        "data-range-start": "2017-11-18",
-        "data-range-end": "2017-12-18"
+        placeholder: _vm.placeHolder
       }
     })
   ])
@@ -18086,7 +18094,6 @@ var ScDashboard = function () {
     function ScDashboard() {
         _classCallCheck(this, ScDashboard);
 
-        this.setRange();
         this.getRoute();
         this.loadConfig();
         this.loadData();
@@ -18094,9 +18101,17 @@ var ScDashboard = function () {
         this.loadEventListeners();
     }
 
+    /**
+     *
+     * @param rangeStart
+     * @param rangeEnd
+     * @returns {{start: *, end: *}}
+     */
+
+
     _createClass(ScDashboard, [{
-        key: 'setRange',
-        value: function setRange() {
+        key: 'formatRange',
+        value: function formatRange() {
             var rangeStart = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
             var rangeEnd = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
@@ -18111,8 +18126,11 @@ var ScDashboard = function () {
                 var rangeStartObj = d3.timeDay.offset(rangeEndObj, -30);
                 rangeStart = formatTime(rangeStartObj);
             }
-            this.scdbData.range.start = rangeStart;
-            this.scdbData.range.end = rangeEnd;
+
+            return {
+                start: rangeStart,
+                end: rangeEnd
+            };
         }
 
         /**
@@ -18146,6 +18164,7 @@ var ScDashboard = function () {
             }
             this.scdbData.layout.navigation = this.configFiles.navigation.lists;
             this.scdbData.layout.dashboard = this.configFiles.dashboards[this.route];
+            this.scdbData.layout.dashboard.range = this.formatRange();
         }
 
         /**
@@ -18183,7 +18202,7 @@ var ScDashboard = function () {
         value: function loadView() {
             this.app = new Vue({
                 el: '#vue-main',
-                data: this.scdbData.layout,
+                data: this.scdbData,
                 components: {
                     'dashboard': __WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue___default.a
                 }
@@ -18203,7 +18222,7 @@ var ScDashboard = function () {
         value: function loadData() {
             var _this = this;
 
-            axios.get('/api/' + this.route + '/' + this.scdbData.range.start + '/' + this.scdbData.range.end).then(function (response) {
+            axios.get('/api/' + this.route + '/' + this.scdbData.layout.dashboard.range.start + '/' + this.scdbData.layout.dashboard.range.end).then(function (response) {
                 _this.scdbData.routeData.rough = response.data;
                 _this.polishDataAndLoadIntoChart();
             }).catch(function (error) {
@@ -18242,7 +18261,7 @@ var ScDashboard = function () {
                     var chartConfig = Object(__WEBPACK_IMPORTED_MODULE_0__config_proxyclassloader_js__["a" /* default */])('Chart' + _.upperFirst(chartList[chart]));
                     this.scdbData.routeData.charts[chartList[chart]] = {};
                     this.scdbData.routeData.charts[chartList[chart]].polishedData = chartConfig.polishData(this.scdbData.routeData.rough);
-                    this.scdbData.routeData.charts[chartList[chart]].labels = chartConfig.setLabels(this.scdbData.range.start, this.scdbData.range.end);
+                    this.scdbData.routeData.charts[chartList[chart]].labels = chartConfig.setLabels(this.scdbData.layout.dashboard.range.start, this.scdbData.layout.dashboard.range.end);
                     var dsAndTotals = chartConfig.makeDatasets(this.scdbData.routeData.charts[chartList[chart]].labels, this.scdbData.routeData.charts[chartList[chart]].polishedData);
 
                     this.scdbData.routeData.totals = dsAndTotals.totals;
@@ -18271,9 +18290,9 @@ var ScDashboard = function () {
             for (var i in this.scdbData.routeData.charts) {
                 new Chart(document.getElementById(i).getContext("2d"), this.scdbData.routeData.charts[i].config);
             }
-            for (var _i in this.app.$data.dashboard.rangeTotals.items) {
-                if (this.scdbData.routeData.totals[this.app.$data.dashboard.rangeTotals.items[_i].name]) {
-                    this.app.$data.dashboard.rangeTotals.items[_i].value = this.scdbData.routeData.totals[this.app.$data.dashboard.rangeTotals.items[_i].name];
+            for (var _i in this.app.$data.layout.dashboard.rangeTotals.items) {
+                if (this.scdbData.routeData.totals[this.app.$data.layout.dashboard.rangeTotals.items[_i].name]) {
+                    this.app.$data.layout.dashboard.rangeTotals.items[_i].value = this.scdbData.routeData.totals[this.app.$data.layout.dashboard.rangeTotals.items[_i].name];
                 }
             }
         }
@@ -18309,10 +18328,6 @@ var ScDashboard = function () {
 ScDashboard.prototype.scdbData = {
     view: 'dashboards',
     route: 'overview',
-    range: {
-        start: null,
-        end: null
-    },
     viewConfig: {},
     layout: {
         navigation: {},

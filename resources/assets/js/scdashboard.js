@@ -17,7 +17,6 @@ class ScDashboard{
      * @param rangeEnd
      */
     constructor(){
-        this.setRange();
         this.getRoute();
         this.loadConfig();
         this.loadData();
@@ -25,7 +24,13 @@ class ScDashboard{
         this.loadEventListeners();
     }
 
-    setRange(rangeStart = null, rangeEnd = null){
+    /**
+     *
+     * @param rangeStart
+     * @param rangeEnd
+     * @returns {{start: *, end: *}}
+     */
+    formatRange(rangeStart = null, rangeEnd = null){
         let formatTime = d3.timeFormat("%Y-%m-%d");
         let parseTime = d3.timeParse("%Y-%m-%d");
         if(!rangeEnd){
@@ -37,8 +42,11 @@ class ScDashboard{
             let rangeStartObj = d3.timeDay.offset(rangeEndObj, -30);
             rangeStart = formatTime(rangeStartObj);
         }
-        this.scdbData.range.start = rangeStart;
-        this.scdbData.range.end = rangeEnd;
+
+        return {
+            start: rangeStart,
+            end: rangeEnd
+        };
 
     }
 
@@ -68,6 +76,7 @@ class ScDashboard{
         }
         this.scdbData.layout.navigation = this.configFiles.navigation.lists;
         this.scdbData.layout.dashboard = this.configFiles.dashboards[this.route];
+        this.scdbData.layout.dashboard.range = this.formatRange();
     }
 
     /**
@@ -101,7 +110,7 @@ class ScDashboard{
     loadView(){
         this.app = new Vue({
             el: '#vue-main',
-            data: this.scdbData.layout,
+            data: this.scdbData,
             components: {
                 'dashboard': Dashboard
             }
@@ -116,12 +125,10 @@ class ScDashboard{
      * @returns void
      */
     loadData(){
-         axios.get(`/api/${this.route}/${this.scdbData.range.start}/${this.scdbData.range.end}`)
+         axios.get(`/api/${this.route}/${this.scdbData.layout.dashboard.range.start}/${this.scdbData.layout.dashboard.range.end}`)
             .then( (response) => {
                 this.scdbData.routeData.rough = response.data;
                 this.polishDataAndLoadIntoChart();
-
-
             }).catch(function (error) {
                 console.log(error);
         });
@@ -152,8 +159,8 @@ class ScDashboard{
                 let chartConfig = proxyClassLoader(`Chart${_.upperFirst(chartList[chart])}`);
                 this.scdbData.routeData.charts[chartList[chart]] = {};
                 this.scdbData.routeData.charts[chartList[chart]].polishedData = chartConfig.polishData(this.scdbData.routeData.rough);
-                this.scdbData.routeData.charts[chartList[chart]].labels = chartConfig.setLabels(this.scdbData.range.start,
-                    this.scdbData.range.end);
+                this.scdbData.routeData.charts[chartList[chart]].labels = chartConfig.setLabels(this.scdbData.layout.dashboard.range.start,
+                    this.scdbData.layout.dashboard.range.end);
                 let dsAndTotals = chartConfig.makeDatasets(this.scdbData.routeData.charts[chartList[chart]].labels,
                     this.scdbData.routeData.charts[chartList[chart]].polishedData);
 
@@ -181,9 +188,9 @@ class ScDashboard{
         for(let i in this.scdbData.routeData.charts){
            new Chart(document.getElementById(i).getContext("2d"), this.scdbData.routeData.charts[i].config);
         }
-        for(let i in this.app.$data.dashboard.rangeTotals.items){
-            if(this.scdbData.routeData.totals[this.app.$data.dashboard.rangeTotals.items[i].name]){
-                this.app.$data.dashboard.rangeTotals.items[i].value = this.scdbData.routeData.totals[this.app.$data.dashboard.rangeTotals.items[i].name];
+        for(let i in this.app.$data.layout.dashboard.rangeTotals.items){
+            if(this.scdbData.routeData.totals[this.app.$data.layout.dashboard.rangeTotals.items[i].name]){
+                this.app.$data.layout.dashboard.rangeTotals.items[i].value = this.scdbData.routeData.totals[this.app.$data.layout.dashboard.rangeTotals.items[i].name];
             }
         }
     }
@@ -213,10 +220,6 @@ class ScDashboard{
 ScDashboard.prototype.scdbData = {
     view: 'dashboards',
     route: 'overview',
-    range: {
-        start: null,
-        end: null
-    },
     viewConfig: {},
     layout: {
         navigation: {},

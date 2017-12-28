@@ -26,7 +26,10 @@ export default class ChartOverview extends ScChart{
      * @returns {Array}
      */
     setLabels(rangeStart, rangeEnd){
-        let range = d3.timeDay.range(new Date(rangeStart), new Date(rangeEnd));
+        let parseTime = d3.timeParse("%Y-%m-%d");
+        let rangeEndObj = parseTime(rangeEnd);
+        let rangeEndPlusOneObj = d3.timeDay.offset(rangeEndObj, +1);
+        let range = d3.timeDay.range(new Date(rangeStart), rangeEndPlusOneObj);
         let labels = [];
         for(let i = 0; i < range.length; i++){
             labels[i] = `${range[i].getFullYear()}-${range[i].getMonth() + 1}-${range[i].getDate()}`
