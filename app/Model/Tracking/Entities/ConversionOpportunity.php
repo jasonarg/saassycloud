@@ -23,4 +23,11 @@ class ConversionOpportunity extends RootModel
     public function assignedAbViewGroup(){
         return $this->belongsTo('\App\Model\Tracking\Entities\AbViewGroup', 'assigned_ab_view_group_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function chosenPackage(){
+        return $this->belongsTo('\App\Model\Product\Entities\ProductPackage', 'package_chosen_id', 'id');
+    }
 }

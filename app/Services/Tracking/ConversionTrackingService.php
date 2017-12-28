@@ -10,6 +10,8 @@
 namespace App\Services\Tracking;
 
 
+use App\Model\Product\Entities\ProductPackage;
+use App\Model\Product\Repositories\ProductPackageRepo;
 use App\Model\Tracking\Entities\AbViewGroup;
 use App\Model\Tracking\Entities\ConversionOpportunity;
 use App\Model\Tracking\Repositories\AbViewGroupRepo;
@@ -50,6 +52,13 @@ class ConversionTrackingService{
     public function trackConversionOpportunity(){
         if($this->request->method() == "POST"){
             $this->logInput();
+        }
+
+        if($this->request->route()->named('start')){
+            $packageRepo = new ProductPackageRepo(new ProductPackage());
+            $package = $packageRepo->findByAttr("name", $this->request->route()->parameter("package"), true);
+            $this->sessionTracker->conversionOpportunity->chosenPackage()->associate($package);
+            $this->sessionTracker->conversionOpportunity->save();
         }
     }
 
@@ -95,7 +104,6 @@ class ConversionTrackingService{
 
     protected function createConversionOpportunity(){
         /*
-         * put in packagename
          * Get all active AbViewGroups, randomly assign one.
          * Log the landing page
          * Store assigned AbViewGroup in session for faster lookups in controllers

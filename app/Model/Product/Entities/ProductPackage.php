@@ -40,6 +40,13 @@ class ProductPackage extends RootModel
             ->withPivot('limit_quantity', 'limit_dimension_value', 'limit_dimension_type')->withTimestamps();
    }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+   public function conversionOpportunities(){
+       return $this->hasMany('\App\Model\Tracking\ConversionOpportunities');
+   }
+
    public function __toArray(){
        $rtnArray = ["packageName" => $this->name,
            "description" => $this->description,
