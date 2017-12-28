@@ -17,6 +17,7 @@ use App\Model\Tracking\Entities\ConversionOpportunity;
 use App\Model\Tracking\Repositories\AbViewGroupRepo;
 use App\Model\Tracking\Repositories\SessionRepoInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ConversionTrackingService{
@@ -45,7 +46,7 @@ class ConversionTrackingService{
         $this->sessionTracker = $this->sessionRepo->findByAttr("session_token", $this->request->session()->getId(), true);
         $this->sessionTracker->loadMissing('conversionOpportunity');
         if(is_null($this->sessionTracker->conversionOpportunity)){
-            $this->createConversionOpportunity();
+                $this->createConversionOpportunity();
         }
     }
 
@@ -59,6 +60,14 @@ class ConversionTrackingService{
             $package = $packageRepo->findByAttr("name", $this->request->route()->parameter("package"), true);
             $this->sessionTracker->conversionOpportunity->chosenPackage()->associate($package);
             $this->sessionTracker->conversionOpportunity->save();
+        }
+        if(!Auth::guest()){
+            $this->sessionTracker->conversionOpportunity()->update([
+                "converted" => true,
+                "conversion_type" => "login"
+            ]);
+
+            $this->sessionTracker->save();
         }
     }
 
@@ -96,9 +105,16 @@ class ConversionTrackingService{
                 ]);
             }
         }
+        $lsc = $this->getLastStepCompleted();
         $this->sessionTracker->conversionOpportunity()->update([
-            "last_step_completed" => $this->getLastStepCompleted()
+            "last_step_completed" => $lsc
         ]);
+        if($lsc === "warp"){
+            $this->sessionTracker->conversionOpportunity()->update([
+                "converted" => true,
+                "conversion_type" => "trial"
+            ]);
+        }
         $this->sessionTracker->save();
     }
 

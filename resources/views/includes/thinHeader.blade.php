@@ -6,7 +6,9 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            @if (!Auth::guest())
             <img class="ml-auto rounded-circle profile-image-sm" src="/profile/picture" />
+            @endif
         </div>
     </nav>
 </header>
