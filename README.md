@@ -1,9 +1,8 @@
 # SaaSsy Cloud
 
 ## Summary
-An in-progress demo project written with PHP 7.1, Laravel 5.5, Bootstrap 4 beta 2. The front end functionality of the 
-dashboard uses several javascript frameworks and libraries including chart.js, vue.js and several well known utility libraries 
-including axios, lodash and d3.
+An in-progress demo project written with PHP 7.1, Laravel 5.5, Bootstrap 4 beta 2, ES6 javascript and Vue.js. The front end functionality of the 
+dashboard uses several javascript frameworks and libraries including chart.js, axios, lodash and d3.
 
 ## Theme
 The project uses a whimsical theme of a fictional SaaS company, SaaSsy Cloud, that markets extra power ups in the Super Mario Brothers World, as if it were a real place. It merely provides a comparison of product packages and a way for customers to sign up for a free trial. However, baked into the signup is a complete tracking system of all http requests with a focus on conversions. It also features automated assignment of a sticky A/B view group that demonstrate how one could use this technique to maximize visitor conversions.
@@ -35,3 +34,20 @@ item and collection representations to feed a chart.js generated dashboard.
 
 Using Vue with axios to handle the data requests and interactivity of the dashboard to render the conversion data using 
 chart.js charts, with a little bit of help from d3.
+
+The dashboard loads by drawing a simple frame via the blade templates of laravel and loading a javascript file, scdashboard.js
+
+* scdashboard.js has a class (ScDashboard) and a simple onload event handler to load itself.
+  * ScDashboard then looks at the route that it is running on, and reads in a navigation.json config file along with layout.json files for each dashboard view defined in the navigation.json config
+  * An async GET request is made to the current route's api that pulls in the necessary data for all charts and datasets on the current view.
+  * All charts defined on the current dashboard's layout.json file are extracted via a recursive function
+  * While the async call is running a Vue instance is loaded via single file components to render the view.
+  * A Vue global event bus is created to emit events coming from Vue back up to ScDashboard
+  * Then a class that represents each chart, extending from a base ScChart, is instantiated.
+  * Three functions are called on these chart classes, polishData, setLabels, and makeDatasets.
+  * Then the chart is loaded into the Vue.js generated view.
+  
+This design uses ScDashboard to control application state.
+* The classic architecture of data -> layout -> events -> data is used.
+* It keeps application management out of Vue, limiting it solely to render layout and to register events
+* Extending the dashboard is easily done by updating the layout.json file for creating a new dashboard, and creating new ChartXXXXX.js class for each chart.

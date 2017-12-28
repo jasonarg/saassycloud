@@ -477,7 +477,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__eventBus_js__ = __webpack_require__("./resources/assets/js/eventBus.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__eventbus_js__ = __webpack_require__("./resources/assets/js/eventbus.js");
 //
 //
 //
@@ -507,7 +507,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         changeDashboard: function changeDashboard() {
-            __WEBPACK_IMPORTED_MODULE_0__eventBus_js__["a" /* EventBus */].$emit('changeDashboard', [this.listItem]);
+            __WEBPACK_IMPORTED_MODULE_0__eventbus_js__["a" /* EventBus */].$emit('changeDashboard', [this.listItem]);
         }
     }
 });
@@ -17954,7 +17954,7 @@ function proxyClassLoader(className) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/eventBus.js":
+/***/ "./resources/assets/js/eventbus.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17999,7 +17999,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_proxyclassloader_js__ = __webpack_require__("./resources/assets/js/config/proxyclassloader.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue__ = __webpack_require__("./resources/assets/js/components/Dashboard.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__eventBus_js__ = __webpack_require__("./resources/assets/js/eventBus.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__eventbus_js__ = __webpack_require__("./resources/assets/js/eventbus.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -18202,11 +18202,11 @@ var ScDashboard = function () {
         key: 'loadEventListeners',
         value: function loadEventListeners() {
 
-            __WEBPACK_IMPORTED_MODULE_2__eventBus_js__["a" /* EventBus */].$on('changeDashboard', function (listItem) {
+            __WEBPACK_IMPORTED_MODULE_2__eventbus_js__["a" /* EventBus */].$on('changeDashboard', function (listItem) {
                 console.log(listItem);
             });
 
-            __WEBPACK_IMPORTED_MODULE_2__eventBus_js__["a" /* EventBus */].$on('changeRange', function (rangeStart, rangeEnd) {
+            __WEBPACK_IMPORTED_MODULE_2__eventbus_js__["a" /* EventBus */].$on('changeRange', function (rangeStart, rangeEnd) {
                 console.log(rangeStart, rangeEnd);
             });
         }
