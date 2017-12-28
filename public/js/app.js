@@ -17455,6 +17455,27 @@ ChartOverview.prototype.config = {
  * @type {*[]}
  */
 ChartOverview.prototype.datasets = [{
+    name: "conversions",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co) {
+                    returnData += polishedData[label][j].rel.co.attributes.converted;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Conversions",
+        fill: true,
+        backgroundColor: "purple",
+        borderColor: "purple",
+        data: []
+    }
+}, {
     name: "sessions",
     summaryFunction: function summaryFunction(label, polishedData) {
         return label in polishedData ? polishedData[label].length : 0;
@@ -18226,7 +18247,7 @@ ScDashboard.prototype.scdbData = {
 };
 
 window.onload = function () {
-    var scDb = new ScDashboard('2017-11-18', '2017-12-18');
+    var scDb = new ScDashboard('2017-12-01', '2017-12-31');
 };
 
 /***/ }),

@@ -216,5 +216,5 @@ ScDashboard.prototype.scdbData = {
 };
 
 window.onload = function() {
-    let scDb = new ScDashboard('2017-11-18', '2017-12-18');
+    let scDb = new ScDashboard('2017-12-01', '2017-12-31');
 };

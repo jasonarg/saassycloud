@@ -121,6 +121,29 @@ ChartOverview.prototype.config = {
  */
 ChartOverview.prototype.datasets = [
     {
+        name: "conversions",
+        summaryFunction(label, polishedData){
+            let returnData = 0;
+            if(label in polishedData){
+                for(let j = 0; j < polishedData[label].length; j++){
+                    if(polishedData[label][j].rel.co) {
+                        returnData += polishedData[label][j].rel.co.attributes.converted;
+                    }
+                }
+
+            }
+            return returnData;
+        },
+        dataset:
+            {
+                label: "Conversions",
+                fill: true,
+                backgroundColor: "purple",
+                borderColor: "purple",
+                data: []
+            }
+    },
+    {
         name: "sessions",
         summaryFunction(label, polishedData){
             return label in polishedData ? polishedData[label].length : 0;
