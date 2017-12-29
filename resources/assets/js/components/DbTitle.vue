@@ -2,16 +2,16 @@
     <div class="m-0 px-2 py-2 bg-white border">
         <h6 id="mainChartTitle" class="d-inline-block text-info my-1">SaaSsy Cloud Analytics: {{ title }}</h6>
         <input id="dashboardRange" type="text" class="form-input float-right pl-3 mb-1" style="width: 280px; font-size: .8rem;" v-bind:placeholder="placeHolder"/>
-        <datepicker :value="parseTime(dashboard.range.start)"></datepicker>
+        <range-picker
+                :range="dashboard.range"
+            />
     </div>
 </template>
 
 <script>
-    import Datepicker from "vuejs-datepicker";
-
+    import RangePicker from "./RangePicker";
     const d3 = require('d3');
     export default {
-        components: {Datepicker},
         name: "db-title",
         props: {
             dashboard: {
@@ -41,6 +41,10 @@
                 return `${formatTime(rangeStartStrObj)} - ${formatTime(rangeEndStrObj)}`;
             }
 
+        },
+
+        components: {
+            'range-picker': RangePicker
         }
     }
 </script>
