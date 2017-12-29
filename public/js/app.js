@@ -510,7 +510,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -552,14 +551,14 @@ var d3 = __webpack_require__("./node_modules/d3/index.js");
             this.temporaryRange.end = this.formatTime(event);
         },
         formatTime: function formatTime(date, format) {
-            var d3FormatTime = d3.timeFormat("%Y-%m-%d");
+            var d3FormatTime = d3.utcFormat("%Y-%m-%d");
             if (format === "long") {
-                d3FormatTime = d3.timeFormat("%B %d, %Y");
+                d3FormatTime = d3.utcFormat("%B %d, %Y");
             }
             return d3FormatTime(date);
         },
         parseTime: function parseTime(dateStr) {
-            var d3ParseTime = d3.timeParse("%Y-%m-%d");
+            var d3ParseTime = d3.utcParse("%Y-%m-%d");
             return d3ParseTime(dateStr);
         },
         toggleRangePicker: function toggleRangePicker() {
@@ -4735,7 +4734,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
