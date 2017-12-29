@@ -174,6 +174,7 @@ class ScDashboard{
             }
 
         }
+        console.log(this.scdbData);
     }
 
     /**
@@ -205,8 +206,10 @@ class ScDashboard{
             console.log(listItem);
         });
 
-        EventBus.$on('changeRange', (rangeStart, rangeEnd) => {
-            console.log(rangeStart, rangeEnd);
+        EventBus.$on('changeRange', (range) => {
+            this.scdbData.layout.dashboard.range = range;
+            this.loadData();
+            console.log('rangeChange', range.start, range.end);
         });
 
     }

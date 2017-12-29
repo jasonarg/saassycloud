@@ -372,10 +372,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
-var d3 = __webpack_require__("./node_modules/d3/index.js");
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "db-title",
     props: {
@@ -393,17 +391,6 @@ var d3 = __webpack_require__("./node_modules/d3/index.js");
     computed: {
         title: function title() {
             return _.startCase(this.dashboard.title);
-        },
-        rangeStartObj: function rangeStartObj() {
-            var rangeStartStrObj = parseTime(this.dashboard.range.start);
-        },
-        placeHolder: function placeHolder() {
-            var formatTime = d3.timeFormat("%B %d, %Y");
-            var parseTime = d3.timeParse("%Y-%m-%d");
-            var rangeStartStrObj = parseTime(this.dashboard.range.start);
-            var rangeEndStrObj = parseTime(this.dashboard.range.end);
-
-            return formatTime(rangeStartStrObj) + " - " + formatTime(rangeEndStrObj);
         }
 
     },
@@ -477,8 +464,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__ = __webpack_require__("./node_modules/vuejs-datepicker/dist/build.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__eventbus_js__ = __webpack_require__("./resources/assets/js/eventbus.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuejs_datepicker__ = __webpack_require__("./node_modules/vuejs-datepicker/dist/build.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuejs_datepicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vuejs_datepicker__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -506,6 +512,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+var d3 = __webpack_require__("./node_modules/d3/index.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "range-picker",
@@ -515,8 +522,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: true
         }
     },
+    computed: {
+        placeHolder: function placeHolder() {
+            var formatTime = d3.timeFormat("%B %d, %Y");
+            var parseTime = d3.timeParse("%Y-%m-%d");
+            var rangeStartStrObj = parseTime(this.range.start);
+            var rangeEndStrObj = parseTime(this.range.end);
+
+            return formatTime(rangeStartStrObj) + ' - ' + formatTime(rangeEndStrObj);
+        }
+    },
+    data: function data() {
+        return {
+            seen: false,
+            temporaryRange: this.range
+        };
+    },
+
+    methods: {
+        updateRange: function updateRange() {
+            this.range = this.temporaryRange;
+            this.toggleRangePicker();
+            __WEBPACK_IMPORTED_MODULE_0__eventbus_js__["a" /* EventBus */].$emit('changeRange', this.range);
+        },
+        updateRangeStart: function updateRangeStart(event) {
+            this.temporaryRange.start = this.formatTime(event);
+        },
+        updateRangeEnd: function updateRangeEnd(event) {
+            this.temporaryRange.end = this.formatTime(event);
+        },
+        formatTime: function formatTime(date) {
+            var d3FormatTime = d3.timeFormat("%Y-%m-%d");
+            return d3FormatTime(date);
+        },
+        parseTime: function parseTime(dateStr) {
+            var d3ParseTime = d3.timeParse("%Y-%m-%d");
+            return d3ParseTime(dateStr);
+        },
+        toggleRangePicker: function toggleRangePicker() {
+            this.seen = !this.seen;
+        }
+    },
     components: {
-        'date-picker': __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker___default.a
+        'date-picker': __WEBPACK_IMPORTED_MODULE_1_vuejs_datepicker___default.a
+    },
+    mounted: function mounted() {
+        console.log("hi", this.range);
     }
 });
 
@@ -4549,7 +4600,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4684,7 +4735,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15630,16 +15681,6 @@ var render = function() {
         [_vm._v("SaaSsy Cloud Analytics: " + _vm._s(_vm.title))]
       ),
       _vm._v(" "),
-      _c("input", {
-        staticClass: "form-input float-right pl-3 mb-1",
-        staticStyle: { width: "280px", "font-size": ".8rem" },
-        attrs: {
-          id: "dashboardRange",
-          type: "text",
-          placeholder: _vm.placeHolder
-        }
-      }),
-      _vm._v(" "),
       _c("range-picker", { attrs: { range: _vm.dashboard.range } })
     ],
     1
@@ -15944,56 +15985,106 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "position-absolute bg-light border border-secondary",
-      staticStyle: { "z-index": "10000" }
-    },
-    [
-      _c("div", { staticClass: "container p-3" }, [
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col" },
-            _vm._l(_vm.range, function(date) {
-              return _c("date-picker", {
-                key: date,
-                attrs: {
-                  value: date,
-                  inline: true,
-                  "wrapper-class": "d-inline-block mx-1 my-3 align-top"
-                }
-              })
-            })
-          )
-        ]),
-        _vm._v(" "),
-        _vm._m(0)
-      ])
-    ]
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-end" }, [
-      _c("div", { staticClass: "col-4" }, [
-        _c("button", { staticClass: "btn btn-info float-right ml-2" }, [
-          _vm._v("Submit")
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-outline-secondary bg-white float-right" },
-          [_vm._v("Cancel")]
+  return _c("div", { staticClass: "d-inline" }, [
+    _c("input", {
+      staticClass: "form-input float-right pl-3 mb-1",
+      staticStyle: { width: "280px", "font-size": ".8rem" },
+      attrs: {
+        id: "dashboardRange",
+        type: "text",
+        placeholder: _vm.placeHolder
+      },
+      on: { click: _vm.toggleRangePicker }
+    }),
+    _vm._v(" "),
+    _vm.seen
+      ? _c(
+          "div",
+          {
+            staticClass: "position-absolute bg-light border border-secondary",
+            staticStyle: { right: "10%", "z-index": "10000" }
+          },
+          [
+            _c("div", { staticClass: "container p-3" }, [
+              _c("div", { staticClass: "row" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-6" },
+                  [
+                    _c("h5", { staticClass: "secondary" }, [
+                      _vm._v("Range Start Date")
+                    ]),
+                    _vm._v(" "),
+                    _c("date-picker", {
+                      key: _vm.range.start,
+                      attrs: {
+                        value: _vm.range.start,
+                        inline: true,
+                        disabled: {
+                          from: _vm.parseTime(this.temporaryRange.end)
+                        },
+                        "wrapper-class": "d-inline-block mx-1 my-3 align-top"
+                      },
+                      on: { selected: _vm.updateRangeStart }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-6" },
+                  [
+                    _c("h5", { staticClass: "secondary" }, [
+                      _vm._v("Range End Date")
+                    ]),
+                    _vm._v(" "),
+                    _c("date-picker", {
+                      key: _vm.range.end,
+                      attrs: {
+                        value: _vm.range.end,
+                        inline: true,
+                        disabled: {
+                          to: _vm.parseTime(this.temporaryRange.start)
+                        },
+                        "wrapper-class": "d-inline-block mx-1 my-3 align-top"
+                      },
+                      on: { selected: _vm.updateRangeEnd }
+                    })
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row justify-content-end" }, [
+                _c("div", { staticClass: "col-4" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-info float-right ml-2 mr-1",
+                      on: { click: _vm.updateRange }
+                    },
+                    [_vm._v("Submit")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-outline-secondary bg-white float-right",
+                      on: { click: _vm.toggleRangePicker }
+                    },
+                    [_vm._v("Cancel")]
+                  )
+                ])
+              ])
+            ])
+          ]
         )
-      ])
-    ])
-  }
-]
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -18282,8 +18373,8 @@ var ScChart = function () {
          * @param i the index of the dataset to update
          */
         value: function setDatasetColor(i) {
-            this.datasets[i].dataset.backgroundColor = this.colors[this.datasets[i].dataset.backgroundColor];
-            this.datasets[i].dataset.borderColor = this.colors[this.datasets[i].dataset.borderColor];
+            this.datasets[i].dataset.backgroundColor = this.colors[this.datasets[i].dataset.backgroundColor] ? this.colors[this.datasets[i].dataset.backgroundColor] : this.datasets[i].dataset.backgroundColor;
+            this.datasets[i].dataset.borderColor = this.colors[this.datasets[i].dataset.borderColor] ? this.colors[this.datasets[i].dataset.borderColor] : this.datasets[i].dataset.borderColor;
         }
     }]);
 
@@ -18519,6 +18610,7 @@ var ScDashboard = function () {
                     stop = 1;
                 }
             }
+            console.log(this.scdbData);
         }
 
         /**
@@ -18550,13 +18642,16 @@ var ScDashboard = function () {
     }, {
         key: 'loadEventListeners',
         value: function loadEventListeners() {
+            var _this2 = this;
 
             __WEBPACK_IMPORTED_MODULE_2__eventbus_js__["a" /* EventBus */].$on('changeDashboard', function (listItem) {
                 console.log(listItem);
             });
 
-            __WEBPACK_IMPORTED_MODULE_2__eventbus_js__["a" /* EventBus */].$on('changeRange', function (rangeStart, rangeEnd) {
-                console.log(rangeStart, rangeEnd);
+            __WEBPACK_IMPORTED_MODULE_2__eventbus_js__["a" /* EventBus */].$on('changeRange', function (range) {
+                _this2.scdbData.layout.dashboard.range = range;
+                _this2.loadData();
+                console.log('rangeChange', range.start, range.end);
             });
         }
     }]);
