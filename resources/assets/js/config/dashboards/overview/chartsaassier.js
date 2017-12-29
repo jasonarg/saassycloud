@@ -46,7 +46,6 @@ export default class ChartSaassier extends ScChart{
      */
     makeDatasets(labels, polishedData){
         let returnData = {
-            totals: {},
             datasets: []
         };
         for(let i in this.datasets){
@@ -54,12 +53,10 @@ export default class ChartSaassier extends ScChart{
             let dataTotals = 0;
             for(let j = 0; j < labels.length; j++){
                 summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
-                dataTotals += summaryData[j];
             }
             this.datasets[i].dataset.data = summaryData;
             this.setDatasetColor(i);
             returnData.datasets.push(this.datasets[i].dataset);
-            returnData.totals[this.datasets[i].name] = dataTotals;
         }
 
 
@@ -83,7 +80,7 @@ ChartSaassier.prototype.config = {
         maintainAspectRatio: false,
         title: {
             display: true,
-            text: "SaaSsy Cloud Analytics: Overview"
+            text: "SaaSsier Package Conversions by A/B Group"
         },
         tooltips: {
             mode: "index",
@@ -108,7 +105,7 @@ ChartSaassier.prototype.config = {
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: "Value"
+                        labelString: "Conversions"
                     }
                 }
             ]
@@ -122,20 +119,17 @@ ChartSaassier.prototype.config = {
  */
 ChartSaassier.prototype.datasets = [
     {
-        name: "revenue",
+        name: "saassierAbGroupA",
         summaryFunction(label, polishedData){
             let returnData = 0;
             if(label in polishedData){
                 for(let j = 0; j < polishedData[label].length; j++){
-                    if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
-                        let rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
-                        if(polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M"){
-                            rev = rev * 12;
+                    if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1
+                        && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
+                        if(polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSsier"
+                            && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionA"){
+                            returnData += 1;
                         }
-                        returnData += rev;
-                    }
-                    else{
-                        returnData += 0;
                     }
                 }
 
@@ -144,91 +138,35 @@ ChartSaassier.prototype.datasets = [
         },
         dataset:
             {
-                label: "Revenue",
-                fill: true,
-                backgroundColor: "orange",
-                borderColor: "orange",
-                data: []
-            }
-    },
-    {
-        name: "sales",
-        summaryFunction(label, polishedData){
-            let returnData = 0;
-            if(label in polishedData){
-                for(let j = 0; j < polishedData[label].length; j++){
-                    if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
-                        returnData += 1;
-                    }
-                }
-
-            }
-            return returnData;
-        },
-        dataset:
-            {
-                label: "Sales",
-                fill: true,
-                backgroundColor: "yellow",
-                borderColor: "yellow",
-                data: []
-            }
-    },
-    {
-        name: "conversions",
-        summaryFunction(label, polishedData){
-            let returnData = 0;
-            if(label in polishedData){
-                for(let j = 0; j < polishedData[label].length; j++){
-                    if(polishedData[label][j].rel.co) {
-                        returnData += polishedData[label][j].rel.co.attributes.converted;
-                    }
-                }
-
-            }
-            return returnData;
-        },
-        dataset:
-            {
-                label: "Conversions",
-                fill: true,
-                backgroundColor: "purple",
-                borderColor: "purple",
-                data: []
-            }
-    },
-    {
-        name: "sessions",
-        summaryFunction(label, polishedData){
-            return label in polishedData ? polishedData[label].length : 0;
-        },
-        dataset:
-            {
-                label: "Sessions",
-                fill: true,
-                backgroundColor: "red",
-                borderColor: "red",
-                data: []
-            }
-    },
-    {
-        name: "pageViews",
-        summaryFunction(label, polishedData){
-            let returnData = 0;
-            if(label in polishedData){
-                for(let j = 0; j < polishedData[label].length; j++){
-                    returnData += polishedData[label][j].rel.rc;
-                }
-
-            }
-            return returnData;
-        },
-        dataset:
-            {
-                label: "Page Views",
-                fill: true,
-                backgroundColor: "blue",
+                label: "A/B Group A",
+                fill: false,
                 borderColor: "blue",
+                data: []
+            }
+    },
+    {
+        name: "saassierAbGroupB",
+        summaryFunction(label, polishedData){
+            let returnData = 0;
+            if(label in polishedData){
+                for(let j = 0; j < polishedData[label].length; j++){
+                    if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1
+                        && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
+                        if(polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSsier"
+                            && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionB"){
+                            returnData += 1;
+                        }
+                    }
+                }
+
+            }
+            return returnData;
+        },
+        dataset:
+            {
+                label: "A/B Group B",
+                fill: false,
+                borderColor: "yellow",
                 data: []
             }
     }

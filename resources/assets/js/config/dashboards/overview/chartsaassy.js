@@ -124,7 +124,8 @@ ChartSaassy.prototype.datasets = [
             let returnData = 0;
             if(label in polishedData){
                 for(let j = 0; j < polishedData[label].length; j++){
-                    if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1) {
+                    if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1
+                        && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
                         if(polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSsy"
                         && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionA"){
                             returnData += 1;
@@ -149,7 +150,8 @@ ChartSaassy.prototype.datasets = [
             let returnData = 0;
             if(label in polishedData){
                 for(let j = 0; j < polishedData[label].length; j++){
-                    if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1) {
+                    if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1
+                        && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
                         if(polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSsy"
                             && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionB"){
                             returnData += 1;

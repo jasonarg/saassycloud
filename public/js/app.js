@@ -18439,7 +18439,6 @@ var ChartSaasiest = function (_ScChart) {
         key: 'makeDatasets',
         value: function makeDatasets(labels, polishedData) {
             var returnData = {
-                totals: {},
                 datasets: []
             };
             for (var i in this.datasets) {
@@ -18447,12 +18446,10 @@ var ChartSaasiest = function (_ScChart) {
                 var dataTotals = 0;
                 for (var j = 0; j < labels.length; j++) {
                     summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
-                    dataTotals += summaryData[j];
                 }
                 this.datasets[i].dataset.data = summaryData;
                 this.setDatasetColor(i);
                 returnData.datasets.push(this.datasets[i].dataset);
-                returnData.totals[this.datasets[i].name] = dataTotals;
             }
 
             return returnData;
@@ -18481,7 +18478,7 @@ ChartSaasiest.prototype.config = {
         maintainAspectRatio: false,
         title: {
             display: true,
-            text: "SaaSsy Cloud Analytics: Overview"
+            text: "SaaSsier Package Conversions by A/B Group"
         },
         tooltips: {
             mode: "index",
@@ -18503,7 +18500,7 @@ ChartSaasiest.prototype.config = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: "Value"
+                    labelString: "Conversions"
                 }
             }]
         }
@@ -18515,19 +18512,15 @@ ChartSaasiest.prototype.config = {
  * @type {*[]}
  */
 ChartSaasiest.prototype.datasets = [{
-    name: "revenue",
+    name: "saassierAbGroupA",
     summaryFunction: function summaryFunction(label, polishedData) {
         var returnData = 0;
         if (label in polishedData) {
             for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
-                    var rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
-                    if (polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M") {
-                        rev = rev * 12;
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1 && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
+                    if (polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSiest" && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionA") {
+                        returnData += 1;
                     }
-                    returnData += rev;
-                } else {
-                    returnData += 0;
                 }
             }
         }
@@ -18535,84 +18528,32 @@ ChartSaasiest.prototype.datasets = [{
     },
 
     dataset: {
-        label: "Revenue",
-        fill: true,
-        backgroundColor: "orange",
-        borderColor: "orange",
-        data: []
-    }
-}, {
-    name: "sales",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
-                    returnData += 1;
-                }
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "Sales",
-        fill: true,
-        backgroundColor: "yellow",
-        borderColor: "yellow",
-        data: []
-    }
-}, {
-    name: "conversions",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co) {
-                    returnData += polishedData[label][j].rel.co.attributes.converted;
-                }
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "Conversions",
-        fill: true,
-        backgroundColor: "purple",
-        borderColor: "purple",
-        data: []
-    }
-}, {
-    name: "sessions",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        return label in polishedData ? polishedData[label].length : 0;
-    },
-
-    dataset: {
-        label: "Sessions",
-        fill: true,
-        backgroundColor: "red",
-        borderColor: "red",
-        data: []
-    }
-}, {
-    name: "pageViews",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                returnData += polishedData[label][j].rel.rc;
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "Page Views",
-        fill: true,
-        backgroundColor: "blue",
+        label: "A/B Group A",
+        fill: false,
         borderColor: "blue",
+        data: []
+    }
+}, {
+    name: "saassierAbGroupB",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1 && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
+                    if (polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSiest" && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionB") {
+
+                        returnData += 1;
+                    }
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "A/B Group B",
+        fill: false,
+        borderColor: "yellow",
         data: []
     }
 }];
@@ -18698,7 +18639,6 @@ var ChartSaassier = function (_ScChart) {
         key: 'makeDatasets',
         value: function makeDatasets(labels, polishedData) {
             var returnData = {
-                totals: {},
                 datasets: []
             };
             for (var i in this.datasets) {
@@ -18706,12 +18646,10 @@ var ChartSaassier = function (_ScChart) {
                 var dataTotals = 0;
                 for (var j = 0; j < labels.length; j++) {
                     summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
-                    dataTotals += summaryData[j];
                 }
                 this.datasets[i].dataset.data = summaryData;
                 this.setDatasetColor(i);
                 returnData.datasets.push(this.datasets[i].dataset);
-                returnData.totals[this.datasets[i].name] = dataTotals;
             }
 
             return returnData;
@@ -18740,7 +18678,7 @@ ChartSaassier.prototype.config = {
         maintainAspectRatio: false,
         title: {
             display: true,
-            text: "SaaSsy Cloud Analytics: Overview"
+            text: "SaaSsier Package Conversions by A/B Group"
         },
         tooltips: {
             mode: "index",
@@ -18762,7 +18700,7 @@ ChartSaassier.prototype.config = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: "Value"
+                    labelString: "Conversions"
                 }
             }]
         }
@@ -18774,19 +18712,15 @@ ChartSaassier.prototype.config = {
  * @type {*[]}
  */
 ChartSaassier.prototype.datasets = [{
-    name: "revenue",
+    name: "saassierAbGroupA",
     summaryFunction: function summaryFunction(label, polishedData) {
         var returnData = 0;
         if (label in polishedData) {
             for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
-                    var rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
-                    if (polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M") {
-                        rev = rev * 12;
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1 && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
+                    if (polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSsier" && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionA") {
+                        returnData += 1;
                     }
-                    returnData += rev;
-                } else {
-                    returnData += 0;
                 }
             }
         }
@@ -18794,84 +18728,31 @@ ChartSaassier.prototype.datasets = [{
     },
 
     dataset: {
-        label: "Revenue",
-        fill: true,
-        backgroundColor: "orange",
-        borderColor: "orange",
-        data: []
-    }
-}, {
-    name: "sales",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
-                    returnData += 1;
-                }
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "Sales",
-        fill: true,
-        backgroundColor: "yellow",
-        borderColor: "yellow",
-        data: []
-    }
-}, {
-    name: "conversions",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co) {
-                    returnData += polishedData[label][j].rel.co.attributes.converted;
-                }
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "Conversions",
-        fill: true,
-        backgroundColor: "purple",
-        borderColor: "purple",
-        data: []
-    }
-}, {
-    name: "sessions",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        return label in polishedData ? polishedData[label].length : 0;
-    },
-
-    dataset: {
-        label: "Sessions",
-        fill: true,
-        backgroundColor: "red",
-        borderColor: "red",
-        data: []
-    }
-}, {
-    name: "pageViews",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                returnData += polishedData[label][j].rel.rc;
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "Page Views",
-        fill: true,
-        backgroundColor: "blue",
+        label: "A/B Group A",
+        fill: false,
         borderColor: "blue",
+        data: []
+    }
+}, {
+    name: "saassierAbGroupB",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1 && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
+                    if (polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSsier" && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionB") {
+                        returnData += 1;
+                    }
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "A/B Group B",
+        fill: false,
+        borderColor: "yellow",
         data: []
     }
 }];
@@ -19035,7 +18916,7 @@ ChartSaassy.prototype.datasets = [{
         var returnData = 0;
         if (label in polishedData) {
             for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1 && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
                     if (polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSsy" && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionA") {
                         returnData += 1;
                     }
@@ -19057,7 +18938,7 @@ ChartSaassy.prototype.datasets = [{
         var returnData = 0;
         if (label in polishedData) {
             for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1 && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
                     if (polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSsy" && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionB") {
                         returnData += 1;
                     }
