@@ -4734,7 +4734,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17698,9 +17698,6 @@ var ChartOverview = function (_ScChart) {
 
             return dates;
         }
-    }, {
-        key: 'setLabels',
-
 
         /**
          * Creates labels for the associated chart.js chart
@@ -17709,6 +17706,9 @@ var ChartOverview = function (_ScChart) {
          * @param rangeEnd
          * @returns {Array}
          */
+
+    }, {
+        key: 'setLabels',
         value: function setLabels(rangeStart, rangeEnd) {
             var parseTime = d3.timeParse("%Y-%m-%d");
             var rangeEndObj = parseTime(rangeEnd);
@@ -17720,9 +17720,6 @@ var ChartOverview = function (_ScChart) {
             }
             return labels;
         }
-    }, {
-        key: 'makeDatasets',
-
 
         /**
          * Creates all datasets needed for the associated chart.js instance
@@ -17731,6 +17728,9 @@ var ChartOverview = function (_ScChart) {
          * @param polishedData
          * @returns {*}
          */
+
+    }, {
+        key: 'makeDatasets',
         value: function makeDatasets(labels, polishedData) {
             var returnData = {
                 totals: {},
@@ -18127,32 +18127,115 @@ module.exports = { ChartOverview: ChartOverview };
 /***/ }),
 
 /***/ "./resources/assets/js/config/dashboards/overview/chartsaassy.js":
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js__ = __webpack_require__("./resources/assets/js/scchart.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scchart_js__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var ChartSaassy = function () {
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var d3 = __webpack_require__("./node_modules/d3/index.js");
+
+
+var ChartSaassy = function (_ScChart) {
+    _inherits(ChartSaassy, _ScChart);
+
     function ChartSaassy() {
         _classCallCheck(this, ChartSaassy);
+
+        return _possibleConstructorReturn(this, (ChartSaassy.__proto__ || Object.getPrototypeOf(ChartSaassy)).apply(this, arguments));
     }
 
     _createClass(ChartSaassy, [{
-        key: "groupData",
-        value: function groupData(data) {
+        key: 'polishData',
+
+        /**
+         * Polishes Raw api data needed for chart rendering
+         *
+         * @param data
+         *
+         * @returns Object
+         */
+        value: function polishData(data) {
             var dates = _.groupBy(data.sessions, function (session) {
                 var date = new Date(session.a.at);
-                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
             });
 
             return dates;
         }
+
+        /**
+         * Creates labels for the associated chart.js chart
+         *
+         * @param rangeStart
+         * @param rangeEnd
+         * @returns {Array}
+         */
+
+    }, {
+        key: 'setLabels',
+        value: function setLabels(rangeStart, rangeEnd) {
+            var parseTime = d3.timeParse("%Y-%m-%d");
+            var rangeEndObj = parseTime(rangeEnd);
+            var rangeEndPlusOneObj = d3.timeDay.offset(rangeEndObj, +1);
+            var range = d3.timeDay.range(new Date(rangeStart), rangeEndPlusOneObj);
+            var labels = [];
+            for (var i = 0; i < range.length; i++) {
+                labels[i] = range[i].getFullYear() + '-' + (range[i].getMonth() + 1) + '-' + range[i].getDate();
+            }
+            return labels;
+        }
+
+        /**
+         * Creates all datasets needed for the associated chart.js instance
+         *
+         * @param labels
+         * @param polishedData
+         * @returns {*}
+         */
+
+    }, {
+        key: 'makeDatasets',
+        value: function makeDatasets(labels, polishedData) {
+            var returnData = {
+                totals: {},
+                datasets: []
+            };
+            for (var i in this.datasets) {
+                var summaryData = [];
+                var dataTotals = 0;
+                for (var j = 0; j < labels.length; j++) {
+                    summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
+                    dataTotals += summaryData[j];
+                }
+                this.datasets[i].dataset.data = summaryData;
+                this.setDatasetColor(i);
+                returnData.datasets.push(this.datasets[i].dataset);
+                returnData.totals[this.datasets[i].name] = dataTotals;
+            }
+
+            return returnData;
+        }
     }]);
 
     return ChartSaassy;
-}();
+}(__WEBPACK_IMPORTED_MODULE_0__scchart_js__["ScChart"]);
 
+/**
+ * Boilerplate chart.js config object for the chart
+ *
+ * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
+ */
+
+
+/* harmony default export */ __webpack_exports__["a"] = (ChartSaassy);
 ChartSaassy.prototype.config = {
     type: "line",
     data: {
@@ -18193,7 +18276,112 @@ ChartSaassy.prototype.config = {
     }
 };
 
-module.exports = { ChartSaassy: ChartSaassy };
+/**
+ * Datasets used by this chart
+ * @type {*[]}
+ */
+ChartSaassy.prototype.datasets = [{
+    name: "revenue",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                    var rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
+                    if (polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M") {
+                        rev = rev * 12;
+                    }
+                    returnData += rev;
+                } else {
+                    returnData += 0;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Revenue",
+        fill: true,
+        backgroundColor: "orange",
+        borderColor: "orange",
+        data: []
+    }
+}, {
+    name: "sales",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                    returnData += 1;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Sales",
+        fill: true,
+        backgroundColor: "yellow",
+        borderColor: "yellow",
+        data: []
+    }
+}, {
+    name: "conversions",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co) {
+                    returnData += polishedData[label][j].rel.co.attributes.converted;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Conversions",
+        fill: true,
+        backgroundColor: "purple",
+        borderColor: "purple",
+        data: []
+    }
+}, {
+    name: "sessions",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        return label in polishedData ? polishedData[label].length : 0;
+    },
+
+    dataset: {
+        label: "Sessions",
+        fill: true,
+        backgroundColor: "red",
+        borderColor: "red",
+        data: []
+    }
+}, {
+    name: "pageViews",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                returnData += polishedData[label][j].rel.rc;
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Page Views",
+        fill: true,
+        backgroundColor: "blue",
+        borderColor: "blue",
+        data: []
+    }
+}];
 
 /***/ }),
 
@@ -18303,7 +18491,6 @@ module.exports = {"lists":[{"id":0,"name":"dashboards","listItems":[{"id":0,"nam
 /* harmony export (immutable) */ __webpack_exports__["a"] = proxyClassLoader;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dashboards_overview_chartoverview_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartoverview.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaassy.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaassier.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaasiest_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaasiest.js");
@@ -18324,7 +18511,7 @@ module.exports = {"lists":[{"id":0,"name":"dashboards","listItems":[{"id":0,"nam
 
 var classes = {
     ChartOverview: __WEBPACK_IMPORTED_MODULE_0__dashboards_overview_chartoverview_js__["a" /* default */],
-    ChartSaassy: __WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js___default.a,
+    ChartSaassy: __WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js__["a" /* default */],
     ChartSaassier: __WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js___default.a,
     ChartSaasiest: __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaasiest_js___default.a,
     ChartSalesAb: __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesab_js___default.a,
@@ -18593,7 +18780,7 @@ var ScDashboard = function () {
             var stop = 0;
             for (var chart in chartList) {
                 //temporary until all other classes are defined
-                if (stop < 1) {
+                if (stop < 2) {
                     var chartConfig = Object(__WEBPACK_IMPORTED_MODULE_0__config_proxyclassloader_js__["a" /* default */])('Chart' + _.upperFirst(chartList[chart]));
                     this.scdbData.routeData.charts[chartList[chart]] = {};
                     this.scdbData.routeData.charts[chartList[chart]].polishedData = chartConfig.polishData(this.scdbData.routeData.rough);
@@ -18606,7 +18793,7 @@ var ScDashboard = function () {
                     this.scdbData.routeData.charts[chartList[chart]].config.data.labels = this.scdbData.routeData.charts[chartList[chart]].labels;
                     this.scdbData.routeData.charts[chartList[chart]].config.data.datasets = this.scdbData.routeData.charts[chartList[chart]].datasets;
 
-                    stop = 1;
+                    stop++;
                 }
             }
         }

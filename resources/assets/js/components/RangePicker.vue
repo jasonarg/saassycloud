@@ -71,7 +71,6 @@
                 this.range = this.temporaryRange;
                 this.toggleRangePicker();
                 EventBus.$emit('changeRange', this.range);
-
             },
             updateRangeStart: function(event){
                 this.temporaryRange.start = this.formatTime(event);

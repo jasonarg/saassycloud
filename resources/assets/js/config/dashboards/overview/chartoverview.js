@@ -16,7 +16,7 @@ export default class ChartOverview extends ScChart{
         });
 
         return dates;
-    };
+    }
 
     /**
      * Creates labels for the associated chart.js chart
@@ -35,7 +35,7 @@ export default class ChartOverview extends ScChart{
             labels[i] = `${range[i].getFullYear()}-${range[i].getMonth() + 1}-${range[i].getDate()}`
         }
         return labels;
-    };
+    }
 
 
     /**
