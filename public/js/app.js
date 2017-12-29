@@ -128,6 +128,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: true
         }
     },
+    watch: {
+        height: function height(val, oldVal) {
+            console.log('new: %s, old: %s', val, oldVal);
+        }
+    },
     computed: {
         classString: function classString() {
             return 'col-md-' + this.element.cols + ' mt-0 mb-2 ' + (this.childIsRow ? 'py-0 px-2' : 'p-2');
@@ -143,9 +148,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: {
         'db-sub-row': __WEBPACK_IMPORTED_MODULE_0__DbSubRow_vue___default.a,
         'db-chart': __WEBPACK_IMPORTED_MODULE_1__DbChart_vue___default.a
-    },
-    mounted: function mounted() {
-        //  console.log(this.element.type === 'rows')
     }
 });
 
@@ -566,9 +568,7 @@ var d3 = __webpack_require__("./node_modules/d3/index.js");
     components: {
         'date-picker': __WEBPACK_IMPORTED_MODULE_1_vuejs_datepicker___default.a
     },
-    mounted: function mounted() {
-        console.log("hi", this.range);
-    }
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -4735,7 +4735,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4750,7 +4750,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -18610,7 +18610,6 @@ var ScDashboard = function () {
                     stop = 1;
                 }
             }
-            console.log(this.scdbData);
         }
 
         /**
@@ -18626,7 +18625,13 @@ var ScDashboard = function () {
             //for each chart in active dashboard
             //pass in data and create an instance of chart.js
             for (var i in this.scdbData.routeData.charts) {
-                new Chart(document.getElementById(i).getContext("2d"), this.scdbData.routeData.charts[i].config);
+                if (this.scdbData.charts[i]) {
+                    this.scdbData.charts[i].data.labels = this.scdbData.routeData.charts[i].labels;
+                    this.scdbData.charts[i].data.datasets = this.scdbData.routeData.charts[i].datasets;
+                    this.scdbData.charts[i].update();
+                } else {
+                    this.scdbData.charts[i] = new Chart(document.getElementById(i).getContext("2d"), this.scdbData.routeData.charts[i].config);
+                }
             }
             for (var _i in this.app.$data.layout.dashboard.rangeTotals.items) {
                 if (this.scdbData.routeData.totals[this.app.$data.layout.dashboard.rangeTotals.items[_i].name]) {
@@ -18650,6 +18655,7 @@ var ScDashboard = function () {
 
             __WEBPACK_IMPORTED_MODULE_2__eventbus_js__["a" /* EventBus */].$on('changeRange', function (range) {
                 _this2.scdbData.layout.dashboard.range = range;
+                // this.loadConfig();
                 _this2.loadData();
                 console.log('rangeChange', range.start, range.end);
             });
@@ -18674,6 +18680,7 @@ ScDashboard.prototype.scdbData = {
         navigation: {},
         dashboard: {}
     },
+    charts: {},
     routeData: {
         rough: {},
         charts: {}

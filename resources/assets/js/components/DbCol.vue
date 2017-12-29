@@ -33,6 +33,11 @@
                 required: true
             }
         },
+        watch: {
+            height: function (val, oldVal) {
+                console.log('new: %s, old: %s', val, oldVal);
+            },
+        },
         computed: {
             classString: function(){
                 return `col-md-${this.element.cols} mt-0 mb-2 ${this.childIsRow ? 'py-0 px-2' : 'p-2'}`;
@@ -49,9 +54,6 @@
         components:{
             'db-sub-row': DbSubRow,
             'db-chart': DbChart
-        },
-        mounted(){
-          //  console.log(this.element.type === 'rows')
         }
     }
 </script>

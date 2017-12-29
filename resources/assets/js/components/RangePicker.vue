@@ -98,7 +98,6 @@
             'date-picker': Datepicker
         },
         mounted(){
-            console.log("hi", this.range);
         }
     }
 </script>

@@ -174,7 +174,6 @@ class ScDashboard{
             }
 
         }
-        console.log(this.scdbData);
     }
 
     /**
@@ -186,8 +185,15 @@ class ScDashboard{
     loadDataIntoChart(){
         //for each chart in active dashboard
         //pass in data and create an instance of chart.js
-        for(let i in this.scdbData.routeData.charts){
-           new Chart(document.getElementById(i).getContext("2d"), this.scdbData.routeData.charts[i].config);
+        for(let i in this.scdbData.routeData.charts) {
+            if (this.scdbData.charts[i]) {
+                this.scdbData.charts[i].data.labels = this.scdbData.routeData.charts[i].labels;
+                this.scdbData.charts[i].data.datasets = this.scdbData.routeData.charts[i].datasets;
+                this.scdbData.charts[i].update();
+            }
+            else {
+                this.scdbData.charts[i] = new Chart(document.getElementById(i).getContext("2d"), this.scdbData.routeData.charts[i].config);
+            }
         }
         for(let i in this.app.$data.layout.dashboard.rangeTotals.items){
             if(this.scdbData.routeData.totals[this.app.$data.layout.dashboard.rangeTotals.items[i].name]){
@@ -208,6 +214,7 @@ class ScDashboard{
 
         EventBus.$on('changeRange', (range) => {
             this.scdbData.layout.dashboard.range = range;
+           // this.loadConfig();
             this.loadData();
             console.log('rangeChange', range.start, range.end);
         });
@@ -227,6 +234,9 @@ ScDashboard.prototype.scdbData = {
     layout: {
         navigation: {},
         dashboard: {}
+    },
+    charts: {
+
     },
     routeData: {
         rough: {
