@@ -26,23 +26,28 @@ class SignupController extends Controller{
 
     public function compare(Request $request, ProductSystemRepoInterface $productSystemRepo){
         $system = $productSystemRepo->findByAttr("name", "SaaSsy Cloud", true);
-
-        return view('signup.'.$request->session()->get('tracking.conversion.assignedAbViewGroupName').'.compare', $system->toArray());
+        $abGroup = $request->session()->get('tracking.conversion.assignedAbViewGroupName') ? $request->session()->get('tracking.conversion.assignedAbViewGroupName') : '/ConversionA/';
+        return view('signup.'.$abGroup.'.compare', $system->toArray());
     }
 
     public function start(Request $request){
+        $abGroup = $request->session()->get('tracking.conversion.assignedAbViewGroupName') ? $request->session()->get('tracking.conversion.assignedAbViewGroupName') : '/ConversionA/';
 
-        return view('signup.'.$request->session()->get('tracking.conversion.assignedAbViewGroupName').'.start');
+        return view('signup.'.$abGroup.'.start');
 
     }
 
     public function setup(Request $request){
-        return view('signup.'.$request->session()->get('tracking.conversion.assignedAbViewGroupName').'.setup');
+        $abGroup = $request->session()->get('tracking.conversion.assignedAbViewGroupName') ? $request->session()->get('tracking.conversion.assignedAbViewGroupName') : '/ConversionA/';
+
+        return view('signup.'.$abGroup.'.setup');
 
     }
 
     public function warp(Request $request){
-        return view('signup.'.$request->session()->get('tracking.conversion.assignedAbViewGroupName').'.warp');
+        $abGroup = $request->session()->get('tracking.conversion.assignedAbViewGroupName') ? $request->session()->get('tracking.conversion.assignedAbViewGroupName') : '/ConversionA/';
+
+        return view('signup.'.$abGroup.'.warp');
 
     }
 

@@ -18360,206 +18360,6 @@ ChartPackageAb.prototype.datasets = [{
 
 /***/ }),
 
-/***/ "./resources/assets/js/config/dashboards/overview/chartsaasiest.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js__ = __webpack_require__("./resources/assets/js/scchart.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scchart_js__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var d3 = __webpack_require__("./node_modules/d3/index.js");
-
-
-var ChartSaasiest = function (_ScChart) {
-    _inherits(ChartSaasiest, _ScChart);
-
-    function ChartSaasiest() {
-        _classCallCheck(this, ChartSaasiest);
-
-        return _possibleConstructorReturn(this, (ChartSaasiest.__proto__ || Object.getPrototypeOf(ChartSaasiest)).apply(this, arguments));
-    }
-
-    _createClass(ChartSaasiest, [{
-        key: 'polishData',
-
-        /**
-         * Polishes Raw api data needed for chart rendering
-         *
-         * @param data
-         *
-         * @returns Object
-         */
-        value: function polishData(data) {
-            var dates = _.groupBy(data.sessions, function (session) {
-                var date = new Date(session.a.at);
-                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-            });
-
-            return dates;
-        }
-
-        /**
-         * Creates labels for the associated chart.js chart
-         *
-         * @param rangeStart
-         * @param rangeEnd
-         * @returns {Array}
-         */
-
-    }, {
-        key: 'setLabels',
-        value: function setLabels(rangeStart, rangeEnd) {
-            var parseTime = d3.timeParse("%Y-%m-%d");
-            var rangeEndObj = parseTime(rangeEnd);
-            var rangeEndPlusOneObj = d3.timeDay.offset(rangeEndObj, +1);
-            var range = d3.timeDay.range(new Date(rangeStart), rangeEndPlusOneObj);
-            var labels = [];
-            for (var i = 0; i < range.length; i++) {
-                labels[i] = range[i].getFullYear() + '-' + (range[i].getMonth() + 1) + '-' + range[i].getDate();
-            }
-            return labels;
-        }
-
-        /**
-         * Creates all datasets needed for the associated chart.js instance
-         *
-         * @param labels
-         * @param polishedData
-         * @returns {*}
-         */
-
-    }, {
-        key: 'makeDatasets',
-        value: function makeDatasets(labels, polishedData) {
-            var returnData = {
-                datasets: []
-            };
-            for (var i in this.datasets) {
-                var summaryData = [];
-                var dataTotals = 0;
-                for (var j = 0; j < labels.length; j++) {
-                    summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
-                }
-                this.datasets[i].dataset.data = summaryData;
-                this.setDatasetColor(i);
-                returnData.datasets.push(this.datasets[i].dataset);
-            }
-
-            return returnData;
-        }
-    }]);
-
-    return ChartSaasiest;
-}(__WEBPACK_IMPORTED_MODULE_0__scchart_js__["ScChart"]);
-
-/**
- * Boilerplate chart.js config object for the chart
- *
- * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
- */
-
-
-/* harmony default export */ __webpack_exports__["a"] = (ChartSaasiest);
-ChartSaasiest.prototype.config = {
-    type: "line",
-    data: {
-        labels: [],
-        datasets: []
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        title: {
-            display: true,
-            text: "SaaSsier Package Conversions by A/B Group"
-        },
-        tooltips: {
-            mode: "index",
-            intersect: false
-        },
-        hover: {
-            mode: "nearest",
-            intersect: true
-        },
-        scales: {
-            xAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: "Date"
-                }
-            }],
-            yAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: "Conversions"
-                }
-            }]
-        }
-    }
-};
-
-/**
- * Datasets used by this chart
- * @type {*[]}
- */
-ChartSaasiest.prototype.datasets = [{
-    name: "saassierAbGroupA",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1 && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
-                    if (polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSiest" && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionA") {
-                        returnData += 1;
-                    }
-                }
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "A/B Group A",
-        fill: false,
-        borderColor: "blue",
-        data: []
-    }
-}, {
-    name: "saassierAbGroupB",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1 && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
-                    if (polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSiest" && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionB") {
-
-                        returnData += 1;
-                    }
-                }
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "A/B Group B",
-        fill: false,
-        borderColor: "yellow",
-        data: []
-    }
-}];
-
-/***/ }),
-
 /***/ "./resources/assets/js/config/dashboards/overview/chartsaassier.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -18741,6 +18541,206 @@ ChartSaassier.prototype.datasets = [{
             for (var j = 0; j < polishedData[label].length; j++) {
                 if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1 && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
                     if (polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSsier" && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionB") {
+                        returnData += 1;
+                    }
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "A/B Group B",
+        fill: false,
+        borderColor: "yellow",
+        data: []
+    }
+}];
+
+/***/ }),
+
+/***/ "./resources/assets/js/config/dashboards/overview/chartsaassiest.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js__ = __webpack_require__("./resources/assets/js/scchart.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scchart_js__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var d3 = __webpack_require__("./node_modules/d3/index.js");
+
+
+var ChartSaassiest = function (_ScChart) {
+    _inherits(ChartSaassiest, _ScChart);
+
+    function ChartSaassiest() {
+        _classCallCheck(this, ChartSaassiest);
+
+        return _possibleConstructorReturn(this, (ChartSaassiest.__proto__ || Object.getPrototypeOf(ChartSaassiest)).apply(this, arguments));
+    }
+
+    _createClass(ChartSaassiest, [{
+        key: 'polishData',
+
+        /**
+         * Polishes Raw api data needed for chart rendering
+         *
+         * @param data
+         *
+         * @returns Object
+         */
+        value: function polishData(data) {
+            var dates = _.groupBy(data.sessions, function (session) {
+                var date = new Date(session.a.at);
+                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+            });
+
+            return dates;
+        }
+
+        /**
+         * Creates labels for the associated chart.js chart
+         *
+         * @param rangeStart
+         * @param rangeEnd
+         * @returns {Array}
+         */
+
+    }, {
+        key: 'setLabels',
+        value: function setLabels(rangeStart, rangeEnd) {
+            var parseTime = d3.timeParse("%Y-%m-%d");
+            var rangeEndObj = parseTime(rangeEnd);
+            var rangeEndPlusOneObj = d3.timeDay.offset(rangeEndObj, +1);
+            var range = d3.timeDay.range(new Date(rangeStart), rangeEndPlusOneObj);
+            var labels = [];
+            for (var i = 0; i < range.length; i++) {
+                labels[i] = range[i].getFullYear() + '-' + (range[i].getMonth() + 1) + '-' + range[i].getDate();
+            }
+            return labels;
+        }
+
+        /**
+         * Creates all datasets needed for the associated chart.js instance
+         *
+         * @param labels
+         * @param polishedData
+         * @returns {*}
+         */
+
+    }, {
+        key: 'makeDatasets',
+        value: function makeDatasets(labels, polishedData) {
+            var returnData = {
+                datasets: []
+            };
+            for (var i in this.datasets) {
+                var summaryData = [];
+                var dataTotals = 0;
+                for (var j = 0; j < labels.length; j++) {
+                    summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
+                }
+                this.datasets[i].dataset.data = summaryData;
+                this.setDatasetColor(i);
+                returnData.datasets.push(this.datasets[i].dataset);
+            }
+
+            return returnData;
+        }
+    }]);
+
+    return ChartSaassiest;
+}(__WEBPACK_IMPORTED_MODULE_0__scchart_js__["ScChart"]);
+
+/**
+ * Boilerplate chart.js config object for the chart
+ *
+ * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
+ */
+
+
+/* harmony default export */ __webpack_exports__["a"] = (ChartSaassiest);
+ChartSaassiest.prototype.config = {
+    type: "line",
+    data: {
+        labels: [],
+        datasets: []
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: "SaaSsiest Package Conversions by A/B Group"
+        },
+        tooltips: {
+            mode: "index",
+            intersect: false
+        },
+        hover: {
+            mode: "nearest",
+            intersect: true
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Date"
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Conversions"
+                }
+            }]
+        }
+    }
+};
+
+/**
+ * Datasets used by this chart
+ * @type {*[]}
+ */
+ChartSaassiest.prototype.datasets = [{
+    name: "saassiestAbGroupA",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1 && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
+                    if (polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSsiest" && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionA") {
+                        returnData += 1;
+                    }
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "A/B Group A",
+        fill: false,
+        borderColor: "blue",
+        data: []
+    }
+}, {
+    name: "saasiestAbGroupB",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1 && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
+                    if (polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSsiest" && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionB") {
+
                         returnData += 1;
                     }
                 }
@@ -19220,7 +19220,7 @@ ChartSalesAb.prototype.datasets = [{
 /***/ "./resources/assets/js/config/dashboards/overview/layout.json":
 /***/ (function(module, exports) {
 
-module.exports = {"title":"overview","rangeTotals":{"items":[{"id":0,"name":"pageViews","value":0,"type":"integer"},{"id":1,"name":"sessions","value":0,"type":"integer"},{"id":2,"name":"conversions","value":0,"type":"integer"},{"id":3,"name":"sales","value":0,"type":"integer"},{"id":4,"name":"revenue","value":0,"type":"money"}]},"rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saasiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesAb","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"packageAb","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"monthlyAnnualAb","cols":"12"}]}]}]}]}
+module.exports = {"title":"overview","rangeTotals":{"items":[{"id":0,"name":"pageViews","value":0,"type":"integer"},{"id":1,"name":"sessions","value":0,"type":"integer"},{"id":2,"name":"conversions","value":0,"type":"integer"},{"id":3,"name":"sales","value":0,"type":"integer"},{"id":4,"name":"revenue","value":0,"type":"money"}]},"rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saassiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesAb","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"packageAb","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"monthlyAnnualAb","cols":"12"}]}]}]}]}
 
 /***/ }),
 
@@ -19253,7 +19253,7 @@ module.exports = {"lists":[{"id":0,"name":"dashboards","listItems":[{"id":0,"nam
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dashboards_overview_chartoverview_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartoverview.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaassy.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaassier.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaasiest_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaasiest.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaassiest_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaassiest.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesab_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsalesab.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dashboards_overview_chartpackageab_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartpackageab.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartmonthlyannualab.js");
@@ -19269,7 +19269,7 @@ var classes = {
     ChartOverview: __WEBPACK_IMPORTED_MODULE_0__dashboards_overview_chartoverview_js__["a" /* default */],
     ChartSaassy: __WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js__["a" /* default */],
     ChartSaassier: __WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js__["a" /* default */],
-    ChartSaasiest: __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaasiest_js__["a" /* default */],
+    ChartSaassiest: __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaassiest_js__["a" /* default */],
     ChartSalesAb: __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesab_js__["a" /* default */],
     ChartPackageAb: __WEBPACK_IMPORTED_MODULE_5__dashboards_overview_chartpackageab_js__["a" /* default */],
     ChartMonthlyAnnualAb: __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js__["a" /* default */]

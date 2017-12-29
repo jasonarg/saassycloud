@@ -1,7 +1,7 @@
 let d3 = require('d3');
 import { ScChart } from './../../../scchart.js';
 
-export default class ChartSaasiest extends ScChart{
+export default class ChartSaassiest extends ScChart{
     /**
      * Polishes Raw api data needed for chart rendering
      *
@@ -69,7 +69,7 @@ export default class ChartSaasiest extends ScChart{
  *
  * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
  */
-ChartSaasiest.prototype.config = {
+ChartSaassiest.prototype.config = {
     type: "line",
     data: {
         labels: [],
@@ -80,7 +80,7 @@ ChartSaasiest.prototype.config = {
         maintainAspectRatio: false,
         title: {
             display: true,
-            text: "SaaSsier Package Conversions by A/B Group"
+            text: "SaaSsiest Package Conversions by A/B Group"
         },
         tooltips: {
             mode: "index",
@@ -117,16 +117,16 @@ ChartSaasiest.prototype.config = {
  * Datasets used by this chart
  * @type {*[]}
  */
-ChartSaasiest.prototype.datasets = [
+ChartSaassiest.prototype.datasets = [
     {
-        name: "saassierAbGroupA",
+        name: "saassiestAbGroupA",
         summaryFunction(label, polishedData){
             let returnData = 0;
             if(label in polishedData){
                 for(let j = 0; j < polishedData[label].length; j++){
                     if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1
                         && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
-                        if(polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSiest"
+                        if(polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSsiest"
                             && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionA"){
                             returnData += 1;
                         }
@@ -145,14 +145,14 @@ ChartSaasiest.prototype.datasets = [
             }
     },
     {
-        name: "saassierAbGroupB",
+        name: "saasiestAbGroupB",
         summaryFunction(label, polishedData){
             let returnData = 0;
             if(label in polishedData){
                 for(let j = 0; j < polishedData[label].length; j++){
                     if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.attributes.converted == 1
                         && polishedData[label][j].rel.co.attributes.conversionType != 'login') {
-                            if(polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSiest"
+                            if(polishedData[label][j].rel.co.relationships.chosenPackage.name == "SaaSsiest"
                                 && polishedData[label][j].rel.co.relationships.abViewGroup.name == "ConversionB"){
 
                                 returnData += 1;
