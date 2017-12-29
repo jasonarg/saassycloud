@@ -152,10 +152,7 @@ class ScDashboard{
      */
     polishData(){
         let chartList = this.extractCharts(this.scdbData.layout.dashboard.rows);
-        let stop = 0;
         for(let chart in chartList){
-            //temporary until all other classes are defined
-            if(stop < 2){
                 let chartConfig = proxyClassLoader(`Chart${_.upperFirst(chartList[chart])}`);
                 this.scdbData.routeData.charts[chartList[chart]] = {};
                 this.scdbData.routeData.charts[chartList[chart]].polishedData = chartConfig.polishData(this.scdbData.routeData.rough);
@@ -169,10 +166,6 @@ class ScDashboard{
                 this.scdbData.routeData.charts[chartList[chart]].config = chartConfig.config;
                 this.scdbData.routeData.charts[chartList[chart]].config.data.labels = this.scdbData.routeData.charts[chartList[chart]].labels;
                 this.scdbData.routeData.charts[chartList[chart]].config.data.datasets = this.scdbData.routeData.charts[chartList[chart]].datasets;
-
-                stop++;
-            }
-
         }
     }
 

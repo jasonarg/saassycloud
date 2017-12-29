@@ -17584,32 +17584,115 @@ webpackContext.id = "./resources/assets/js/config/dashboards recursive ^\\.\\/.*
 /***/ }),
 
 /***/ "./resources/assets/js/config/dashboards/overview/chartmonthlyannualab.js":
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js__ = __webpack_require__("./resources/assets/js/scchart.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scchart_js__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var ChartMonthlyAnnualAb = function () {
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var d3 = __webpack_require__("./node_modules/d3/index.js");
+
+
+var ChartMonthlyAnnualAb = function (_ScChart) {
+    _inherits(ChartMonthlyAnnualAb, _ScChart);
+
     function ChartMonthlyAnnualAb() {
         _classCallCheck(this, ChartMonthlyAnnualAb);
+
+        return _possibleConstructorReturn(this, (ChartMonthlyAnnualAb.__proto__ || Object.getPrototypeOf(ChartMonthlyAnnualAb)).apply(this, arguments));
     }
 
     _createClass(ChartMonthlyAnnualAb, [{
-        key: "groupData",
-        value: function groupData(data) {
+        key: 'polishData',
+
+        /**
+         * Polishes Raw api data needed for chart rendering
+         *
+         * @param data
+         *
+         * @returns Object
+         */
+        value: function polishData(data) {
             var dates = _.groupBy(data.sessions, function (session) {
                 var date = new Date(session.a.at);
-                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
             });
 
             return dates;
         }
+
+        /**
+         * Creates labels for the associated chart.js chart
+         *
+         * @param rangeStart
+         * @param rangeEnd
+         * @returns {Array}
+         */
+
+    }, {
+        key: 'setLabels',
+        value: function setLabels(rangeStart, rangeEnd) {
+            var parseTime = d3.timeParse("%Y-%m-%d");
+            var rangeEndObj = parseTime(rangeEnd);
+            var rangeEndPlusOneObj = d3.timeDay.offset(rangeEndObj, +1);
+            var range = d3.timeDay.range(new Date(rangeStart), rangeEndPlusOneObj);
+            var labels = [];
+            for (var i = 0; i < range.length; i++) {
+                labels[i] = range[i].getFullYear() + '-' + (range[i].getMonth() + 1) + '-' + range[i].getDate();
+            }
+            return labels;
+        }
+
+        /**
+         * Creates all datasets needed for the associated chart.js instance
+         *
+         * @param labels
+         * @param polishedData
+         * @returns {*}
+         */
+
+    }, {
+        key: 'makeDatasets',
+        value: function makeDatasets(labels, polishedData) {
+            var returnData = {
+                totals: {},
+                datasets: []
+            };
+            for (var i in this.datasets) {
+                var summaryData = [];
+                var dataTotals = 0;
+                for (var j = 0; j < labels.length; j++) {
+                    summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
+                    dataTotals += summaryData[j];
+                }
+                this.datasets[i].dataset.data = summaryData;
+                this.setDatasetColor(i);
+                returnData.datasets.push(this.datasets[i].dataset);
+                returnData.totals[this.datasets[i].name] = dataTotals;
+            }
+
+            return returnData;
+        }
     }]);
 
     return ChartMonthlyAnnualAb;
-}();
+}(__WEBPACK_IMPORTED_MODULE_0__scchart_js__["ScChart"]);
 
+/**
+ * Boilerplate chart.js config object for the chart
+ *
+ * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
+ */
+
+
+/* harmony default export */ __webpack_exports__["a"] = (ChartMonthlyAnnualAb);
 ChartMonthlyAnnualAb.prototype.config = {
     type: "line",
     data: {
@@ -17650,7 +17733,112 @@ ChartMonthlyAnnualAb.prototype.config = {
     }
 };
 
-module.exports = { ChartMonthlyAnnualAb: ChartMonthlyAnnualAb };
+/**
+ * Datasets used by this chart
+ * @type {*[]}
+ */
+ChartMonthlyAnnualAb.prototype.datasets = [{
+    name: "revenue",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                    var rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
+                    if (polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M") {
+                        rev = rev * 12;
+                    }
+                    returnData += rev;
+                } else {
+                    returnData += 0;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Revenue",
+        fill: true,
+        backgroundColor: "orange",
+        borderColor: "orange",
+        data: []
+    }
+}, {
+    name: "sales",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                    returnData += 1;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Sales",
+        fill: true,
+        backgroundColor: "yellow",
+        borderColor: "yellow",
+        data: []
+    }
+}, {
+    name: "conversions",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co) {
+                    returnData += polishedData[label][j].rel.co.attributes.converted;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Conversions",
+        fill: true,
+        backgroundColor: "purple",
+        borderColor: "purple",
+        data: []
+    }
+}, {
+    name: "sessions",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        return label in polishedData ? polishedData[label].length : 0;
+    },
+
+    dataset: {
+        label: "Sessions",
+        fill: true,
+        backgroundColor: "red",
+        borderColor: "red",
+        data: []
+    }
+}, {
+    name: "pageViews",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                returnData += polishedData[label][j].rel.rc;
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Page Views",
+        fill: true,
+        backgroundColor: "blue",
+        borderColor: "blue",
+        data: []
+    }
+}];
 
 /***/ }),
 
@@ -17914,32 +18102,115 @@ ChartOverview.prototype.datasets = [{
 /***/ }),
 
 /***/ "./resources/assets/js/config/dashboards/overview/chartpackageab.js":
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js__ = __webpack_require__("./resources/assets/js/scchart.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scchart_js__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var ChartPackageAb = function () {
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var d3 = __webpack_require__("./node_modules/d3/index.js");
+
+
+var ChartPackageAb = function (_ScChart) {
+    _inherits(ChartPackageAb, _ScChart);
+
     function ChartPackageAb() {
         _classCallCheck(this, ChartPackageAb);
+
+        return _possibleConstructorReturn(this, (ChartPackageAb.__proto__ || Object.getPrototypeOf(ChartPackageAb)).apply(this, arguments));
     }
 
     _createClass(ChartPackageAb, [{
-        key: "groupData",
-        value: function groupData(data) {
+        key: 'polishData',
+
+        /**
+         * Polishes Raw api data needed for chart rendering
+         *
+         * @param data
+         *
+         * @returns Object
+         */
+        value: function polishData(data) {
             var dates = _.groupBy(data.sessions, function (session) {
                 var date = new Date(session.a.at);
-                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
             });
 
             return dates;
         }
+
+        /**
+         * Creates labels for the associated chart.js chart
+         *
+         * @param rangeStart
+         * @param rangeEnd
+         * @returns {Array}
+         */
+
+    }, {
+        key: 'setLabels',
+        value: function setLabels(rangeStart, rangeEnd) {
+            var parseTime = d3.timeParse("%Y-%m-%d");
+            var rangeEndObj = parseTime(rangeEnd);
+            var rangeEndPlusOneObj = d3.timeDay.offset(rangeEndObj, +1);
+            var range = d3.timeDay.range(new Date(rangeStart), rangeEndPlusOneObj);
+            var labels = [];
+            for (var i = 0; i < range.length; i++) {
+                labels[i] = range[i].getFullYear() + '-' + (range[i].getMonth() + 1) + '-' + range[i].getDate();
+            }
+            return labels;
+        }
+
+        /**
+         * Creates all datasets needed for the associated chart.js instance
+         *
+         * @param labels
+         * @param polishedData
+         * @returns {*}
+         */
+
+    }, {
+        key: 'makeDatasets',
+        value: function makeDatasets(labels, polishedData) {
+            var returnData = {
+                totals: {},
+                datasets: []
+            };
+            for (var i in this.datasets) {
+                var summaryData = [];
+                var dataTotals = 0;
+                for (var j = 0; j < labels.length; j++) {
+                    summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
+                    dataTotals += summaryData[j];
+                }
+                this.datasets[i].dataset.data = summaryData;
+                this.setDatasetColor(i);
+                returnData.datasets.push(this.datasets[i].dataset);
+                returnData.totals[this.datasets[i].name] = dataTotals;
+            }
+
+            return returnData;
+        }
     }]);
 
     return ChartPackageAb;
-}();
+}(__WEBPACK_IMPORTED_MODULE_0__scchart_js__["ScChart"]);
 
+/**
+ * Boilerplate chart.js config object for the chart
+ *
+ * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
+ */
+
+
+/* harmony default export */ __webpack_exports__["a"] = (ChartPackageAb);
 ChartPackageAb.prototype.config = {
     type: "line",
     data: {
@@ -17980,37 +18251,225 @@ ChartPackageAb.prototype.config = {
     }
 };
 
-module.exports = { ChartPackageAb: ChartPackageAb };
+/**
+ * Datasets used by this chart
+ * @type {*[]}
+ */
+ChartPackageAb.prototype.datasets = [{
+    name: "revenue",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                    var rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
+                    if (polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M") {
+                        rev = rev * 12;
+                    }
+                    returnData += rev;
+                } else {
+                    returnData += 0;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Revenue",
+        fill: true,
+        backgroundColor: "orange",
+        borderColor: "orange",
+        data: []
+    }
+}, {
+    name: "sales",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                    returnData += 1;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Sales",
+        fill: true,
+        backgroundColor: "yellow",
+        borderColor: "yellow",
+        data: []
+    }
+}, {
+    name: "conversions",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co) {
+                    returnData += polishedData[label][j].rel.co.attributes.converted;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Conversions",
+        fill: true,
+        backgroundColor: "purple",
+        borderColor: "purple",
+        data: []
+    }
+}, {
+    name: "sessions",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        return label in polishedData ? polishedData[label].length : 0;
+    },
+
+    dataset: {
+        label: "Sessions",
+        fill: true,
+        backgroundColor: "red",
+        borderColor: "red",
+        data: []
+    }
+}, {
+    name: "pageViews",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                returnData += polishedData[label][j].rel.rc;
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Page Views",
+        fill: true,
+        backgroundColor: "blue",
+        borderColor: "blue",
+        data: []
+    }
+}];
 
 /***/ }),
 
 /***/ "./resources/assets/js/config/dashboards/overview/chartsaasiest.js":
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js__ = __webpack_require__("./resources/assets/js/scchart.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scchart_js__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var ChartSaasiest = function () {
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var d3 = __webpack_require__("./node_modules/d3/index.js");
+
+
+var ChartSaasiest = function (_ScChart) {
+    _inherits(ChartSaasiest, _ScChart);
+
     function ChartSaasiest() {
         _classCallCheck(this, ChartSaasiest);
+
+        return _possibleConstructorReturn(this, (ChartSaasiest.__proto__ || Object.getPrototypeOf(ChartSaasiest)).apply(this, arguments));
     }
 
     _createClass(ChartSaasiest, [{
-        key: "groupData",
-        value: function groupData(data) {
+        key: 'polishData',
+
+        /**
+         * Polishes Raw api data needed for chart rendering
+         *
+         * @param data
+         *
+         * @returns Object
+         */
+        value: function polishData(data) {
             var dates = _.groupBy(data.sessions, function (session) {
                 var date = new Date(session.a.at);
-                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
             });
 
             return dates;
         }
+
+        /**
+         * Creates labels for the associated chart.js chart
+         *
+         * @param rangeStart
+         * @param rangeEnd
+         * @returns {Array}
+         */
+
+    }, {
+        key: 'setLabels',
+        value: function setLabels(rangeStart, rangeEnd) {
+            var parseTime = d3.timeParse("%Y-%m-%d");
+            var rangeEndObj = parseTime(rangeEnd);
+            var rangeEndPlusOneObj = d3.timeDay.offset(rangeEndObj, +1);
+            var range = d3.timeDay.range(new Date(rangeStart), rangeEndPlusOneObj);
+            var labels = [];
+            for (var i = 0; i < range.length; i++) {
+                labels[i] = range[i].getFullYear() + '-' + (range[i].getMonth() + 1) + '-' + range[i].getDate();
+            }
+            return labels;
+        }
+
+        /**
+         * Creates all datasets needed for the associated chart.js instance
+         *
+         * @param labels
+         * @param polishedData
+         * @returns {*}
+         */
+
+    }, {
+        key: 'makeDatasets',
+        value: function makeDatasets(labels, polishedData) {
+            var returnData = {
+                totals: {},
+                datasets: []
+            };
+            for (var i in this.datasets) {
+                var summaryData = [];
+                var dataTotals = 0;
+                for (var j = 0; j < labels.length; j++) {
+                    summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
+                    dataTotals += summaryData[j];
+                }
+                this.datasets[i].dataset.data = summaryData;
+                this.setDatasetColor(i);
+                returnData.datasets.push(this.datasets[i].dataset);
+                returnData.totals[this.datasets[i].name] = dataTotals;
+            }
+
+            return returnData;
+        }
     }]);
 
     return ChartSaasiest;
-}();
+}(__WEBPACK_IMPORTED_MODULE_0__scchart_js__["ScChart"]);
 
+/**
+ * Boilerplate chart.js config object for the chart
+ *
+ * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
+ */
+
+
+/* harmony default export */ __webpack_exports__["a"] = (ChartSaasiest);
 ChartSaasiest.prototype.config = {
     type: "line",
     data: {
@@ -18051,38 +18510,226 @@ ChartSaasiest.prototype.config = {
     }
 };
 
-module.exports = { ChartSaasiest: ChartSaasiest };
+/**
+ * Datasets used by this chart
+ * @type {*[]}
+ */
+ChartSaasiest.prototype.datasets = [{
+    name: "revenue",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                    var rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
+                    if (polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M") {
+                        rev = rev * 12;
+                    }
+                    returnData += rev;
+                } else {
+                    returnData += 0;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Revenue",
+        fill: true,
+        backgroundColor: "orange",
+        borderColor: "orange",
+        data: []
+    }
+}, {
+    name: "sales",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                    returnData += 1;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Sales",
+        fill: true,
+        backgroundColor: "yellow",
+        borderColor: "yellow",
+        data: []
+    }
+}, {
+    name: "conversions",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co) {
+                    returnData += polishedData[label][j].rel.co.attributes.converted;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Conversions",
+        fill: true,
+        backgroundColor: "purple",
+        borderColor: "purple",
+        data: []
+    }
+}, {
+    name: "sessions",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        return label in polishedData ? polishedData[label].length : 0;
+    },
+
+    dataset: {
+        label: "Sessions",
+        fill: true,
+        backgroundColor: "red",
+        borderColor: "red",
+        data: []
+    }
+}, {
+    name: "pageViews",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                returnData += polishedData[label][j].rel.rc;
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Page Views",
+        fill: true,
+        backgroundColor: "blue",
+        borderColor: "blue",
+        data: []
+    }
+}];
 
 /***/ }),
 
 /***/ "./resources/assets/js/config/dashboards/overview/chartsaassier.js":
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js__ = __webpack_require__("./resources/assets/js/scchart.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scchart_js__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var ChartOverview = function () {
-    function ChartOverview() {
-        _classCallCheck(this, ChartOverview);
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var d3 = __webpack_require__("./node_modules/d3/index.js");
+
+
+var ChartSaassier = function (_ScChart) {
+    _inherits(ChartSaassier, _ScChart);
+
+    function ChartSaassier() {
+        _classCallCheck(this, ChartSaassier);
+
+        return _possibleConstructorReturn(this, (ChartSaassier.__proto__ || Object.getPrototypeOf(ChartSaassier)).apply(this, arguments));
     }
 
-    _createClass(ChartOverview, [{
-        key: "groupData",
-        value: function groupData(data) {
+    _createClass(ChartSaassier, [{
+        key: 'polishData',
+
+        /**
+         * Polishes Raw api data needed for chart rendering
+         *
+         * @param data
+         *
+         * @returns Object
+         */
+        value: function polishData(data) {
             var dates = _.groupBy(data.sessions, function (session) {
                 var date = new Date(session.a.at);
-                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
             });
 
             return dates;
         }
+
+        /**
+         * Creates labels for the associated chart.js chart
+         *
+         * @param rangeStart
+         * @param rangeEnd
+         * @returns {Array}
+         */
+
+    }, {
+        key: 'setLabels',
+        value: function setLabels(rangeStart, rangeEnd) {
+            var parseTime = d3.timeParse("%Y-%m-%d");
+            var rangeEndObj = parseTime(rangeEnd);
+            var rangeEndPlusOneObj = d3.timeDay.offset(rangeEndObj, +1);
+            var range = d3.timeDay.range(new Date(rangeStart), rangeEndPlusOneObj);
+            var labels = [];
+            for (var i = 0; i < range.length; i++) {
+                labels[i] = range[i].getFullYear() + '-' + (range[i].getMonth() + 1) + '-' + range[i].getDate();
+            }
+            return labels;
+        }
+
+        /**
+         * Creates all datasets needed for the associated chart.js instance
+         *
+         * @param labels
+         * @param polishedData
+         * @returns {*}
+         */
+
+    }, {
+        key: 'makeDatasets',
+        value: function makeDatasets(labels, polishedData) {
+            var returnData = {
+                totals: {},
+                datasets: []
+            };
+            for (var i in this.datasets) {
+                var summaryData = [];
+                var dataTotals = 0;
+                for (var j = 0; j < labels.length; j++) {
+                    summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
+                    dataTotals += summaryData[j];
+                }
+                this.datasets[i].dataset.data = summaryData;
+                this.setDatasetColor(i);
+                returnData.datasets.push(this.datasets[i].dataset);
+                returnData.totals[this.datasets[i].name] = dataTotals;
+            }
+
+            return returnData;
+        }
     }]);
 
-    return ChartOverview;
-}();
+    return ChartSaassier;
+}(__WEBPACK_IMPORTED_MODULE_0__scchart_js__["ScChart"]);
 
-ChartOverview.prototype.config = {
+/**
+ * Boilerplate chart.js config object for the chart
+ *
+ * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
+ */
+
+
+/* harmony default export */ __webpack_exports__["a"] = (ChartSaassier);
+ChartSaassier.prototype.config = {
     type: "line",
     data: {
         labels: [],
@@ -18122,7 +18769,112 @@ ChartOverview.prototype.config = {
     }
 };
 
-module.exports = { ChartOverview: ChartOverview };
+/**
+ * Datasets used by this chart
+ * @type {*[]}
+ */
+ChartSaassier.prototype.datasets = [{
+    name: "revenue",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                    var rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
+                    if (polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M") {
+                        rev = rev * 12;
+                    }
+                    returnData += rev;
+                } else {
+                    returnData += 0;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Revenue",
+        fill: true,
+        backgroundColor: "orange",
+        borderColor: "orange",
+        data: []
+    }
+}, {
+    name: "sales",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                    returnData += 1;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Sales",
+        fill: true,
+        backgroundColor: "yellow",
+        borderColor: "yellow",
+        data: []
+    }
+}, {
+    name: "conversions",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co) {
+                    returnData += polishedData[label][j].rel.co.attributes.converted;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Conversions",
+        fill: true,
+        backgroundColor: "purple",
+        borderColor: "purple",
+        data: []
+    }
+}, {
+    name: "sessions",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        return label in polishedData ? polishedData[label].length : 0;
+    },
+
+    dataset: {
+        label: "Sessions",
+        fill: true,
+        backgroundColor: "red",
+        borderColor: "red",
+        data: []
+    }
+}, {
+    name: "pageViews",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                returnData += polishedData[label][j].rel.rc;
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Page Views",
+        fill: true,
+        backgroundColor: "blue",
+        borderColor: "blue",
+        data: []
+    }
+}];
 
 /***/ }),
 
@@ -18386,32 +19138,115 @@ ChartSaassy.prototype.datasets = [{
 /***/ }),
 
 /***/ "./resources/assets/js/config/dashboards/overview/chartsalesab.js":
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js__ = __webpack_require__("./resources/assets/js/scchart.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scchart_js__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var ChartSalesAb = function () {
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var d3 = __webpack_require__("./node_modules/d3/index.js");
+
+
+var ChartSalesAb = function (_ScChart) {
+    _inherits(ChartSalesAb, _ScChart);
+
     function ChartSalesAb() {
         _classCallCheck(this, ChartSalesAb);
+
+        return _possibleConstructorReturn(this, (ChartSalesAb.__proto__ || Object.getPrototypeOf(ChartSalesAb)).apply(this, arguments));
     }
 
     _createClass(ChartSalesAb, [{
-        key: "groupData",
-        value: function groupData(data) {
+        key: 'polishData',
+
+        /**
+         * Polishes Raw api data needed for chart rendering
+         *
+         * @param data
+         *
+         * @returns Object
+         */
+        value: function polishData(data) {
             var dates = _.groupBy(data.sessions, function (session) {
                 var date = new Date(session.a.at);
-                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
             });
 
             return dates;
         }
+
+        /**
+         * Creates labels for the associated chart.js chart
+         *
+         * @param rangeStart
+         * @param rangeEnd
+         * @returns {Array}
+         */
+
+    }, {
+        key: 'setLabels',
+        value: function setLabels(rangeStart, rangeEnd) {
+            var parseTime = d3.timeParse("%Y-%m-%d");
+            var rangeEndObj = parseTime(rangeEnd);
+            var rangeEndPlusOneObj = d3.timeDay.offset(rangeEndObj, +1);
+            var range = d3.timeDay.range(new Date(rangeStart), rangeEndPlusOneObj);
+            var labels = [];
+            for (var i = 0; i < range.length; i++) {
+                labels[i] = range[i].getFullYear() + '-' + (range[i].getMonth() + 1) + '-' + range[i].getDate();
+            }
+            return labels;
+        }
+
+        /**
+         * Creates all datasets needed for the associated chart.js instance
+         *
+         * @param labels
+         * @param polishedData
+         * @returns {*}
+         */
+
+    }, {
+        key: 'makeDatasets',
+        value: function makeDatasets(labels, polishedData) {
+            var returnData = {
+                totals: {},
+                datasets: []
+            };
+            for (var i in this.datasets) {
+                var summaryData = [];
+                var dataTotals = 0;
+                for (var j = 0; j < labels.length; j++) {
+                    summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
+                    dataTotals += summaryData[j];
+                }
+                this.datasets[i].dataset.data = summaryData;
+                this.setDatasetColor(i);
+                returnData.datasets.push(this.datasets[i].dataset);
+                returnData.totals[this.datasets[i].name] = dataTotals;
+            }
+
+            return returnData;
+        }
     }]);
 
     return ChartSalesAb;
-}();
+}(__WEBPACK_IMPORTED_MODULE_0__scchart_js__["ScChart"]);
 
+/**
+ * Boilerplate chart.js config object for the chart
+ *
+ * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
+ */
+
+
+/* harmony default export */ __webpack_exports__["a"] = (ChartSalesAb);
 ChartSalesAb.prototype.config = {
     type: "line",
     data: {
@@ -18452,7 +19287,112 @@ ChartSalesAb.prototype.config = {
     }
 };
 
-module.exports = { ChartSalesAb: ChartSalesAb };
+/**
+ * Datasets used by this chart
+ * @type {*[]}
+ */
+ChartSalesAb.prototype.datasets = [{
+    name: "revenue",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                    var rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
+                    if (polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M") {
+                        rev = rev * 12;
+                    }
+                    returnData += rev;
+                } else {
+                    returnData += 0;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Revenue",
+        fill: true,
+        backgroundColor: "orange",
+        borderColor: "orange",
+        data: []
+    }
+}, {
+    name: "sales",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                    returnData += 1;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Sales",
+        fill: true,
+        backgroundColor: "yellow",
+        borderColor: "yellow",
+        data: []
+    }
+}, {
+    name: "conversions",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                if (polishedData[label][j].rel.co) {
+                    returnData += polishedData[label][j].rel.co.attributes.converted;
+                }
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Conversions",
+        fill: true,
+        backgroundColor: "purple",
+        borderColor: "purple",
+        data: []
+    }
+}, {
+    name: "sessions",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        return label in polishedData ? polishedData[label].length : 0;
+    },
+
+    dataset: {
+        label: "Sessions",
+        fill: true,
+        backgroundColor: "red",
+        borderColor: "red",
+        data: []
+    }
+}, {
+    name: "pageViews",
+    summaryFunction: function summaryFunction(label, polishedData) {
+        var returnData = 0;
+        if (label in polishedData) {
+            for (var j = 0; j < polishedData[label].length; j++) {
+                returnData += polishedData[label][j].rel.rc;
+            }
+        }
+        return returnData;
+    },
+
+    dataset: {
+        label: "Page Views",
+        fill: true,
+        backgroundColor: "blue",
+        borderColor: "blue",
+        data: []
+    }
+}];
 
 /***/ }),
 
@@ -18492,15 +19432,10 @@ module.exports = {"lists":[{"id":0,"name":"dashboards","listItems":[{"id":0,"nam
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dashboards_overview_chartoverview_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartoverview.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaassy.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaassier.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaasiest_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaasiest.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaasiest_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaasiest_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesab_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsalesab.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesab_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesab_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dashboards_overview_chartpackageab_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartpackageab.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dashboards_overview_chartpackageab_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__dashboards_overview_chartpackageab_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartmonthlyannualab.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js__);
 
 
 
@@ -18512,11 +19447,11 @@ module.exports = {"lists":[{"id":0,"name":"dashboards","listItems":[{"id":0,"nam
 var classes = {
     ChartOverview: __WEBPACK_IMPORTED_MODULE_0__dashboards_overview_chartoverview_js__["a" /* default */],
     ChartSaassy: __WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js__["a" /* default */],
-    ChartSaassier: __WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js___default.a,
-    ChartSaasiest: __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaasiest_js___default.a,
-    ChartSalesAb: __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesab_js___default.a,
-    ChartPackageAb: __WEBPACK_IMPORTED_MODULE_5__dashboards_overview_chartpackageab_js___default.a,
-    ChartMonthlyAnnualAb: __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js___default.a
+    ChartSaassier: __WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js__["a" /* default */],
+    ChartSaasiest: __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaasiest_js__["a" /* default */],
+    ChartSalesAb: __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesab_js__["a" /* default */],
+    ChartPackageAb: __WEBPACK_IMPORTED_MODULE_5__dashboards_overview_chartpackageab_js__["a" /* default */],
+    ChartMonthlyAnnualAb: __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js__["a" /* default */]
 };
 
 function proxyClassLoader(className) {
@@ -18777,24 +19712,18 @@ var ScDashboard = function () {
         key: 'polishData',
         value: function polishData() {
             var chartList = this.extractCharts(this.scdbData.layout.dashboard.rows);
-            var stop = 0;
             for (var chart in chartList) {
-                //temporary until all other classes are defined
-                if (stop < 2) {
-                    var chartConfig = Object(__WEBPACK_IMPORTED_MODULE_0__config_proxyclassloader_js__["a" /* default */])('Chart' + _.upperFirst(chartList[chart]));
-                    this.scdbData.routeData.charts[chartList[chart]] = {};
-                    this.scdbData.routeData.charts[chartList[chart]].polishedData = chartConfig.polishData(this.scdbData.routeData.rough);
-                    this.scdbData.routeData.charts[chartList[chart]].labels = chartConfig.setLabels(this.scdbData.layout.dashboard.range.start, this.scdbData.layout.dashboard.range.end);
-                    var dsAndTotals = chartConfig.makeDatasets(this.scdbData.routeData.charts[chartList[chart]].labels, this.scdbData.routeData.charts[chartList[chart]].polishedData);
+                var chartConfig = Object(__WEBPACK_IMPORTED_MODULE_0__config_proxyclassloader_js__["a" /* default */])('Chart' + _.upperFirst(chartList[chart]));
+                this.scdbData.routeData.charts[chartList[chart]] = {};
+                this.scdbData.routeData.charts[chartList[chart]].polishedData = chartConfig.polishData(this.scdbData.routeData.rough);
+                this.scdbData.routeData.charts[chartList[chart]].labels = chartConfig.setLabels(this.scdbData.layout.dashboard.range.start, this.scdbData.layout.dashboard.range.end);
+                var dsAndTotals = chartConfig.makeDatasets(this.scdbData.routeData.charts[chartList[chart]].labels, this.scdbData.routeData.charts[chartList[chart]].polishedData);
 
-                    this.scdbData.routeData.totals = dsAndTotals.totals;
-                    this.scdbData.routeData.charts[chartList[chart]].datasets = dsAndTotals.datasets;
-                    this.scdbData.routeData.charts[chartList[chart]].config = chartConfig.config;
-                    this.scdbData.routeData.charts[chartList[chart]].config.data.labels = this.scdbData.routeData.charts[chartList[chart]].labels;
-                    this.scdbData.routeData.charts[chartList[chart]].config.data.datasets = this.scdbData.routeData.charts[chartList[chart]].datasets;
-
-                    stop++;
-                }
+                this.scdbData.routeData.totals = dsAndTotals.totals;
+                this.scdbData.routeData.charts[chartList[chart]].datasets = dsAndTotals.datasets;
+                this.scdbData.routeData.charts[chartList[chart]].config = chartConfig.config;
+                this.scdbData.routeData.charts[chartList[chart]].config.data.labels = this.scdbData.routeData.charts[chartList[chart]].labels;
+                this.scdbData.routeData.charts[chartList[chart]].config.data.datasets = this.scdbData.routeData.charts[chartList[chart]].datasets;
             }
         }
 

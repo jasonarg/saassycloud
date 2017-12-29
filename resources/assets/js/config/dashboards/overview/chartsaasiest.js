@@ -1,15 +1,77 @@
-class ChartSaasiest {
+let d3 = require('d3');
+import { ScChart } from './../../../scchart.js';
 
-    groupData(data) {
+export default class ChartSaasiest extends ScChart{
+    /**
+     * Polishes Raw api data needed for chart rendering
+     *
+     * @param data
+     *
+     * @returns Object
+     */
+    polishData(data) {
         let dates = _.groupBy(data.sessions, (session) => {
             let date = new Date(session.a.at);
             return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
         });
 
         return dates;
-    };
+    }
+
+    /**
+     * Creates labels for the associated chart.js chart
+     *
+     * @param rangeStart
+     * @param rangeEnd
+     * @returns {Array}
+     */
+    setLabels(rangeStart, rangeEnd){
+        let parseTime = d3.timeParse("%Y-%m-%d");
+        let rangeEndObj = parseTime(rangeEnd);
+        let rangeEndPlusOneObj = d3.timeDay.offset(rangeEndObj, +1);
+        let range = d3.timeDay.range(new Date(rangeStart), rangeEndPlusOneObj);
+        let labels = [];
+        for(let i = 0; i < range.length; i++){
+            labels[i] = `${range[i].getFullYear()}-${range[i].getMonth() + 1}-${range[i].getDate()}`
+        }
+        return labels;
+    }
+
+    /**
+     * Creates all datasets needed for the associated chart.js instance
+     *
+     * @param labels
+     * @param polishedData
+     * @returns {*}
+     */
+    makeDatasets(labels, polishedData){
+        let returnData = {
+            totals: {},
+            datasets: []
+        };
+        for(let i in this.datasets){
+            let summaryData = [];
+            let dataTotals = 0;
+            for(let j = 0; j < labels.length; j++){
+                summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
+                dataTotals += summaryData[j];
+            }
+            this.datasets[i].dataset.data = summaryData;
+            this.setDatasetColor(i);
+            returnData.datasets.push(this.datasets[i].dataset);
+            returnData.totals[this.datasets[i].name] = dataTotals;
+        }
+
+
+        return returnData;
+    }
 }
 
+/**
+ * Boilerplate chart.js config object for the chart
+ *
+ * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
+ */
 ChartSaasiest.prototype.config = {
     type: "line",
     data: {
@@ -54,5 +116,120 @@ ChartSaasiest.prototype.config = {
     }
 };
 
+/**
+ * Datasets used by this chart
+ * @type {*[]}
+ */
+ChartSaasiest.prototype.datasets = [
+    {
+        name: "revenue",
+        summaryFunction(label, polishedData){
+            let returnData = 0;
+            if(label in polishedData){
+                for(let j = 0; j < polishedData[label].length; j++){
+                    if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                        let rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
+                        if(polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M"){
+                            rev = rev * 12;
+                        }
+                        returnData += rev;
+                    }
+                    else{
+                        returnData += 0;
+                    }
+                }
 
-module.exports = {ChartSaasiest};
+            }
+            return returnData;
+        },
+        dataset:
+            {
+                label: "Revenue",
+                fill: true,
+                backgroundColor: "orange",
+                borderColor: "orange",
+                data: []
+            }
+    },
+    {
+        name: "sales",
+        summaryFunction(label, polishedData){
+            let returnData = 0;
+            if(label in polishedData){
+                for(let j = 0; j < polishedData[label].length; j++){
+                    if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
+                        returnData += 1;
+                    }
+                }
+
+            }
+            return returnData;
+        },
+        dataset:
+            {
+                label: "Sales",
+                fill: true,
+                backgroundColor: "yellow",
+                borderColor: "yellow",
+                data: []
+            }
+    },
+    {
+        name: "conversions",
+        summaryFunction(label, polishedData){
+            let returnData = 0;
+            if(label in polishedData){
+                for(let j = 0; j < polishedData[label].length; j++){
+                    if(polishedData[label][j].rel.co) {
+                        returnData += polishedData[label][j].rel.co.attributes.converted;
+                    }
+                }
+
+            }
+            return returnData;
+        },
+        dataset:
+            {
+                label: "Conversions",
+                fill: true,
+                backgroundColor: "purple",
+                borderColor: "purple",
+                data: []
+            }
+    },
+    {
+        name: "sessions",
+        summaryFunction(label, polishedData){
+            return label in polishedData ? polishedData[label].length : 0;
+        },
+        dataset:
+            {
+                label: "Sessions",
+                fill: true,
+                backgroundColor: "red",
+                borderColor: "red",
+                data: []
+            }
+    },
+    {
+        name: "pageViews",
+        summaryFunction(label, polishedData){
+            let returnData = 0;
+            if(label in polishedData){
+                for(let j = 0; j < polishedData[label].length; j++){
+                    returnData += polishedData[label][j].rel.rc;
+                }
+
+            }
+            return returnData;
+        },
+        dataset:
+            {
+                label: "Page Views",
+                fill: true,
+                backgroundColor: "blue",
+                borderColor: "blue",
+                data: []
+            }
+    }
+];
