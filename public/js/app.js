@@ -526,12 +526,10 @@ var d3 = __webpack_require__("./node_modules/d3/index.js");
     },
     computed: {
         placeHolder: function placeHolder() {
-            var formatTime = d3.timeFormat("%B %d, %Y");
-            var parseTime = d3.timeParse("%Y-%m-%d");
-            var rangeStartStrObj = parseTime(this.range.start);
-            var rangeEndStrObj = parseTime(this.range.end);
+            var rangeStartStrObj = this.parseTime(this.range.start);
+            var rangeEndStrObj = this.parseTime(this.range.end);
 
-            return formatTime(rangeStartStrObj) + ' - ' + formatTime(rangeEndStrObj);
+            return this.formatTime(rangeStartStrObj, "long") + ' - ' + this.formatTime(rangeEndStrObj, "long");
         }
     },
     data: function data() {
@@ -553,8 +551,11 @@ var d3 = __webpack_require__("./node_modules/d3/index.js");
         updateRangeEnd: function updateRangeEnd(event) {
             this.temporaryRange.end = this.formatTime(event);
         },
-        formatTime: function formatTime(date) {
+        formatTime: function formatTime(date, format) {
             var d3FormatTime = d3.timeFormat("%Y-%m-%d");
+            if (format === "long") {
+                d3FormatTime = d3.timeFormat("%B %d, %Y");
+            }
             return d3FormatTime(date);
         },
         parseTime: function parseTime(dateStr) {
@@ -567,8 +568,7 @@ var d3 = __webpack_require__("./node_modules/d3/index.js");
     },
     components: {
         'date-picker': __WEBPACK_IMPORTED_MODULE_1_vuejs_datepicker___default.a
-    },
-    mounted: function mounted() {}
+    }
 });
 
 /***/ }),
@@ -4735,7 +4735,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 

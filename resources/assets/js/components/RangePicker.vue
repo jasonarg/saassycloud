@@ -55,12 +55,10 @@
         },
         computed: {
             placeHolder: function(){
-                let formatTime = d3.timeFormat("%B %d, %Y");
-                let parseTime = d3.timeParse("%Y-%m-%d");
-                let rangeStartStrObj = parseTime(this.range.start);
-                let rangeEndStrObj = parseTime(this.range.end);
+                let rangeStartStrObj = this.parseTime(this.range.start);
+                let rangeEndStrObj = this.parseTime(this.range.end);
 
-                return `${formatTime(rangeStartStrObj)} - ${formatTime(rangeEndStrObj)}`;
+                return `${this.formatTime(rangeStartStrObj, "long")} - ${this.formatTime(rangeEndStrObj, "long")}`;
             }
         },
         data(){
@@ -82,8 +80,11 @@
             updateRangeEnd: function(event){
                 this.temporaryRange.end = this.formatTime(event);
             },
-            formatTime: function(date){
+            formatTime: function(date, format){
                 let d3FormatTime = d3.timeFormat("%Y-%m-%d");
+                if(format === "long"){
+                     d3FormatTime = d3.timeFormat("%B %d, %Y");
+                }
                 return d3FormatTime(date);
             },
             parseTime: function(dateStr){
@@ -96,8 +97,6 @@
         },
         components:{
             'date-picker': Datepicker
-        },
-        mounted(){
         }
     }
 </script>
