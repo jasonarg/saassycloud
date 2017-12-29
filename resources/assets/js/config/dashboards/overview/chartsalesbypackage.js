@@ -1,7 +1,7 @@
 let d3 = require('d3');
 import { ScChart } from './../../../scchart.js';
 
-export default class ChartSalesAb extends ScChart{
+export default class ChartSalesByPackage extends ScChart{
     /**
      * Polishes Raw api data needed for chart rendering
      *
@@ -72,8 +72,8 @@ export default class ChartSalesAb extends ScChart{
  *
  * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
  */
-ChartSalesAb.prototype.config = {
-    type: "line",
+ChartSalesByPackage.prototype.config = {
+    type: "doughnut",
     data: {
         labels: [],
         datasets: []
@@ -83,7 +83,7 @@ ChartSalesAb.prototype.config = {
         maintainAspectRatio: false,
         title: {
             display: true,
-            text: "SaaSsy Cloud Analytics: Overview"
+            text: "Sales by Package"
         },
         tooltips: {
             mode: "index",
@@ -120,37 +120,7 @@ ChartSalesAb.prototype.config = {
  * Datasets used by this chart
  * @type {*[]}
  */
-ChartSalesAb.prototype.datasets = [
-    {
-        name: "revenue",
-        summaryFunction(label, polishedData){
-            let returnData = 0;
-            if(label in polishedData){
-                for(let j = 0; j < polishedData[label].length; j++){
-                    if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
-                        let rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
-                        if(polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M"){
-                            rev = rev * 12;
-                        }
-                        returnData += rev;
-                    }
-                    else{
-                        returnData += 0;
-                    }
-                }
-
-            }
-            return returnData;
-        },
-        dataset:
-            {
-                label: "Revenue",
-                fill: true,
-                backgroundColor: "orange",
-                borderColor: "orange",
-                data: []
-            }
-    },
+ChartSalesByPackage.prototype.datasets = [
     {
         name: "sales",
         summaryFunction(label, polishedData){
@@ -171,29 +141,6 @@ ChartSalesAb.prototype.datasets = [
                 fill: true,
                 backgroundColor: "yellow",
                 borderColor: "yellow",
-                data: []
-            }
-    },
-    {
-        name: "conversions",
-        summaryFunction(label, polishedData){
-            let returnData = 0;
-            if(label in polishedData){
-                for(let j = 0; j < polishedData[label].length; j++){
-                    if(polishedData[label][j].rel.co) {
-                        returnData += polishedData[label][j].rel.co.attributes.converted;
-                    }
-                }
-
-            }
-            return returnData;
-        },
-        dataset:
-            {
-                label: "Conversions",
-                fill: true,
-                backgroundColor: "purple",
-                borderColor: "purple",
                 data: []
             }
     },

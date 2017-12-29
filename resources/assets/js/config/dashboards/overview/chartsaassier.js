@@ -50,7 +50,6 @@ export default class ChartSaassier extends ScChart{
         };
         for(let i in this.datasets){
             let summaryData = [];
-            let dataTotals = 0;
             for(let j = 0; j < labels.length; j++){
                 summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
             }

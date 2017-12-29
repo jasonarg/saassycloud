@@ -2,7 +2,7 @@ import ChartOverview from './dashboards/overview/chartoverview.js';
 import ChartSaassy from './dashboards/overview/chartsaassy.js';
 import ChartSaassier from './dashboards/overview/chartsaassier.js';
 import ChartSaassiest from './dashboards/overview/chartsaassiest.js';
-import ChartSalesAb from './dashboards/overview/chartsalesab.js';
+import ChartSalesByPackage from './dashboards/overview/chartsalesbypackage.js';
 import ChartPackageAb from './dashboards/overview/chartpackageab.js';
 import ChartMonthlyAnnualAb from './dashboards/overview/chartmonthlyannualab.js';
 
@@ -11,7 +11,7 @@ const classes = {
     ChartSaassy,
     ChartSaassier,
     ChartSaassiest,
-    ChartSalesAb,
+    ChartSalesByPackage,
     ChartPackageAb,
     ChartMonthlyAnnualAb
 }

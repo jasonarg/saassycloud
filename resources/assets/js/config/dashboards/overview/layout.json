@@ -78,7 +78,7 @@
         {
           "id": 4,
           "elType": "chart",
-          "name": "salesAb",
+          "name": "salesByPackage",
           "cols": "4"
         },
         {

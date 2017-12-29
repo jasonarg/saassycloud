@@ -18443,7 +18443,6 @@ var ChartSaassier = function (_ScChart) {
             };
             for (var i in this.datasets) {
                 var summaryData = [];
-                var dataTotals = 0;
                 for (var j = 0; j < labels.length; j++) {
                     summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
                 }
@@ -18642,7 +18641,6 @@ var ChartSaassiest = function (_ScChart) {
             };
             for (var i in this.datasets) {
                 var summaryData = [];
-                var dataTotals = 0;
                 for (var j = 0; j < labels.length; j++) {
                     summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
                 }
@@ -18842,7 +18840,6 @@ var ChartSaassy = function (_ScChart) {
             };
             for (var i in this.datasets) {
                 var summaryData = [];
-                var dataTotals = 0;
                 for (var j = 0; j < labels.length; j++) {
                     summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
                 }
@@ -18958,7 +18955,7 @@ ChartSaassy.prototype.datasets = [{
 
 /***/ }),
 
-/***/ "./resources/assets/js/config/dashboards/overview/chartsalesab.js":
+/***/ "./resources/assets/js/config/dashboards/overview/chartsalesbypackage.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18975,16 +18972,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var d3 = __webpack_require__("./node_modules/d3/index.js");
 
 
-var ChartSalesAb = function (_ScChart) {
-    _inherits(ChartSalesAb, _ScChart);
+var ChartSalesByPackage = function (_ScChart) {
+    _inherits(ChartSalesByPackage, _ScChart);
 
-    function ChartSalesAb() {
-        _classCallCheck(this, ChartSalesAb);
+    function ChartSalesByPackage() {
+        _classCallCheck(this, ChartSalesByPackage);
 
-        return _possibleConstructorReturn(this, (ChartSalesAb.__proto__ || Object.getPrototypeOf(ChartSalesAb)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (ChartSalesByPackage.__proto__ || Object.getPrototypeOf(ChartSalesByPackage)).apply(this, arguments));
     }
 
-    _createClass(ChartSalesAb, [{
+    _createClass(ChartSalesByPackage, [{
         key: 'polishData',
 
         /**
@@ -19057,7 +19054,7 @@ var ChartSalesAb = function (_ScChart) {
         }
     }]);
 
-    return ChartSalesAb;
+    return ChartSalesByPackage;
 }(__WEBPACK_IMPORTED_MODULE_0__scchart_js__["ScChart"]);
 
 /**
@@ -19067,9 +19064,9 @@ var ChartSalesAb = function (_ScChart) {
  */
 
 
-/* harmony default export */ __webpack_exports__["a"] = (ChartSalesAb);
-ChartSalesAb.prototype.config = {
-    type: "line",
+/* harmony default export */ __webpack_exports__["a"] = (ChartSalesByPackage);
+ChartSalesByPackage.prototype.config = {
+    type: "doughnut",
     data: {
         labels: [],
         datasets: []
@@ -19079,7 +19076,7 @@ ChartSalesAb.prototype.config = {
         maintainAspectRatio: false,
         title: {
             display: true,
-            text: "SaaSsy Cloud Analytics: Overview"
+            text: "Sales by Package"
         },
         tooltips: {
             mode: "index",
@@ -19112,34 +19109,7 @@ ChartSalesAb.prototype.config = {
  * Datasets used by this chart
  * @type {*[]}
  */
-ChartSalesAb.prototype.datasets = [{
-    name: "revenue",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
-                    var rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
-                    if (polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M") {
-                        rev = rev * 12;
-                    }
-                    returnData += rev;
-                } else {
-                    returnData += 0;
-                }
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "Revenue",
-        fill: true,
-        backgroundColor: "orange",
-        borderColor: "orange",
-        data: []
-    }
-}, {
+ChartSalesByPackage.prototype.datasets = [{
     name: "sales",
     summaryFunction: function summaryFunction(label, polishedData) {
         var returnData = 0;
@@ -19158,27 +19128,6 @@ ChartSalesAb.prototype.datasets = [{
         fill: true,
         backgroundColor: "yellow",
         borderColor: "yellow",
-        data: []
-    }
-}, {
-    name: "conversions",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co) {
-                    returnData += polishedData[label][j].rel.co.attributes.converted;
-                }
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "Conversions",
-        fill: true,
-        backgroundColor: "purple",
-        borderColor: "purple",
         data: []
     }
 }, {
@@ -19220,7 +19169,7 @@ ChartSalesAb.prototype.datasets = [{
 /***/ "./resources/assets/js/config/dashboards/overview/layout.json":
 /***/ (function(module, exports) {
 
-module.exports = {"title":"overview","rangeTotals":{"items":[{"id":0,"name":"pageViews","value":0,"type":"integer"},{"id":1,"name":"sessions","value":0,"type":"integer"},{"id":2,"name":"conversions","value":0,"type":"integer"},{"id":3,"name":"sales","value":0,"type":"integer"},{"id":4,"name":"revenue","value":0,"type":"money"}]},"rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saassiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesAb","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"packageAb","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"monthlyAnnualAb","cols":"12"}]}]}]}]}
+module.exports = {"title":"overview","rangeTotals":{"items":[{"id":0,"name":"pageViews","value":0,"type":"integer"},{"id":1,"name":"sessions","value":0,"type":"integer"},{"id":2,"name":"conversions","value":0,"type":"integer"},{"id":3,"name":"sales","value":0,"type":"integer"},{"id":4,"name":"revenue","value":0,"type":"money"}]},"rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saassiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesByPackage","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"packageAb","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"monthlyAnnualAb","cols":"12"}]}]}]}]}
 
 /***/ }),
 
@@ -19254,7 +19203,7 @@ module.exports = {"lists":[{"id":0,"name":"dashboards","listItems":[{"id":0,"nam
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaassy.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaassier.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaassiest_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaassiest.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesab_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsalesab.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesbypackage_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsalesbypackage.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dashboards_overview_chartpackageab_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartpackageab.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartmonthlyannualab.js");
 
@@ -19270,7 +19219,7 @@ var classes = {
     ChartSaassy: __WEBPACK_IMPORTED_MODULE_1__dashboards_overview_chartsaassy_js__["a" /* default */],
     ChartSaassier: __WEBPACK_IMPORTED_MODULE_2__dashboards_overview_chartsaassier_js__["a" /* default */],
     ChartSaassiest: __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaassiest_js__["a" /* default */],
-    ChartSalesAb: __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesab_js__["a" /* default */],
+    ChartSalesByPackage: __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesbypackage_js__["a" /* default */],
     ChartPackageAb: __WEBPACK_IMPORTED_MODULE_5__dashboards_overview_chartpackageab_js__["a" /* default */],
     ChartMonthlyAnnualAb: __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js__["a" /* default */]
 };
