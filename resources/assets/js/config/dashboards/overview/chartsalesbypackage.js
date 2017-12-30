@@ -25,16 +25,8 @@ export default class ChartSalesByPackage extends ScChart{
      * @param rangeEnd
      * @returns {Array}
      */
-    setLabels(rangeStart, rangeEnd){
-        let parseTime = d3.timeParse("%Y-%m-%d");
-        let rangeEndObj = parseTime(rangeEnd);
-        let rangeEndPlusOneObj = d3.timeDay.offset(rangeEndObj, +1);
-        let range = d3.timeDay.range(new Date(rangeStart), rangeEndPlusOneObj);
-        let labels = [];
-        for(let i = 0; i < range.length; i++){
-            labels[i] = `${range[i].getFullYear()}-${range[i].getMonth() + 1}-${range[i].getDate()}`
-        }
-        return labels;
+    setLabels(){
+        return ['SaaSsy', 'SaaSsier', 'SaaSsiest'];
     }
 
     /**
@@ -46,24 +38,32 @@ export default class ChartSalesByPackage extends ScChart{
      */
     makeDatasets(labels, polishedData){
         let returnData = {
-            totals: {},
             datasets: []
         };
-        for(let i in this.datasets){
-            let summaryData = [];
-            let dataTotals = 0;
-            for(let j = 0; j < labels.length; j++){
-                summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
-                dataTotals += summaryData[j];
+        let dataset = [0,0,0];
+        for(let i in polishedData) {
+            for (let j in polishedData[i]) {
+                if (polishedData[i][j].rel.co && polishedData[i][j].rel.co.relationships.sale) {
+                    let productPackage = polishedData[i][j].rel.co && polishedData[i][j].rel.co.relationships.chosenPackage.name;
+                    if(productPackage === "SaaSsy"){
+                        dataset[0]++;
+                    }
+                    else if(productPackage === "SaaSsier"){
+                        dataset[1]++;
+                    }
+                    else if(productPackage === "SaaSsiest"){
+                        dataset[2]++;
+                    }
+                }
             }
-            this.datasets[i].dataset.data = summaryData;
-            this.setDatasetColor(i);
-            returnData.datasets.push(this.datasets[i].dataset);
-            returnData.totals[this.datasets[i].name] = dataTotals;
         }
 
+        this.datasets[0].dataset.data = dataset;
+        this.setDatasetColor(0);
+        returnData.datasets.push(this.datasets[0].dataset);
 
         return returnData;
+
     }
 }
 
@@ -93,26 +93,7 @@ ChartSalesByPackage.prototype.config = {
             mode: "nearest",
             intersect: true
         },
-        scales: {
-            xAxes: [
-                {
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: "Date"
-                    }
-                }
-            ],
-            yAxes: [
-                {
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: "Value"
-                    }
-                }
-            ]
-        }
+        cutoutPercentage: 50,
     }
 };
 
@@ -122,60 +103,11 @@ ChartSalesByPackage.prototype.config = {
  */
 ChartSalesByPackage.prototype.datasets = [
     {
-        name: "sales",
-        summaryFunction(label, polishedData){
-            let returnData = 0;
-            if(label in polishedData){
-                for(let j = 0; j < polishedData[label].length; j++){
-                    if(polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
-                        returnData += 1;
-                    }
-                }
-
-            }
-            return returnData;
-        },
+        name: "salesByPackage",
         dataset:
             {
-                label: "Sales",
-                fill: true,
-                backgroundColor: "yellow",
-                borderColor: "yellow",
-                data: []
-            }
-    },
-    {
-        name: "sessions",
-        summaryFunction(label, polishedData){
-            return label in polishedData ? polishedData[label].length : 0;
-        },
-        dataset:
-            {
-                label: "Sessions",
-                fill: true,
-                backgroundColor: "red",
-                borderColor: "red",
-                data: []
-            }
-    },
-    {
-        name: "pageViews",
-        summaryFunction(label, polishedData){
-            let returnData = 0;
-            if(label in polishedData){
-                for(let j = 0; j < polishedData[label].length; j++){
-                    returnData += polishedData[label][j].rel.rc;
-                }
-
-            }
-            return returnData;
-        },
-        dataset:
-            {
-                label: "Page Views",
-                fill: true,
-                backgroundColor: "blue",
-                borderColor: "blue",
+                backgroundColor: ["yellow", "orange", "red"],
+                borderColor: ["yellow", "orange", "red"],
                 data: []
             }
     }

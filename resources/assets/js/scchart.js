@@ -6,9 +6,22 @@ class ScChart {
      * @param i the index of the dataset to update
      */
     setDatasetColor(i){
-        this.datasets[i].dataset.backgroundColor = this.colors[this.datasets[i].dataset.backgroundColor] ? this.colors[this.datasets[i].dataset.backgroundColor] : this.datasets[i].dataset.backgroundColor;
-        this.datasets[i].dataset.borderColor = this.colors[this.datasets[i].dataset.borderColor] ? this.colors[this.datasets[i].dataset.borderColor] : this.datasets[i].dataset.borderColor;
-
+        if(Array.isArray(this.datasets[i].dataset.backgroundColor)){
+            for(let j in this.datasets[i].dataset.backgroundColor){
+                this.datasets[i].dataset.backgroundColor[j] = this.colors[this.datasets[i].dataset.backgroundColor[j]] ? this.colors[this.datasets[i].dataset.backgroundColor[j]] : this.datasets[i].dataset.backgroundColor[j];
+            }
+        }
+        else {
+            this.datasets[i].dataset.backgroundColor = this.colors[this.datasets[i].dataset.backgroundColor] ? this.colors[this.datasets[i].dataset.backgroundColor] : this.datasets[i].dataset.backgroundColor;
+        }
+        if(Array.isArray(this.datasets[i].dataset.borderColor)){
+            for(let j in this.datasets[i].dataset.borderColor){
+                this.datasets[i].dataset.borderColor[j] = this.colors[this.datasets[i].dataset.borderColor[j]] ? this.colors[this.datasets[i].dataset.borderColor[j]] : this.datasets[i].dataset.borderColor[j];
+            }
+        }
+        else{
+            this.datasets[i].dataset.borderColor = this.colors[this.datasets[i].dataset.borderColor] ? this.colors[this.datasets[i].dataset.borderColor] : this.datasets[i].dataset.borderColor;
+        }
     }
 
 };

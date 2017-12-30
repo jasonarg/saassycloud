@@ -19010,16 +19010,8 @@ var ChartSalesByPackage = function (_ScChart) {
 
     }, {
         key: 'setLabels',
-        value: function setLabels(rangeStart, rangeEnd) {
-            var parseTime = d3.timeParse("%Y-%m-%d");
-            var rangeEndObj = parseTime(rangeEnd);
-            var rangeEndPlusOneObj = d3.timeDay.offset(rangeEndObj, +1);
-            var range = d3.timeDay.range(new Date(rangeStart), rangeEndPlusOneObj);
-            var labels = [];
-            for (var i = 0; i < range.length; i++) {
-                labels[i] = range[i].getFullYear() + '-' + (range[i].getMonth() + 1) + '-' + range[i].getDate();
-            }
-            return labels;
+        value: function setLabels() {
+            return ['SaaSsy', 'SaaSsier', 'SaaSsiest'];
         }
 
         /**
@@ -19034,21 +19026,27 @@ var ChartSalesByPackage = function (_ScChart) {
         key: 'makeDatasets',
         value: function makeDatasets(labels, polishedData) {
             var returnData = {
-                totals: {},
                 datasets: []
             };
-            for (var i in this.datasets) {
-                var summaryData = [];
-                var dataTotals = 0;
-                for (var j = 0; j < labels.length; j++) {
-                    summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
-                    dataTotals += summaryData[j];
+            var dataset = [0, 0, 0];
+            for (var i in polishedData) {
+                for (var j in polishedData[i]) {
+                    if (polishedData[i][j].rel.co && polishedData[i][j].rel.co.relationships.sale) {
+                        var productPackage = polishedData[i][j].rel.co && polishedData[i][j].rel.co.relationships.chosenPackage.name;
+                        if (productPackage === "SaaSsy") {
+                            dataset[0]++;
+                        } else if (productPackage === "SaaSsier") {
+                            dataset[1]++;
+                        } else if (productPackage === "SaaSsiest") {
+                            dataset[2]++;
+                        }
+                    }
                 }
-                this.datasets[i].dataset.data = summaryData;
-                this.setDatasetColor(i);
-                returnData.datasets.push(this.datasets[i].dataset);
-                returnData.totals[this.datasets[i].name] = dataTotals;
             }
+
+            this.datasets[0].dataset.data = dataset;
+            this.setDatasetColor(0);
+            returnData.datasets.push(this.datasets[0].dataset);
 
             return returnData;
         }
@@ -19086,22 +19084,7 @@ ChartSalesByPackage.prototype.config = {
             mode: "nearest",
             intersect: true
         },
-        scales: {
-            xAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: "Date"
-                }
-            }],
-            yAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: "Value"
-                }
-            }]
-        }
+        cutoutPercentage: 50
     }
 };
 
@@ -19110,56 +19093,10 @@ ChartSalesByPackage.prototype.config = {
  * @type {*[]}
  */
 ChartSalesByPackage.prototype.datasets = [{
-    name: "sales",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
-                    returnData += 1;
-                }
-            }
-        }
-        return returnData;
-    },
-
+    name: "salesByPackage",
     dataset: {
-        label: "Sales",
-        fill: true,
-        backgroundColor: "yellow",
-        borderColor: "yellow",
-        data: []
-    }
-}, {
-    name: "sessions",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        return label in polishedData ? polishedData[label].length : 0;
-    },
-
-    dataset: {
-        label: "Sessions",
-        fill: true,
-        backgroundColor: "red",
-        borderColor: "red",
-        data: []
-    }
-}, {
-    name: "pageViews",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                returnData += polishedData[label][j].rel.rc;
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "Page Views",
-        fill: true,
-        backgroundColor: "blue",
-        borderColor: "blue",
+        backgroundColor: ["yellow", "orange", "red"],
+        borderColor: ["yellow", "orange", "red"],
         data: []
     }
 }];
@@ -19264,8 +19201,20 @@ var ScChart = function () {
          * @param i the index of the dataset to update
          */
         value: function setDatasetColor(i) {
-            this.datasets[i].dataset.backgroundColor = this.colors[this.datasets[i].dataset.backgroundColor] ? this.colors[this.datasets[i].dataset.backgroundColor] : this.datasets[i].dataset.backgroundColor;
-            this.datasets[i].dataset.borderColor = this.colors[this.datasets[i].dataset.borderColor] ? this.colors[this.datasets[i].dataset.borderColor] : this.datasets[i].dataset.borderColor;
+            if (Array.isArray(this.datasets[i].dataset.backgroundColor)) {
+                for (var j in this.datasets[i].dataset.backgroundColor) {
+                    this.datasets[i].dataset.backgroundColor[j] = this.colors[this.datasets[i].dataset.backgroundColor[j]] ? this.colors[this.datasets[i].dataset.backgroundColor[j]] : this.datasets[i].dataset.backgroundColor[j];
+                }
+            } else {
+                this.datasets[i].dataset.backgroundColor = this.colors[this.datasets[i].dataset.backgroundColor] ? this.colors[this.datasets[i].dataset.backgroundColor] : this.datasets[i].dataset.backgroundColor;
+            }
+            if (Array.isArray(this.datasets[i].dataset.borderColor)) {
+                for (var _j in this.datasets[i].dataset.borderColor) {
+                    this.datasets[i].dataset.borderColor[_j] = this.colors[this.datasets[i].dataset.borderColor[_j]] ? this.colors[this.datasets[i].dataset.borderColor[_j]] : this.datasets[i].dataset.borderColor[_j];
+                }
+            } else {
+                this.datasets[i].dataset.borderColor = this.colors[this.datasets[i].dataset.borderColor] ? this.colors[this.datasets[i].dataset.borderColor] : this.datasets[i].dataset.borderColor;
+            }
         }
     }]);
 
