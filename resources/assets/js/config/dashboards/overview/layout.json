@@ -93,7 +93,7 @@
                 {
                   "id": "",
                   "elType": "chart",
-                  "name": "packageAb",
+                  "name": "trialToSalesByPackage",
                   "cols": "12"
                 }
               ]

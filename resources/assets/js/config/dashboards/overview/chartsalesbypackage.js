@@ -44,7 +44,7 @@ export default class ChartSalesByPackage extends ScChart{
         for(let i in polishedData) {
             for (let j in polishedData[i]) {
                 if (polishedData[i][j].rel.co && polishedData[i][j].rel.co.relationships.sale) {
-                    let productPackage = polishedData[i][j].rel.co && polishedData[i][j].rel.co.relationships.chosenPackage.name;
+                    let productPackage = polishedData[i][j].rel.co.relationships.chosenPackage.name;
                     if(productPackage === "SaaSsy"){
                         dataset[0]++;
                     }
