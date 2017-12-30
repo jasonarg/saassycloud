@@ -1,6 +1,6 @@
 import { ScChart } from './../../../scchart.js';
 
-export default class ChartTrialToSalesByPackage extends ScChart{
+export default class ChartSalesByMonthlyOrAnnualPaymentByPackage extends ScChart{
     /**
      * Polishes Raw api data needed for chart rendering
      *
@@ -65,7 +65,7 @@ export default class ChartTrialToSalesByPackage extends ScChart{
  *
  * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
  */
-ChartTrialToSalesByPackage.prototype.config = {
+ChartSalesByMonthlyOrAnnualPaymentByPackage.prototype.config = {
     type: "bar",
     data: {
         labels: [],
@@ -76,7 +76,7 @@ ChartTrialToSalesByPackage.prototype.config = {
         maintainAspectRatio: false,
         title: {
             display: true,
-            text: "Trial to Sales by Package"
+            text: "Sales by Monthly or Annual Payment by Package"
         },
         tooltips: {
             mode: "index",
@@ -113,12 +113,11 @@ ChartTrialToSalesByPackage.prototype.config = {
  * Datasets used by this chart
  * @type {*[]}
  */
-ChartTrialToSalesByPackage.prototype.datasets = [
+ChartSalesByMonthlyOrAnnualPaymentByPackage.prototype.datasets = [
     {
-        name: "trials",
+        name: "annual",
         summaryFunction(dataset, polishedDataSegment){
-            if (polishedDataSegment.rel.co && polishedDataSegment.rel.co.attributes.converted === 1
-                && polishedDataSegment.rel.co.attributes.conversionType === 'trial'){
+            if (polishedDataSegment.rel.co && polishedDataSegment.rel.co.relationships.sale && polishedDataSegment.rel.co.relationships.sale.recurring_interval === "A") {
                 let productPackage = polishedDataSegment.rel.co.relationships.chosenPackage.name;
                 if (productPackage === "SaaSsy") {
                     dataset[0]++;
@@ -134,16 +133,16 @@ ChartTrialToSalesByPackage.prototype.datasets = [
         },
         dataset:
             {
-                label: "Trials",
-                backgroundColor: "yellow",
-                borderColor: "yellow",
+                label: "Annual",
+                backgroundColor: "red",
+                borderColor: "red",
                 data: []
             }
     },
     {
-        name: "sales",
+        name: "monthly",
         summaryFunction(dataset, polishedDataSegment){
-            if (polishedDataSegment.rel.co && polishedDataSegment.rel.co.relationships.sale) {
+            if (polishedDataSegment.rel.co && polishedDataSegment.rel.co.relationships.sale && polishedDataSegment.rel.co.relationships.sale.recurring_interval === "M") {
                 let productPackage = polishedDataSegment.rel.co.relationships.chosenPackage.name;
                 if (productPackage === "SaaSsy") {
                     dataset[0]++;
@@ -159,7 +158,7 @@ ChartTrialToSalesByPackage.prototype.datasets = [
         },
         dataset:
             {
-                label: "Sales",
+                label: "Monthly",
                 backgroundColor: "green",
                 borderColor: "green",
                 data: []

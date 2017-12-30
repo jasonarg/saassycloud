@@ -1,4 +1,3 @@
-let d3 = require('d3');
 import { ScChart } from './../../../scchart.js';
 
 export default class ChartSalesByPackage extends ScChart{

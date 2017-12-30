@@ -17583,265 +17583,6 @@ webpackContext.id = "./resources/assets/js/config/dashboards recursive ^\\.\\/.*
 
 /***/ }),
 
-/***/ "./resources/assets/js/config/dashboards/overview/chartmonthlyannualab.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js__ = __webpack_require__("./resources/assets/js/scchart.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scchart_js__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var d3 = __webpack_require__("./node_modules/d3/index.js");
-
-
-var ChartMonthlyAnnualAb = function (_ScChart) {
-    _inherits(ChartMonthlyAnnualAb, _ScChart);
-
-    function ChartMonthlyAnnualAb() {
-        _classCallCheck(this, ChartMonthlyAnnualAb);
-
-        return _possibleConstructorReturn(this, (ChartMonthlyAnnualAb.__proto__ || Object.getPrototypeOf(ChartMonthlyAnnualAb)).apply(this, arguments));
-    }
-
-    _createClass(ChartMonthlyAnnualAb, [{
-        key: 'polishData',
-
-        /**
-         * Polishes Raw api data needed for chart rendering
-         *
-         * @param data
-         *
-         * @returns Object
-         */
-        value: function polishData(data) {
-            var dates = _.groupBy(data.sessions, function (session) {
-                var date = new Date(session.a.at);
-                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-            });
-
-            return dates;
-        }
-
-        /**
-         * Creates labels for the associated chart.js chart
-         *
-         * @param rangeStart
-         * @param rangeEnd
-         * @returns {Array}
-         */
-
-    }, {
-        key: 'setLabels',
-        value: function setLabels(rangeStart, rangeEnd) {
-            var parseTime = d3.timeParse("%Y-%m-%d");
-            var rangeEndObj = parseTime(rangeEnd);
-            var rangeEndPlusOneObj = d3.timeDay.offset(rangeEndObj, +1);
-            var range = d3.timeDay.range(new Date(rangeStart), rangeEndPlusOneObj);
-            var labels = [];
-            for (var i = 0; i < range.length; i++) {
-                labels[i] = range[i].getFullYear() + '-' + (range[i].getMonth() + 1) + '-' + range[i].getDate();
-            }
-            return labels;
-        }
-
-        /**
-         * Creates all datasets needed for the associated chart.js instance
-         *
-         * @param labels
-         * @param polishedData
-         * @returns {*}
-         */
-
-    }, {
-        key: 'makeDatasets',
-        value: function makeDatasets(labels, polishedData) {
-            var returnData = {
-                totals: {},
-                datasets: []
-            };
-            for (var i in this.datasets) {
-                var summaryData = [];
-                var dataTotals = 0;
-                for (var j = 0; j < labels.length; j++) {
-                    summaryData[j] = this.datasets[i].summaryFunction(labels[j], polishedData);
-                    dataTotals += summaryData[j];
-                }
-                this.datasets[i].dataset.data = summaryData;
-                this.setDatasetColor(i);
-                returnData.datasets.push(this.datasets[i].dataset);
-                returnData.totals[this.datasets[i].name] = dataTotals;
-            }
-
-            return returnData;
-        }
-    }]);
-
-    return ChartMonthlyAnnualAb;
-}(__WEBPACK_IMPORTED_MODULE_0__scchart_js__["ScChart"]);
-
-/**
- * Boilerplate chart.js config object for the chart
- *
- * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
- */
-
-
-/* harmony default export */ __webpack_exports__["a"] = (ChartMonthlyAnnualAb);
-ChartMonthlyAnnualAb.prototype.config = {
-    type: "line",
-    data: {
-        labels: [],
-        datasets: []
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        title: {
-            display: true,
-            text: "SaaSsy Cloud Analytics: Overview"
-        },
-        tooltips: {
-            mode: "index",
-            intersect: false
-        },
-        hover: {
-            mode: "nearest",
-            intersect: true
-        },
-        scales: {
-            xAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: "Date"
-                }
-            }],
-            yAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: "Value"
-                }
-            }]
-        }
-    }
-};
-
-/**
- * Datasets used by this chart
- * @type {*[]}
- */
-ChartMonthlyAnnualAb.prototype.datasets = [{
-    name: "revenue",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
-                    var rev = parseFloat(polishedData[label][j].rel.co.relationships.sale.billing_amount);
-                    if (polishedData[label][j].rel.co.relationships.sale.recurring_interval === "M") {
-                        rev = rev * 12;
-                    }
-                    returnData += rev;
-                } else {
-                    returnData += 0;
-                }
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "Revenue",
-        fill: true,
-        backgroundColor: "orange",
-        borderColor: "orange",
-        data: []
-    }
-}, {
-    name: "sales",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co && polishedData[label][j].rel.co.relationships.sale) {
-                    returnData += 1;
-                }
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "Sales",
-        fill: true,
-        backgroundColor: "yellow",
-        borderColor: "yellow",
-        data: []
-    }
-}, {
-    name: "conversions",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                if (polishedData[label][j].rel.co) {
-                    returnData += polishedData[label][j].rel.co.attributes.converted;
-                }
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "Conversions",
-        fill: true,
-        backgroundColor: "purple",
-        borderColor: "purple",
-        data: []
-    }
-}, {
-    name: "sessions",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        return label in polishedData ? polishedData[label].length : 0;
-    },
-
-    dataset: {
-        label: "Sessions",
-        fill: true,
-        backgroundColor: "red",
-        borderColor: "red",
-        data: []
-    }
-}, {
-    name: "pageViews",
-    summaryFunction: function summaryFunction(label, polishedData) {
-        var returnData = 0;
-        if (label in polishedData) {
-            for (var j = 0; j < polishedData[label].length; j++) {
-                returnData += polishedData[label][j].rel.rc;
-            }
-        }
-        return returnData;
-    },
-
-    dataset: {
-        label: "Page Views",
-        fill: true,
-        backgroundColor: "blue",
-        borderColor: "blue",
-        data: []
-    }
-}];
-
-/***/ }),
-
 /***/ "./resources/assets/js/config/dashboards/overview/chartoverview.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -18696,6 +18437,198 @@ ChartSaassy.prototype.datasets = [{
 
 /***/ }),
 
+/***/ "./resources/assets/js/config/dashboards/overview/chartsalesbymonthlyorannualpaymentbypackage.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js__ = __webpack_require__("./resources/assets/js/scchart.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scchart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scchart_js__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var ChartSalesByMonthlyOrAnnualPaymentByPackage = function (_ScChart) {
+    _inherits(ChartSalesByMonthlyOrAnnualPaymentByPackage, _ScChart);
+
+    function ChartSalesByMonthlyOrAnnualPaymentByPackage() {
+        _classCallCheck(this, ChartSalesByMonthlyOrAnnualPaymentByPackage);
+
+        return _possibleConstructorReturn(this, (ChartSalesByMonthlyOrAnnualPaymentByPackage.__proto__ || Object.getPrototypeOf(ChartSalesByMonthlyOrAnnualPaymentByPackage)).apply(this, arguments));
+    }
+
+    _createClass(ChartSalesByMonthlyOrAnnualPaymentByPackage, [{
+        key: 'polishData',
+
+        /**
+         * Polishes Raw api data needed for chart rendering
+         *
+         * @param data
+         *
+         * @returns Object
+         */
+        value: function polishData(data) {
+            var dates = _.groupBy(data.sessions, function (session) {
+                var date = new Date(session.a.at);
+                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+            });
+
+            return dates;
+        }
+
+        /**
+         * Creates labels for the associated chart.js chart
+         *
+         * @param rangeStart
+         * @param rangeEnd
+         * @returns {Array}
+         */
+
+    }, {
+        key: 'setLabels',
+        value: function setLabels(rangeStart, rangeEnd) {
+
+            return ['SaaSsy', 'SaaSsier', 'SaaSsiest'];
+        }
+
+        /**
+         * Creates all datasets needed for the associated chart.js instance
+         *
+         * @param labels
+         * @param polishedData
+         * @returns {*}
+         */
+
+    }, {
+        key: 'makeDatasets',
+        value: function makeDatasets(labels, polishedData) {
+            var returnData = {
+                datasets: []
+            };
+            for (var h in this.datasets) {
+                var dataset = [0, 0, 0];
+                for (var i in polishedData) {
+                    for (var j in polishedData[i]) {
+                        dataset = this.datasets[h].summaryFunction(dataset, polishedData[i][j]);
+                    }
+                }
+                this.datasets[h].dataset.data = dataset;
+                this.setDatasetColor(h);
+                returnData.datasets.push(this.datasets[h].dataset);
+            }
+
+            return returnData;
+        }
+    }]);
+
+    return ChartSalesByMonthlyOrAnnualPaymentByPackage;
+}(__WEBPACK_IMPORTED_MODULE_0__scchart_js__["ScChart"]);
+
+/**
+ * Boilerplate chart.js config object for the chart
+ *
+ * @type {{type: string, data: {labels: Array, datasets: Array}, options: {responsive: boolean, maintainAspectRatio: boolean, title: {display: boolean, text: string}, tooltips: {mode: string, intersect: boolean}, hover: {mode: string, intersect: boolean}, scales: {xAxes: *[], yAxes: *[]}}}}
+ */
+
+
+/* harmony default export */ __webpack_exports__["a"] = (ChartSalesByMonthlyOrAnnualPaymentByPackage);
+ChartSalesByMonthlyOrAnnualPaymentByPackage.prototype.config = {
+    type: "bar",
+    data: {
+        labels: [],
+        datasets: []
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: "Sales by Monthly or Annual Payment by Package"
+        },
+        tooltips: {
+            mode: "index",
+            intersect: false
+        },
+        hover: {
+            mode: "nearest",
+            intersect: true
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Package"
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Value"
+                }
+            }]
+        }
+    }
+};
+
+/**
+ * Datasets used by this chart
+ * @type {*[]}
+ */
+ChartSalesByMonthlyOrAnnualPaymentByPackage.prototype.datasets = [{
+    name: "annual",
+    summaryFunction: function summaryFunction(dataset, polishedDataSegment) {
+        if (polishedDataSegment.rel.co && polishedDataSegment.rel.co.relationships.sale && polishedDataSegment.rel.co.relationships.sale.recurring_interval === "A") {
+            var productPackage = polishedDataSegment.rel.co.relationships.chosenPackage.name;
+            if (productPackage === "SaaSsy") {
+                dataset[0]++;
+            } else if (productPackage === "SaaSsier") {
+                dataset[1]++;
+            } else if (productPackage === "SaaSsiest") {
+                dataset[2]++;
+            }
+        }
+        return dataset;
+    },
+
+    dataset: {
+        label: "Annual",
+        backgroundColor: "red",
+        borderColor: "red",
+        data: []
+    }
+}, {
+    name: "monthly",
+    summaryFunction: function summaryFunction(dataset, polishedDataSegment) {
+        if (polishedDataSegment.rel.co && polishedDataSegment.rel.co.relationships.sale && polishedDataSegment.rel.co.relationships.sale.recurring_interval === "M") {
+            var productPackage = polishedDataSegment.rel.co.relationships.chosenPackage.name;
+            if (productPackage === "SaaSsy") {
+                dataset[0]++;
+            } else if (productPackage === "SaaSsier") {
+                dataset[1]++;
+            } else if (productPackage === "SaaSsiest") {
+                dataset[2]++;
+            }
+        }
+        return dataset;
+    },
+
+    dataset: {
+        label: "Monthly",
+        backgroundColor: "green",
+        borderColor: "green",
+        data: []
+    }
+}];
+
+/***/ }),
+
 /***/ "./resources/assets/js/config/dashboards/overview/chartsalesbypackage.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -18710,7 +18643,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var d3 = __webpack_require__("./node_modules/d3/index.js");
 
 
 var ChartSalesByPackage = function (_ScChart) {
@@ -18858,7 +18790,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var d3 = __webpack_require__("./node_modules/d3/index.js");
 
 
 var ChartTrialToSalesByPackage = function (_ScChart) {
@@ -19040,7 +18971,7 @@ ChartTrialToSalesByPackage.prototype.datasets = [{
 /***/ "./resources/assets/js/config/dashboards/overview/layout.json":
 /***/ (function(module, exports) {
 
-module.exports = {"title":"overview","rangeTotals":{"items":[{"id":0,"name":"pageViews","value":0,"type":"integer"},{"id":1,"name":"sessions","value":0,"type":"integer"},{"id":2,"name":"conversions","value":0,"type":"integer"},{"id":3,"name":"sales","value":0,"type":"integer"},{"id":4,"name":"revenue","value":0,"type":"money"}]},"rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saassiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesByPackage","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"trialToSalesByPackage","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"monthlyAnnualAb","cols":"12"}]}]}]}]}
+module.exports = {"title":"overview","rangeTotals":{"items":[{"id":0,"name":"pageViews","value":0,"type":"integer"},{"id":1,"name":"sessions","value":0,"type":"integer"},{"id":2,"name":"conversions","value":0,"type":"integer"},{"id":3,"name":"sales","value":0,"type":"integer"},{"id":4,"name":"revenue","value":0,"type":"money"}]},"rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saassiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesByPackage","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"trialToSalesByPackage","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"salesByMonthlyOrAnnualPaymentByPackage","cols":"12"}]}]}]}]}
 
 /***/ }),
 
@@ -19076,7 +19007,7 @@ module.exports = {"lists":[{"id":0,"name":"dashboards","listItems":[{"id":0,"nam
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaassiest_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsaassiest.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesbypackage_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsalesbypackage.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dashboards_overview_charttrialtosalesbypackage_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/charttrialtosalesbypackage.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartmonthlyannualab.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartsalesbymonthlyorannualpaymentbypackage_js__ = __webpack_require__("./resources/assets/js/config/dashboards/overview/chartsalesbymonthlyorannualpaymentbypackage.js");
 
 
 
@@ -19092,7 +19023,7 @@ var classes = {
     ChartSaassiest: __WEBPACK_IMPORTED_MODULE_3__dashboards_overview_chartsaassiest_js__["a" /* default */],
     ChartSalesByPackage: __WEBPACK_IMPORTED_MODULE_4__dashboards_overview_chartsalesbypackage_js__["a" /* default */],
     ChartTrialToSalesByPackage: __WEBPACK_IMPORTED_MODULE_5__dashboards_overview_charttrialtosalesbypackage_js__["a" /* default */],
-    ChartMonthlyAnnualAb: __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartmonthlyannualab_js__["a" /* default */]
+    ChartSalesByMonthlyOrAnnualPaymentByPackage: __WEBPACK_IMPORTED_MODULE_6__dashboards_overview_chartsalesbymonthlyorannualpaymentbypackage_js__["a" /* default */]
 };
 
 function proxyClassLoader(className) {

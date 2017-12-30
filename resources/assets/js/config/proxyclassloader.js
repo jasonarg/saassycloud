@@ -4,7 +4,7 @@ import ChartSaassier from './dashboards/overview/chartsaassier.js';
 import ChartSaassiest from './dashboards/overview/chartsaassiest.js';
 import ChartSalesByPackage from './dashboards/overview/chartsalesbypackage.js';
 import ChartTrialToSalesByPackage from './dashboards/overview/charttrialtosalesbypackage.js';
-import ChartMonthlyAnnualAb from './dashboards/overview/chartmonthlyannualab.js';
+import ChartSalesByMonthlyOrAnnualPaymentByPackage from './dashboards/overview/chartsalesbymonthlyorannualpaymentbypackage.js';
 
 const classes = {
     ChartOverview,
@@ -13,7 +13,7 @@ const classes = {
     ChartSaassiest,
     ChartSalesByPackage,
     ChartTrialToSalesByPackage,
-    ChartMonthlyAnnualAb
+    ChartSalesByMonthlyOrAnnualPaymentByPackage
 }
 
 export default function proxyClassLoader(className){
