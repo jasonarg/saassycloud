@@ -35,9 +35,6 @@
         },
         components:{
             'db-chart': DbChart
-        },
-        mounted(){
-          //  console.log(this.element.type === 'rows')
         }
     }
 </script>

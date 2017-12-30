@@ -160,8 +160,9 @@ class ScDashboard{
                     this.scdbData.layout.dashboard.range.end);
                 let dsAndTotals = chartConfig.makeDatasets(this.scdbData.routeData.charts[chartList[chart]].labels,
                     this.scdbData.routeData.charts[chartList[chart]].polishedData);
-
-                this.scdbData.routeData.totals = dsAndTotals.totals;
+                if(dsAndTotals.totals) {
+                    this.scdbData.routeData.totals = dsAndTotals.totals;
+                }
                 this.scdbData.routeData.charts[chartList[chart]].datasets = dsAndTotals.datasets;
                 this.scdbData.routeData.charts[chartList[chart]].config = chartConfig.config;
                 this.scdbData.routeData.charts[chartList[chart]].config.data.labels = this.scdbData.routeData.charts[chartList[chart]].labels;
@@ -207,9 +208,7 @@ class ScDashboard{
 
         EventBus.$on('changeRange', (range) => {
             this.scdbData.layout.dashboard.range = range;
-           // this.loadConfig();
             this.loadData();
-            console.log('rangeChange', range.start, range.end);
         });
 
     }

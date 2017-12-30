@@ -128,11 +128,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: true
         }
     },
-    watch: {
-        height: function height(val, oldVal) {
-            console.log('new: %s, old: %s', val, oldVal);
-        }
-    },
     computed: {
         classString: function classString() {
             return 'col-md-' + this.element.cols + ' mt-0 mb-2 ' + (this.childIsRow ? 'py-0 px-2' : 'p-2');
@@ -312,9 +307,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     components: {
         'db-chart': __WEBPACK_IMPORTED_MODULE_1__DbChart_vue___default.a
-    },
-    mounted: function mounted() {
-        //  console.log(this.element.type === 'rows')
     }
 });
 
@@ -453,9 +445,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'db-range-totals-bar': __WEBPACK_IMPORTED_MODULE_0__DbRangeTotalsBar_vue___default.a,
         'db-title': __WEBPACK_IMPORTED_MODULE_1__DbTitle_vue___default.a,
         'db-row': __WEBPACK_IMPORTED_MODULE_2__DbRow_vue___default.a
-    },
-    mounted: function mounted() {
-        //console.log(this.dashboard);
     }
 });
 
@@ -696,9 +685,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     components: {
         'sb-nav-list': __WEBPACK_IMPORTED_MODULE_0__SbNavList_vue___default.a
-    },
-    mounted: function mounted() {
-        //console.log(this);
     }
 });
 
@@ -4614,7 +4600,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4659,7 +4645,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4704,7 +4690,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4749,7 +4735,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -19302,8 +19288,9 @@ var ScDashboard = function () {
                 this.scdbData.routeData.charts[chartList[chart]].polishedData = chartConfig.polishData(this.scdbData.routeData.rough);
                 this.scdbData.routeData.charts[chartList[chart]].labels = chartConfig.setLabels(this.scdbData.layout.dashboard.range.start, this.scdbData.layout.dashboard.range.end);
                 var dsAndTotals = chartConfig.makeDatasets(this.scdbData.routeData.charts[chartList[chart]].labels, this.scdbData.routeData.charts[chartList[chart]].polishedData);
-
-                this.scdbData.routeData.totals = dsAndTotals.totals;
+                if (dsAndTotals.totals) {
+                    this.scdbData.routeData.totals = dsAndTotals.totals;
+                }
                 this.scdbData.routeData.charts[chartList[chart]].datasets = dsAndTotals.datasets;
                 this.scdbData.routeData.charts[chartList[chart]].config = chartConfig.config;
                 this.scdbData.routeData.charts[chartList[chart]].config.data.labels = this.scdbData.routeData.charts[chartList[chart]].labels;
@@ -19354,9 +19341,7 @@ var ScDashboard = function () {
 
             __WEBPACK_IMPORTED_MODULE_2__eventbus_js__["a" /* EventBus */].$on('changeRange', function (range) {
                 _this2.scdbData.layout.dashboard.range = range;
-                // this.loadConfig();
                 _this2.loadData();
-                console.log('rangeChange', range.start, range.end);
             });
         }
     }]);

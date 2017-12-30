@@ -30,9 +30,6 @@
         },
         components: {
             'sb-nav-list': SbNavList
-        },
-        mounted() {
-            //console.log(this);
         }
     }
 </script>

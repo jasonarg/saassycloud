@@ -37,11 +37,7 @@
             'db-range-totals-bar': DbRangeTotalsBar,
             'db-title': DbTitle,
             'db-row': DbRow
-        },
-        mounted() {
-            //console.log(this.dashboard);
         }
-
     }
 </script>
 
