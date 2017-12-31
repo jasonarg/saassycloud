@@ -85,3 +85,13 @@
         </div>
     </section>
 @endsection
+@section('inlinejs')
+    <script>
+        $(function () {
+            $('#explanationModal').modal({
+
+            });
+        });
+
+    </script>
+@endsection
