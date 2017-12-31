@@ -10,5 +10,6 @@
 <footer>
     <div class="container-fluid bg-dark text-white" style="min-height: 250px;">
 @include('admin.includes.footer')
+@include('includes.infoModal')
 </body>
 </html>
