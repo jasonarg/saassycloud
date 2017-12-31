@@ -27,6 +27,56 @@ class AdminController extends Controller{
 
         return view('admin.dashboardVue');
     }
+    public function createFakeData(){
+        //sessions
+        //session_requests oTOm
+        //referrals oTOo
+        //session_request_responses oTOo
+        //conversion_opportunities oTOo session
+
+        /*
+         *
+         *
+         * Generate a random amount of traffic, 500 - 2500 sessions a day with a 20% bonus on sat/sun
+         * they will come from a random group of referrers 60% paid (adwords/ad123, adwords/123, etc) 40% Unknown
+         *
+         * 25% land on the home page, the other 75% land on the signup/compare page including all ads
+         *
+         * 40% of home page landers bounce on the home page, 60% go onto compare page
+         *
+         * -conversionOpportunity created, assigned A/B Group
+         * 40% bounce on the second page signup/compare
+         *
+         * 10% choose saassy
+         *
+         * 20% choose saassier
+         *
+         * 10% choose saassiest
+         *
+         *   20% never complete start
+         *
+         *   10% go on to setup and never complete
+         *
+         *   80% remaining go to warp
+         *
+         *   95%  remaining finish warp and start trial
+         *    70% of saassy trial users signup for a sale
+         *          50/50 M or A
+         *    60 % of saaSsier trial
+         *          60A / 40M
+         *     40% of  saassiest trial
+         *          30A  / 70M
+         *
+         *
+         * if they sign up,
+         * they need to complete warp, fill out all fields in conversion opportunities
+         *
+         */
+
+
+
+
+    }
 
     public function buildRecords(){
         die();
