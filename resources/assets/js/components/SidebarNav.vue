@@ -2,7 +2,7 @@
     <nav class="col-sm-3 col-md-2 d-none d-sm-block sidebar text-white pl-2">
         <div class="user-card my-4 clearfix">
             <img class="float-left rounded-circle profile-image-md mr-3 p-0" src="/profile/picture" />
-            <h6 class="float-left mt-3 text-dark" >Welcome <br><span class="text-info">Jason</span></h6>
+            <h6 class="float-left mt-3 text-dark" >Welcome</h6>
         </div>
         <ul class="nav">
             <sb-nav-list

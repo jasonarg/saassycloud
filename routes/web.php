@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/members/onboarding','MembersController@onboarding');
     Route::get('/profile/picture', 'StreamController@profilePic');
     Route::get('/admin/dashboard', 'Admin\AdminController@dashboard');
+    Route::get('/admin/generateTraffic', 'Admin\AdminController@generateTraffic');
 
 });
 /**

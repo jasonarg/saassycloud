@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Product\Entities\ProductSystem;
 use App\Model\Product\Repositories\ProductSystemRepo;
 use App\Model\Product\Services\ProductDefinitionService;
+use App\Model\Tracking\Repositories\SessionRepo;
 
 class AdminController extends Controller{
 
@@ -27,7 +28,7 @@ class AdminController extends Controller{
 
         return view('admin.dashboardVue');
     }
-    public function createFakeData(){
+    public function generateTraffic(){
         //sessions
         //session_requests oTOm
         //referrals oTOo
@@ -45,11 +46,11 @@ class AdminController extends Controller{
          * 40% of home page landers bounce on the home page, 60% go onto compare page
          *
          * -conversionOpportunity created, assigned A/B Group
-         * 40% bounce on the second page signup/compare
+         * 60% bounce on signup/compare
          *
-         * 10% choose saassy
+         * 35% choose saassy
          *
-         * 20% choose saassier
+         * 55% choose saassier
          *
          * 10% choose saassiest
          *
@@ -73,8 +74,55 @@ class AdminController extends Controller{
          *
          */
 
+        $begin = new \DateTime( '2017-10-01' );
+        $end = new \DateTime( '2017-10-31' );
+        $end = $end->modify( '+1 day' );
+
+        $interval = new \DateInterval('P1D');
+        $daterange = new \DatePeriod($begin, $interval ,$end);
+        $sessionRepo = new SessionRepo();
+        foreach($daterange as $date){
+            $numOfSessions = rand(850, 2100);
+
+            if($date->format("N") > 5){
+                $numOfSessions = $numOfSessions * rand(1.2, 1.4);
+            }
+
+            echo $date->format("Y-m-d")." ".$date->format("D")." ".$numOfSessions. "<br>";
+            for($i = 0; $i < $numOfSessions; $i++){
+                $dateTime = new \DateTime();
+                $now = $dateTime->setTimestamp(rand($date->format('U'), $date->format('U') + 86400));
+                echo '&nbsp;&nbsp;&nbsp;&nbsp;'.$now->format('Y-m-d H:i:s')."<br>";
+                print_r($this->createSession($now));
+                $session = $sessionRepo->create($this->createSession($now));
 
 
+/*                $session = $this->sessionRepo->getOrCreate($this->request->session()->getId());
+                $now = Carbon::now()->toDateTimeString();
+                $sr = new SessionRequest([ "request_time" => $now,
+                    "verb" => request()->server("REQUEST_METHOD"),
+                    "resource" => request()->server("REQUEST_URI"),
+                    "params" => request()->server("QUERY_STRING")
+                ]);
+
+                $session->lastActionTime = $now;
+                $session->requests()->save($sr);
+                $sr->referrer()->save(new Referral(
+                    ["referral_uri" => request()->server("HTTP_REFERER", request()->server("HTTP_REFERER") === null ? "UNKNOWN" : request()->server("HTTP_REFERER"))
+                    ]));*/
+            }
+        }
+
+
+
+    }
+
+    protected function createSession($now){
+        //$rand = substr(md5(microtime()),rand(0,26),25);
+        return ["sessionToken" => substr(md5(microtime()),rand(0,26),25),
+            "startTime" =>  $now->format('Y-m-d H:i:s'),
+            "lastActionTime" =>  $now->format('Y-m-d H:i:s')
+        ];
 
     }
 

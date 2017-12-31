@@ -130,7 +130,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     computed: {
         classString: function classString() {
-            return 'col-md-' + this.element.cols + ' mt-0 mb-2 ' + (this.childIsRow ? 'py-0 px-2' : 'p-2');
+            return 'col-md-' + this.element.cols + ' mt-0 mb-0 ' + (this.childIsRow ? 'py-0 px-2' : 'p-2');
         },
         childIsRow: function childIsRow() {
             return this.element.elType === 'rows' ? true : false;
@@ -298,7 +298,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     computed: {
         classString: function classString() {
-            return 'col-md-' + this.element.cols + ' my-0 mb-2 p-2';
+            return 'col-md-' + this.element.cols + ' my-0 mb-0 p-2';
         }
     },
     data: function data() {
@@ -15718,7 +15718,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "row justify-content-center my-0 py-0" },
+    { staticClass: "row justify-content-center my-0 py-0 px-2" },
     _vm._l(_vm.row.elements, function(element) {
       return _c("db-sub-col", {
         key: element.id,
@@ -15918,9 +15918,7 @@ var staticRenderFns = [
       }),
       _vm._v(" "),
       _c("h6", { staticClass: "float-left mt-3 text-dark" }, [
-        _vm._v("Welcome "),
-        _c("br"),
-        _c("span", { staticClass: "text-info" }, [_vm._v("Jason")])
+        _vm._v("Welcome")
       ])
     ])
   }
@@ -16743,7 +16741,6 @@ module.exports=function(e){function t(a){if(n[a])return n[a].exports;var r=n[a]=
  */
 
 __webpack_require__("./resources/assets/js/bootstrap.js");
-__webpack_require__("./resources/assets/js/utils.js");
 
 window.Vue = __webpack_require__("./node_modules/vue/dist/vue.common.js");
 
@@ -18957,7 +18954,7 @@ ChartTrialToSalesByPackage.prototype.datasets = [{
 /***/ "./resources/assets/js/config/dashboards/overview/layout.json":
 /***/ (function(module, exports) {
 
-module.exports = {"title":"overview","rangeTotals":{"items":[{"id":0,"name":"pageViews","value":0,"type":"integer"},{"id":1,"name":"sessions","value":0,"type":"integer"},{"id":2,"name":"conversions","value":0,"type":"integer"},{"id":3,"name":"sales","value":0,"type":"integer"},{"id":4,"name":"revenue","value":0,"type":"money"}]},"rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saassiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesByPackage","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"215","elements":[{"id":"","elType":"chart","name":"trialToSalesByPackage","cols":"12"}]},{"id":7,"height":"215","elements":[{"id":"","elType":"chart","name":"salesByMonthlyOrAnnualPaymentByPackage","cols":"12"}]}]}]}]}
+module.exports = {"title":"overview","rangeTotals":{"items":[{"id":0,"name":"pageViews","value":0,"type":"integer"},{"id":1,"name":"sessions","value":0,"type":"integer"},{"id":2,"name":"conversions","value":0,"type":"integer"},{"id":3,"name":"sales","value":0,"type":"integer"},{"id":4,"name":"revenue","value":0,"type":"money"}]},"rows":[{"id":0,"height":"400","elements":[{"id":0,"elType":"chart","name":"overview","cols":"12"}]},{"id":1,"height":"300","elements":[{"id":1,"elType":"chart","name":"saassy","cols":"4"},{"id":2,"elType":"chart","name":"saassier","cols":"4"},{"id":3,"elType":"chart","name":"saassiest","cols":"4"}]},{"id":2,"height":"500","elements":[{"id":4,"elType":"chart","name":"salesByPackage","cols":"4"},{"id":5,"elType":"rows","cols":"8","rows":[{"id":6,"height":"225","elements":[{"id":"","elType":"chart","name":"trialToSalesByPackage","cols":"12"}]},{"id":7,"height":"225","elements":[{"id":"","elType":"chart","name":"salesByMonthlyOrAnnualPaymentByPackage","cols":"12"}]}]}]}]}
 
 /***/ }),
 
@@ -19374,137 +19371,6 @@ ScDashboard.prototype.scdbData = {
 window.onload = function () {
     var scDb = new ScDashboard();
 };
-
-/***/ }),
-
-/***/ "./resources/assets/js/utils.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-window.chartColors = {
-    red: 'rgba(255, 99, 132, .6)',
-    orange: 'rgba(255, 159, 64, .6)',
-    yellow: 'rgba(255, 205, 86, .6)',
-    green: 'rgba(75, 192, 192, .6)',
-    blue: 'rgba(54, 162, 235, .6)',
-    purple: 'rgba(153, 102, 255, .6)',
-    grey: 'rgba(201, 203, 207, .6)'
-};
-
-(function (global) {
-    var Months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-    var COLORS = ['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236', '#166a8f', '#00a950', '#58595b', '#8549ba'];
-
-    var Samples = global.Samples || (global.Samples = {});
-    var Color = global.Color;
-
-    Samples.utils = {
-        // Adapted from http://indiegamr.com/generate-repeatable-random-numbers-in-js/
-        srand: function srand(seed) {
-            this._seed = seed;
-        },
-
-        rand: function rand(min, max) {
-            var seed = this._seed;
-            min = min === undefined ? 0 : min;
-            max = max === undefined ? 1 : max;
-            this._seed = (seed * 9301 + 49297) % 233280;
-            return min + this._seed / 233280 * (max - min);
-        },
-
-        numbers: function numbers(config) {
-            var cfg = config || {};
-            var min = cfg.min || 0;
-            var max = cfg.max || 1;
-            var from = cfg.from || [];
-            var count = cfg.count || 8;
-            var decimals = cfg.decimals || 8;
-            var continuity = cfg.continuity || 1;
-            var dfactor = Math.pow(10, decimals) || 0;
-            var data = [];
-            var i, value;
-
-            for (i = 0; i < count; ++i) {
-                value = (from[i] || 0) + this.rand(min, max);
-                if (this.rand() <= continuity) {
-                    data.push(Math.round(dfactor * value) / dfactor);
-                } else {
-                    data.push(null);
-                }
-            }
-
-            return data;
-        },
-
-        labels: function labels(config) {
-            var cfg = config || {};
-            var min = cfg.min || 0;
-            var max = cfg.max || 100;
-            var count = cfg.count || 8;
-            var step = (max - min) / count;
-            var decimals = cfg.decimals || 8;
-            var dfactor = Math.pow(10, decimals) || 0;
-            var prefix = cfg.prefix || '';
-            var values = [];
-            var i;
-
-            for (i = min; i < max; i += step) {
-                values.push(prefix + Math.round(dfactor * i) / dfactor);
-            }
-
-            return values;
-        },
-
-        months: function months(config) {
-            var cfg = config || {};
-            var count = cfg.count || 12;
-            var section = cfg.section;
-            var values = [];
-            var i, value;
-
-            for (i = 0; i < count; ++i) {
-                value = Months[Math.ceil(i) % 12];
-                values.push(value.substring(0, section));
-            }
-
-            return values;
-        },
-
-        color: function color(index) {
-            return COLORS[index % COLORS.length];
-        },
-
-        transparentize: function transparentize(color, opacity) {
-            var alpha = opacity === undefined ? 0.5 : 1 - opacity;
-            return Color(color).alpha(alpha).rgbString();
-        }
-    };
-
-    // DEPRECATED
-    window.randomScalingFactor = function () {
-        return Math.round(Samples.utils.rand(0, 300));
-    };
-
-    // INITIALIZATION
-
-    Samples.utils.srand(Date.now());
-
-    // Google Analytics
-    /* eslint-disable */
-    if (document.location.hostname.match(/^(www\.)?chartjs\.org$/)) {
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments);
-            }, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-        ga('create', 'UA-28909194-3', 'auto');
-        ga('send', 'pageview');
-    }
-    /* eslint-enable */
-})(this);
 
 /***/ }),
 

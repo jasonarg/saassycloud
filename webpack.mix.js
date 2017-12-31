@@ -11,22 +11,7 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js').version().extract(['lodash', 'axios', 'vue', 'chart.js', 'd3', 'json-loader', 'vue-datepicker']);
-
-/*mix.webpackConfig({
-    resolve: {
-        module.exports = {
-            module: {
-                loaders: [
-                    {
-                        test: /\.json$/,
-                        loader: 'json-loader'
-                    }
-                ]
-            }
-        }
-    }
-});*/
+mix.js('resources/assets/js/app.js', 'public/js').version().extract(['lodash', 'axios', 'vue', 'chart.js', 'd3', 'json-loader']);
 
 mix.sass('resources/assets/sass/app.scss', 'public/css').version();
 

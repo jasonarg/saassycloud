@@ -26,7 +26,8 @@
                                     <p class="text-muted font-weight-normal">Per user, per month, billed annually.
                                         <br>${{ number_format($package["monthlyPrice"], 0) }} billed monthly
                                     </p>
-                                    <a href="/signup/start/{{ $package["packageName"] }}" class="btn btn-lg btn-info px-5">
+                                    <a href="/signup/start/{{ $package["packageName"] }}" class="btn btn-lg btn-info px-5" style="width: 250px;">
+
                                         @if ($package["packageName"] == "SaaSsy")
                                             Start with
                                         @elseif ($package["packageName"] == "SaaSsier")
