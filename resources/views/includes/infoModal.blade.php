@@ -118,7 +118,7 @@
                                     <h4 class="display-4">Architecture</h4>
                                     <p>The dashboard is controlled by a single ES6 Class, ScDashboard, which reads in JSON files for
                                         navigation layout and dashboard layout.
-                                    These JSON files inform ScDashboard how to layout a given dashboard (the rows and columns of charts
+                                        These JSON files inform ScDashboard how to layout a given dashboard (the rows and columns of charts
                                         needed), what data to request from the API via Axios,
                                         and where to look for the rough data polishing, dataset creation and label creation functions
                                         for each chart of a given dashboard (it looks for a class
@@ -131,13 +131,14 @@
                                         No good reason, I just wanted to do it manually, and besides, this dashboard is not that complex as far as
                                         javascript apps go. The node.js version of SaaSsy Cloud will use an App State manager to demonstrate my proficiency with those tools.
                                     </p>
-                                    <p class="font-weight-bold">
-                                        Below is a lo-fi diagram of the dashboard architecture and how application state is managed.
-                                    </p>
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col">
-                                                <img class="img-thumbnail mx-auto mb-4 d-block" src="/i/dashboard-architecture-small.jpg" alt="Dashboard Architecture">
+                                                <h4>Diagram &amp; Application Flow</h4>
+                                                <figure class="figure mx-auto mb-4 d-block">
+                                                    <img class="figure-img img-fluid img-thumbnail" src="/i/dashboard-architecture-small.jpg" alt="Dashboard Architecture">
+                                                    <figcaption class="figure-caption">LoFi diagram of the dashboard application architecture</figcaption>
+                                                </figure>
                                                 <h5>Application Flow</h5>
                                                 <ol class="mb-5" style="font-size: 0.9rem;">
                                                     <li>ScDashboard is instantiated</li>
@@ -209,7 +210,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="py-5">This architecture allows for easy addition of new datasets, charts and dashboards.
+                                    <p class="py-5">This architecture allows for the easy addition of new datasets, charts and dashboards.
                                         You just copy a concrete ScChart class, modify the data manipulation functions, and edit or add a layout.json file.
                                     </p>
                                 </div>
@@ -217,7 +218,54 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-domainmodel" role="tabpanel" aria-labelledby="nav-domainmodel-tab">
-                        <h4 class="display-4">Domain Model</h4>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col">
+                                    <h4 class="display-4">Domain Model</h4>
+                                    <figure class="figure">
+                                        <img src="/i/model-whole.jpg" alt="Domain Model classes on sticky notes" class="figure-img img-fluid">
+                                        <figcation class="figure-caption">The SaaSsy Cloud Domain Model</figcation>
+                                    </figure>
+                                    <figure class="figure">
+                                        <img src="/i/model-core.jpg" alt="" class="figure-img img-fluid">
+                                        <figcation class="figure-caption">The Core Domain Model, classes used in multiple contexts</figcation>
+                                    </figure>
+                                    <figure class="figure">
+                                        <img src="/i/model-product.jpg" alt="" class="figure-img img-fluid">
+                                        <figcation class="figure-caption">The Product Domain Model, classes used to define SaaSsy Cloud products, packages, and their limits</figcation>
+                                    </figure>
+                                    <figure class="figure">
+                                        <img src="/i/model-tracking.jpg" alt="" class="figure-img img-fluid">
+                                        <figcation class="figure-caption">The Tracking Domain Model, classes used to track visitor activity and to assign A/B views on saassycloud.com</figcation>
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+                        <p>The Domain Model is broken up into three bounded contexts, and represented as separate namespaces. They are Core, Product and Tracking.
+                          </p>
+                        <ul>
+                            <li>
+                                The Core model includes entities that are vital to the site, and often times used by many other entities.
+                            </li>
+                            <li>
+                                The Product model defines a product system, which has product packages associated to it.
+                                These product packages have features with limits based on which product package is related to the feature. The product features are related to groups.
+                                SaaSsy Cloud is the ProductSystem. SaaSsy, SaaSsier, and SaaSsiest are ProductPackages.
+                                1up Mushroom, Big Mushroom, Mega Mushroom, etc. are ProductFeatures, belonging to the Mushroom ProductFeatureGroup with different limits of each feature per package.
+
+                            </li>
+                            <li>
+                                The Tracking model is built around the Session Aggregate and the ConversionOpportunity. ConversionOpportunity tracks which A/B View Group was assigned to the ConversionOpportunity and Session via relationship.
+                                ConversionOpportunity also tracks the input and the progress of each ConversionOpportunity along the sales funnel.
+
+                            </li>
+                        </ul>
+                        <p>These entities are wrapped by Application Services and API Resource classes for access to it from higher level application layers. Each AggregateRoot also has a Repository is used for crud operations.
+                        </p>
+                        <p>A good Domain Model allows for easy refactoring during development or down the road for new feature development.  It uses the language of the domain it represents to
+                            describe entities and methods. They also can be used in more than one context, if designed and used correctly. They are one of the biggest ways to maximize the return of software development resources.
+                        </p>
+                        
                         <p>This is the first project that I have implemented a Domain Model in the Active Record design pattern. Previously I have used
                             a custom written temporal Data Mapper based ORM, similar to Java's Hibernate or PHP's Doctrine to implement Domain Models.
                             While Data Mapper ORMs are incredibly powerful and flexible, I have found this project to be a breeze to implement and not
@@ -290,7 +338,11 @@
                                                 <li>json-loader</li>
                                             </ul>
                                         </li>
-                                        <li>Bootstrap 4</li>
+                                        <li>Bootstrap 4
+                                            <ul>
+                                                <li>some minor jQuery snippets that bootstrap depends on</li>
+                                            </ul>
+                                        </li>
                                         <li>SASS</li>
                                     </ul>
                                 </div>
