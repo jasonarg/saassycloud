@@ -189,19 +189,20 @@ You just copy a concrete ScChart class, modify the data manipulation functions, 
  
 ## Domain Model
 
-![model-core](https://user-images.githubusercontent.com/34226660/34470533-2c04285a-ef01-11e7-97da-f07b2a243ff8.jpg)
+![model-whole](https://user-images.githubusercontent.com/34226660/34470536-2c21ac04-ef01-11e7-97fc-10813279403c.jpg)
                                    
 **The SaaSsy Cloud Domain Model**
  
-![model-product](https://user-images.githubusercontent.com/34226660/34470534-2c0e42ae-ef01-11e7-977d-6979ab316428.jpg)
+![model-core](https://user-images.githubusercontent.com/34226660/34470533-2c04285a-ef01-11e7-97da-f07b2a243ff8.jpg)
  
 **The Core Domain Model, classes used in multiple contexts** 
 
-![model-tracking](https://user-images.githubusercontent.com/34226660/34470535-2c182df0-ef01-11e7-9055-e3dcb35433eb.jpg)
+![model-product](https://user-images.githubusercontent.com/34226660/34470534-2c0e42ae-ef01-11e7-977d-6979ab316428.jpg)
 
 **The Product Domain Model, classes used to define SaaSsy Cloud products, packages, and their limits**
 
-![model-whole](https://user-images.githubusercontent.com/34226660/34470536-2c21ac04-ef01-11e7-97fc-10813279403c.jpg)
+![model-tracking](https://user-images.githubusercontent.com/34226660/34470535-2c182df0-ef01-11e7-9055-e3dcb35433eb.jpg)
+
 **The Tracking Domain Model, classes used to track visitor activity and to assign A/B views on saassycloud.com**
 
 The Domain Model is broken up into three bounded contexts, and represented as separate namespaces. They are Core, Product and Tracking.
