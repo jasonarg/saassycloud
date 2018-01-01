@@ -6,18 +6,18 @@
 My name is Jason Ross. I am a full stack Software Engineer who loves building things.
 This is a simple demo site where the aim is not to sell power-ups, but to demonstrate Software Engineering skills.
        
-You can find the source code for this site on my [public profile](https://github.com/jasonarg)on 
+You can find the source code for this site on my [public profile](https://github.com/jasonarg) on 
 GitHub, specifically at [https://github.com/jasonarg/saassycloud/](https://github.com/jasonarg/saassycloud/).
       
-*The sign up site is made with Laravel 5.5 on top of PHP 7.1.  The layout uses Bootstrap 4, beta 2. More details can be found on the Sign Up Site tab above.
+- The sign up site is made with Laravel 5.5 on top of PHP 7.1.  The layout uses Bootstrap 4, beta 2. More details can be found on the Sign Up Site tab above.
 
-*The [admin dashboard](https://saassycloud.com/admin/dashboard) is made with javascript. Primarily ECMAScript 6 ( ES6 ), Vue.js and chart.js with some 
+- The [admin dashboard](https://saassycloud.com/admin/dashboard) is made with javascript. Primarily ECMAScript 6 ( ES6 ), Vue.js and chart.js with some 
 help from some common libraries. More details can be found on the Dashboard tab above.
 
-*The links above describe the architecture of this site, each detailing the design patterns, technologies, frameworks and libraries used for the main two sections,
+- The links above describe the architecture of this site, each detailing the design patterns, technologies, frameworks and libraries used for the main two sections,
 the sign up site and the admin dashboard. The Domain Model tab shows the Domain Model and the underlying relational data model used for this site, and the Technologies Used tab is a simple list of technologies.
 
-*You can access this modal on any page of the site by clicking on the "Show Info Modal" button on the footer.
+- You can access this modal on any page of the site by clicking on the "Show Info Modal" button on the footer.
   
 Thanks for checking it out! If you have any questions, suggestions, or would like to discuss anything tech related, drop me a line at jason.ch.ross@gmail.com
  
