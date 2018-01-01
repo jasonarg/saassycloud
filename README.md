@@ -1,6 +1,6 @@
 # SaaSsy Cloud
 
-[Welcome](#welcome) | [Signup Site](#signup-site) | [Dashboard](#dashboard) | [Domain Model](#domain-model) | [Technologies Used](#technologies-used)
+[Welcome](#welcome) | [Sign Up Site](#sign-up-site) | [Dashboard](#dashboard) | [Domain Model](#domain-model) | [Technologies Used](#technologies-used)
 
 ## Welcome
 My name is Jason Ross. I am a full stack Software Engineer who loves building things.
@@ -24,7 +24,7 @@ I will be setting up another version of this site using node.js, express and a N
 That project's source code (will live) lives at [https://github.com/jasonarg/saassycloud-node](https://github.com/jasonarg/saassycloud-node).
   
   
-## Signup Site
+## Sign Up Site
 
 ### Concept
 
