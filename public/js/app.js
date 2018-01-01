@@ -19130,6 +19130,7 @@ var ScDashboard = function () {
      *
      * @param rangeStart
      * @param rangeEnd
+     *
      * @returns {{start: *, end: *}}
      */
 
@@ -19159,7 +19160,7 @@ var ScDashboard = function () {
         }
 
         /**
-         * Router
+         * Router, currently hardcoded to 'overview', will implement vue-router
          *
          * @returns void
          */
@@ -19273,6 +19274,8 @@ var ScDashboard = function () {
          * Instantiates the specific ChartXXXXXX class for each chart
          * Calls polishData, setLabels, and makeDatasets
          * Stores their results in this.scdbData.routeData.charts.CHARTNAME
+         *
+         * @returns void
          */
 
     }, {
@@ -19300,6 +19303,8 @@ var ScDashboard = function () {
          *   read in the config, load in the label and dataset data
          *   instantiate a new Chart class with this config data
          *   Update the Vue data for totals
+         *
+         *   @returns void
          */
 
     }, {
@@ -19325,6 +19330,8 @@ var ScDashboard = function () {
 
         /**
          * Loads listeners for events emitted from the global Vue event bus
+         *
+         * @returns void
          */
 
     }, {

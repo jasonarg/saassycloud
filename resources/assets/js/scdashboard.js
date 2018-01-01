@@ -28,6 +28,7 @@ class ScDashboard{
      *
      * @param rangeStart
      * @param rangeEnd
+     *
      * @returns {{start: *, end: *}}
      */
     formatRange(rangeStart = null, rangeEnd = null){
@@ -51,7 +52,7 @@ class ScDashboard{
     }
 
     /**
-     * Router
+     * Router, currently hardcoded to 'overview', will implement vue-router
      *
      * @returns void
      */
@@ -149,6 +150,8 @@ class ScDashboard{
      * Instantiates the specific ChartXXXXXX class for each chart
      * Calls polishData, setLabels, and makeDatasets
      * Stores their results in this.scdbData.routeData.charts.CHARTNAME
+     *
+     * @returns void
      */
     polishData(){
         let chartList = this.extractCharts(this.scdbData.layout.dashboard.rows);
@@ -175,6 +178,8 @@ class ScDashboard{
      *   read in the config, load in the label and dataset data
      *   instantiate a new Chart class with this config data
      *   Update the Vue data for totals
+     *
+     *   @returns void
      */
     loadDataIntoChart(){
         //for each chart in active dashboard
@@ -199,6 +204,8 @@ class ScDashboard{
 
     /**
      * Loads listeners for events emitted from the global Vue event bus
+     *
+     * @returns void
      */
     loadEventListeners() {
 
