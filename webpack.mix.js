@@ -11,12 +11,16 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js').version().extract(['lodash', 'axios', 'vue', 'chart.js', 'd3', 'json-loader']);
+mix.js('resources/assets/js/app.js', 'public/js').extract(['lodash', 'axios', 'vue', 'chart.js', 'd3', 'json-loader']);
+
+mix.version();
+mix.sourceMaps();
 
 mix.sass('resources/assets/sass/app.scss', 'public/css').version();
 
 mix.copyDirectory('resources/assets/i', 'public/i');
 
-mix.browserSync('saassycloud.dev');
-
+if(!mix.inProduction()) {
+    mix.browserSync('saassycloud.dev');
+}
 

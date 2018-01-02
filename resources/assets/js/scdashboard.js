@@ -248,5 +248,8 @@ ScDashboard.prototype.scdbData = {
 };
 
 window.onload = function() {
-    let scDb = new ScDashboard();
+    if(document.getElementById("vue-main")){
+
+        let scDb = new ScDashboard();
+    }
 };
