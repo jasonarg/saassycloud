@@ -11,7 +11,7 @@ export default class ChartOverview extends ScChart{
      */
      polishData(data) {
         let dates = _.groupBy(data.sessions, (session) => {
-            let date = new Date(session.a.at);
+            let date = new Date(session.a.at.replace(/\s/, 'T'));
             return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
         });
 
@@ -62,8 +62,6 @@ export default class ChartOverview extends ScChart{
             returnData.datasets.push(this.datasets[i].dataset);
             returnData.totals[this.datasets[i].name] = dataTotals;
         }
-
-
         return returnData;
     }
 
@@ -82,7 +80,7 @@ ChartOverview.prototype.config = {
     },
     options: {
         responsive: true,
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
         title: {
             display: true,
             text: "SaaSsy Cloud Analytics: Overview"

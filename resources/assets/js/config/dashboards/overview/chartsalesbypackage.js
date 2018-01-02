@@ -10,7 +10,7 @@ export default class ChartSalesByPackage extends ScChart{
      */
     polishData(data) {
         let dates = _.groupBy(data.sessions, (session) => {
-            let date = new Date(session.a.at);
+            let date = new Date(session.a.at.replace(/\s/, 'T'));
             return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
         });
 
