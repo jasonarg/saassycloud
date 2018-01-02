@@ -11,7 +11,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group row">
-                            <label for="email" class="col-lg-4 col-form-label text-lg-right">E-Mail Address</label>
+                            <label for="email" class="col-lg-4 col-form-label text-lg-right">E-Mail Address: (demo account: demo@example.com)</label>
 
                             <div class="col-lg-6">
                                 <input
@@ -19,7 +19,8 @@
                                         type="email"
                                         class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
                                         name="email"
-                                        value="{{ old('email') }}"
+                                        placeholder="demo@example.com"
+                                        value="demo@example.com"
                                         required
                                         autofocus
                                 >
@@ -33,7 +34,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-lg-4 col-form-label text-lg-right">Password</label>
+                            <label for="password" class="col-lg-4 col-form-label text-lg-right">Password: (demo account pw:  123123123123)</label>
 
                             <div class="col-lg-6">
                                 <input
@@ -41,6 +42,8 @@
                                         type="password"
                                         class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                         name="password"
+                                        value="123123123123"
+                                        placeholder="123123123123"
                                         required
                                 >
 
