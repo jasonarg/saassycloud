@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-2 mt-3 overview-head-item">
+    <div class=" col-6 col-md-2 mt-3 overview-head-item">
         <span class="d-block text-muted">{{ itemName }}</span>
         <h4 class="">{{ itemValue }}</h4>
     </div>
