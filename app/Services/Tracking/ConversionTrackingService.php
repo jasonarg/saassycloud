@@ -44,9 +44,10 @@ class ConversionTrackingService{
         }
         $this->sessionRepo = $sessionRepo;
         $this->sessionTracker = $this->sessionRepo->findByAttr("session_token", $this->request->session()->getId(), true);
-        $this->sessionTracker->loadMissing('conversionOpportunity');
+        $this->sessionTracker->load('conversionOpportunity');
         if(is_null($this->sessionTracker->conversionOpportunity)){
-                $this->createConversionOpportunity();
+            $this->createConversionOpportunity();
+            $this->sessionTracker->load('conversionOpportunity');
         }
     }
 
