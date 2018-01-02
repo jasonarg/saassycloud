@@ -80,7 +80,7 @@ ChartOverview.prototype.config = {
     },
     options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         title: {
             display: true,
             text: "SaaSsy Cloud Analytics: Overview"
