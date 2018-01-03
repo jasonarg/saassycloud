@@ -24,7 +24,7 @@ Thanks for checking it out! If you have any questions, suggestions, or would lik
 I will be setting up another version of this site using node.js, express and a NoSQL data store, MongoDB for the backend.
 That project's source code (will live) lives at [https://github.com/jasonarg/saassycloud-node](https://github.com/jasonarg/saassycloud-node).
   
-I am currently seeking full time employment opportunities as a Software Engineer. [Jason Ross Resume](https://github.com/jasonarg/saassycloud/files/1599236/Jason.Ross.Resume.pdf)
+I am currently seeking full time employment opportunities in the greater Baltimore, MD metropolitan area or remote work, as a Software Engineer. [Jason Ross Resume](https://github.com/jasonarg/saassycloud/files/1599236/Jason.Ross.Resume.pdf)
 
 ## Sign Up Site
 
