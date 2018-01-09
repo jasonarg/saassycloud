@@ -42,6 +42,8 @@
                                     <p>I will be setting up another version of this site using node.js, express and a NoSQL data store, MongoDB for the backend.
                                         That project's source code (will live) lives at <a class="text-info" href="https://github.com/jasonarg/saassycloud-node" >https://github.com/jasonarg/saassycloud-node</a>.
                                     </p>
+                                    <p>I am currently seeking full time employment opportunities in the greater Baltimore, MD metropolitan area or remote work, as a Software Engineer. <a class="text-info" href="https://github.com/jasonarg/saassycloud/files/1599236/Jason.Ross.Resume.pdf">Jason Ross Resume</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>

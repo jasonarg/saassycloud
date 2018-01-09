@@ -6,11 +6,9 @@
 My name is Jason Ross. I am a full stack Software Engineer who loves building things.
 This is a simple demo site where the aim is not to sell power-ups, but to demonstrate Software Engineering skills.
        
-You can find a live demo of this source code at [https://saassycloud.com](https://saassycloud.com)
-
 - The sign up site is made with Laravel 5.5 on top of PHP 7.1.  The layout uses Bootstrap 4, beta 2. More details can be found on the Sign Up Site tab above.
 
-- The [admin dashboard](https://saassycloud.com/admin/dashboard) is made with javascript. Primarily ECMAScript 6 ( ES6 ), Vue.js and chart.js with some 
+- The admin dashboard is made with javascript. Primarily ECMAScript 6 ( ES6 ), Vue.js and chart.js with some 
 help from some common libraries. More details can be found on the Dashboard tab above.
 
 - The links above describe the architecture of this site, each detailing the design patterns, technologies, frameworks and libraries used for the main two sections,
@@ -20,11 +18,7 @@ the sign up site and the admin dashboard. The Domain Model tab shows the Domain 
   
 Thanks for checking it out! If you have any questions, suggestions, or would like to discuss anything tech related, drop me a line at jason.ch.ross@gmail.com
  
- 
-I will be setting up another version of this site using node.js, express and a NoSQL data store, MongoDB for the backend.
-That project's source code (will live) lives at [https://github.com/jasonarg/saassycloud-node](https://github.com/jasonarg/saassycloud-node).
-  
-I am currently seeking full time employment opportunities in the greater Baltimore, MD metropolitan area or remote work, as a Software Engineer. [Jason Ross Resume](https://github.com/jasonarg/saassycloud/files/1599236/Jason.Ross.Resume.pdf)
+
 
 ## Sign Up Site
 
